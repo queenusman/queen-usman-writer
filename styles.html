@@ -1,479 +1,78 @@
-/* ==========================================================================
-   Queen Usman (author site): visual identity from "Or So She Thought"
-   Loaded AFTER the site's built-in stylesheet, so it only re-skins.
-   Content, routes and behaviour are untouched.
+/* Queen Usman (author site): palette toggle, matching the novel site.
+   - Night Ink is the default, Ivory Paper is the alternate.
+   - Applies the saved choice before first paint, so there is no flash.
+   - Adds the toggle button to the existing header without touching the app code. */
+(function () {
+  var KEY = "qu:theme";
+  var root = document.documentElement;
+  var BAR_COLOR = { dark: "#11100f", ivory: "#f8f5ee" };
 
-   Palette    Night Ink (default) + Ivory Paper (toggle), same tokens as the novel site
-   Type       Cinzel headings, Cormorant Garamond italic lead text, Newsreader body, Inter labels
-   Chrome     blurred sticky-style header with accent underline nav, 2px radii, accent buttons
-   ========================================================================== */
+  var SUN =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>';
+  var MOON =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>';
 
-/* 1. Design tokens ------------------------------------------------------- */
-:root,
-:root.theme-dark {
-  --color-bg: #11100f;
-  --color-bg-deep: #090807;
-  --color-panel: #181715;
-  --color-panel-accent: #211e1a;
-  --color-border: #38342e;
-  --color-border-subtle: #26231f;
-  --color-text: #f5f1e8;
-  --color-text-muted: #bab1a2;
-  --color-text-dim: #948c7e;
-  --color-text-faint: #787166;
-  --color-accent: #c4a166;
-  --color-accent-hover: #dfba7c;
-  --color-accent-line: rgba(196, 161, 102, 0.4);
-  --color-burgundy: #a1434d;
-  --band-feature: #221314;
-  --header-bg: rgba(17, 16, 15, 0.94);
-  --footer-bg: #0c0b0a;
-  --primary-btn-bg: #c4a166;
-  --primary-btn-text: #0e0d0c;
-  color-scheme: dark;
-}
+  function read() {
+    try { return localStorage.getItem(KEY); } catch (e) { return null; }
+  }
+  function write(mode) {
+    try { localStorage.setItem(KEY, mode); } catch (e) { /* private mode: ignore */ }
+  }
+  function current() {
+    return root.classList.contains("theme-ivory") ? "ivory" : "dark";
+  }
 
-:root.theme-ivory {
-  --color-bg: #f8f5ee;
-  --color-bg-deep: #ede6d8;
-  --color-panel: #f1ebde;
-  --color-panel-accent: #e5ded0;
-  --color-border: #ccbeaa;
-  --color-border-subtle: #ded5c5;
-  --color-text: #1c1815;
-  --color-text-muted: #4e443a;
-  --color-text-dim: #5f554a;
-  --color-text-faint: #73675a;
-  --color-accent: #876228;
-  --color-accent-hover: #6d4e1d;
-  --color-accent-line: rgba(135, 98, 40, 0.4);
-  --color-burgundy: #7a222a;
-  --band-feature: #e2d2c7;
-  --header-bg: rgba(248, 245, 238, 0.96);
-  --footer-bg: #eae3d5;
-  --primary-btn-bg: #876228;
-  --primary-btn-text: #fdfcf9;
-  color-scheme: light;
-}
+  function paint(btn, mode) {
+    var ivory = mode === "ivory";
+    btn.setAttribute("aria-pressed", ivory ? "true" : "false");
+    btn.setAttribute("aria-label", ivory ? "Switch to Night Ink palette" : "Switch to Ivory paper palette");
+    btn.innerHTML = (ivory ? SUN : MOON) + '<span class="qu-label">' + (ivory ? "Night Ink" : "Ivory Mode") + "</span>";
+  }
 
-/* 2. Base ---------------------------------------------------------------- */
-html {
-  background-color: var(--color-bg);
-}
+  function apply(mode) {
+    root.classList.remove("theme-dark", "theme-ivory");
+    root.classList.add(mode === "ivory" ? "theme-ivory" : "theme-dark");
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", BAR_COLOR[mode]);
+    var btn = document.querySelector(".qu-theme-toggle");
+    if (btn) paint(btn, mode);
+  }
 
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+  function inject() {
+    var bar = document.querySelector("#root > header > .page");
+    if (!bar || bar.querySelector(".qu-theme-toggle")) return;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "qu-theme-toggle";
+    paint(btn, current());
+    btn.addEventListener("click", function () {
+      var next = current() === "ivory" ? "dark" : "ivory";
+      write(next);
+      apply(next);
+    });
+    var menuBtn = bar.querySelector('button[aria-controls="mobile-menu"]');
+    bar.insertBefore(btn, menuBtn && menuBtn.parentNode === bar ? menuBtn : null);
+  }
 
-#root > header,
-#root > footer,
-#root section {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
+  function boot() {
+    inject();
+    var host = document.getElementById("root") || document.body;
+    new MutationObserver(function () {
+      if (!document.querySelector(".qu-theme-toggle")) inject();
+    }).observe(host, { childList: true, subtree: true });
+  }
 
-::selection {
-  background: var(--color-accent);
-  color: var(--color-bg);
-}
-::-moz-selection {
-  background: var(--color-accent);
-  color: var(--color-bg);
-}
+  // Apply the saved palette immediately
+  apply(read() === "ivory" ? "ivory" : "dark");
 
-:focus-visible {
-  outline-color: var(--color-accent);
-}
+  // Keep other open tabs in step
+  window.addEventListener("storage", function (e) {
+    if (e.key === KEY) apply(e.newValue === "ivory" ? "ivory" : "dark");
+  });
 
-.page {
-  max-width: 72rem;
-}
-
-/* 3. Colour roles -------------------------------------------------------- */
-/* The site used "ink" and "ivory" as both backgrounds and text colours. They
-   are remapped by role, so every section follows the active palette. */
-
-/* surfaces */
-.bg-ivory { background-color: var(--color-bg); }
-.bg-ivory-200 { background-color: var(--color-panel); }
-.bg-ink { background-color: var(--color-bg-deep); }
-.bg-ink-800 { background-color: var(--color-panel-accent); }
-.bg-umber-dark { background-color: var(--band-feature); }
-.bg-\[\#100E0B\] { background-color: var(--color-bg); }
-.bg-\[\#17140F\] { background-color: var(--color-panel); }
-.bg-ink\/10 { background-color: var(--color-panel-accent); }
-.bg-gold,
-.after\:bg-gold:after { background-color: var(--color-accent); }
-.focus\:bg-ivory:focus { background-color: var(--color-bg); }
-
-/* text */
-.text-ink,
-.text-ivory,
-.focus\:text-ink:focus { color: var(--color-text); }
-
-.text-ink\/80, .text-ink\/75, .text-ink\/70,
-.text-ivory\/85, .text-ivory\/80, .text-ivory\/75, .text-ivory\/70 { color: var(--color-text-muted); }
-
-.text-ink\/60, .text-ink\/55, .text-ink\/50,
-.text-ivory\/65, .text-ivory\/60, .text-ivory\/55, .text-ivory\/50 { color: var(--color-text-dim); }
-
-.text-ivory\/40 { color: var(--color-text-faint); }
-
-.text-stone,
-.text-stone-dark { color: var(--color-text-muted); }
-
-.text-gold,
-.text-gold-dark,
-.text-gold-light { color: var(--color-accent); }
-
-.text-umber,
-.hover\:text-umber:hover,
-.hover\:text-gold-light:hover,
-.group:hover .group-hover\:text-gold-light,
-.group:hover .group-hover\:text-umber { color: var(--color-accent-hover); }
-
-/* borders */
-.border-gold { border-color: var(--color-accent); }
-.border-ink\/10, .border-ivory\/10 { border-color: var(--color-border-subtle); }
-.border-ink\/15, .border-ink\/20, .border-ink\/25, .border-ink\/40,
-.border-ivory\/15, .border-ivory\/25, .border-ivory\/40 { border-color: var(--color-border); }
-
-.focus-within\:border-gold-light:focus-within,
-.focus\:border-gold-light:focus,
-.focus\:border-umber:focus { border-color: var(--color-accent); }
-
-/* placeholders */
-.placeholder\:text-ink\/40::placeholder,
-.placeholder\:text-ivory\/40::placeholder { color: var(--color-text-faint); }
-.placeholder\:text-ink\/40::-moz-placeholder,
-.placeholder\:text-ivory\/40::-moz-placeholder { color: var(--color-text-faint); }
-
-/* 4. Typography ---------------------------------------------------------- */
-/* Headings: Cinzel (as on the novel site). Lead text stays in Cormorant
-   Garamond italic, like the novel site's taglines. */
-.display {
-  font-family: "Cinzel", "Cormorant Garamond", Georgia, serif;
-  font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: 0.05em;
-}
-.display em,
-.display .italic,
-.display.italic { font-style: normal; }
-
-/* Statement titles go uppercase and wide, like the novel hero */
-.text-\[clamp\(4\.2rem\,15vw\,12\.5rem\)\],
-.text-\[clamp\(4\.5rem\,15vw\,13rem\)\],
-.text-\[clamp\(3\.6rem\,12vw\,11rem\)\],
-.text-\[clamp\(3\.4rem\,10vw\,9rem\)\] {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-
-/* Cinzel is wider than Cormorant, so the oversized fluid sizes are scaled down */
-.text-\[clamp\(4\.2rem\,15vw\,12\.5rem\)\] { font-size: clamp(2.7rem, 8.6vw, 6.4rem); }
-.text-\[clamp\(4\.5rem\,15vw\,13rem\)\]   { font-size: clamp(2.9rem, 9.5vw, 6.8rem); }
-.text-\[clamp\(3\.6rem\,12vw\,11rem\)\]   { font-size: clamp(2.5rem, 7vw, 5.2rem); }
-.text-\[clamp\(3\.4rem\,10vw\,9rem\)\]    { font-size: clamp(2.4rem, 6.6vw, 4.9rem); }
-.text-\[clamp\(3\.4rem\,11vw\,9rem\)\]    { font-size: clamp(2.6rem, 7.8vw, 5.6rem); }
-.text-\[clamp\(3\.6rem\,11vw\,9\.5rem\)\] { font-size: clamp(2.3rem, 6.2vw, 4.6rem); }
-.text-\[clamp\(3\.2rem\,10vw\,8\.5rem\)\] { font-size: clamp(2.1rem, 5.8vw, 4.3rem); }
-.text-\[clamp\(3\.4rem\,10vw\,8\.5rem\)\] { font-size: clamp(2.3rem, 6.6vw, 4.6rem); }
-.text-\[clamp\(3rem\,9vw\,7\.5rem\)\]     { font-size: clamp(2rem, 5.4vw, 4rem); }
-.text-\[clamp\(3rem\,8vw\,6\.5rem\)\]     { font-size: clamp(2rem, 5vw, 3.8rem); }
-.text-\[clamp\(2\.8rem\,8vw\,6\.5rem\)\]  { font-size: clamp(1.9rem, 4.8vw, 3.4rem); }
-
-.display.text-5xl { font-size: 2.1rem; }
-.display.text-6xl { font-size: 2.4rem; }
-.display.text-7xl { font-size: 2.8rem; }
-.display.text-\[2\.6rem\] { font-size: 1.75rem; }
-@media (min-width: 768px) {
-  .display.md\:text-6xl { font-size: 2.7rem; }
-  .display.md\:text-7xl { font-size: 3rem; }
-  .display.md\:text-8xl { font-size: 3.4rem; }
-  .display.md\:text-9xl { font-size: 4rem; }
-  .display.md\:text-\[4\.2rem\] { font-size: 2.5rem; }
-}
-
-/* Other headings and row titles that were set in the display face */
-h1.font-display,
-h2.font-display,
-h3.font-display,
-span.font-display.text-5xl,
-.font-display.text-3xl.leading-tight:not(.font-light),
-a.group p.font-display.text-4xl.leading-tight,
-a.group span.font-display.text-2xl:not(.italic) {
-  font-family: "Cinzel", "Cormorant Garamond", Georgia, serif;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-}
-h3.font-display.text-\[1\.9rem\] { font-size: 1.3rem; line-height: 1.3; }
-h2.font-display.text-4xl,
-h3.font-display.text-4xl { font-size: 1.7rem; line-height: 1.25; }
-span.font-display.text-5xl { font-size: 1.9rem; line-height: 1.1; }
-.font-display.text-3xl.leading-tight:not(.font-light) { font-size: 1.3rem; line-height: 1.3; }
-a.group p.font-display.text-4xl.leading-tight { font-size: 1.5rem; line-height: 1.3; }
-a.group span.font-display.text-2xl:not(.italic) { font-size: 1.1rem; line-height: 1.35; }
-@media (min-width: 768px) {
-  h3.font-display.md\:text-\[2\.2rem\] { font-size: 1.5rem; }
-  .font-display.text-3xl.leading-tight:not(.font-light).md\:text-4xl { font-size: 1.5rem; }
-  a.group span.font-display.text-2xl.md\:text-3xl { font-size: 1.3rem; }
-}
-
-/* Lead statements: calmer scale, still Cormorant italic/light */
-blockquote.font-display { font-size: 1.75rem; }
-p.font-display.text-\[2rem\] { font-size: 1.6rem; }
-@media (min-width: 768px) {
-  blockquote.font-display.md\:text-\[2\.5rem\] { font-size: 2.1rem; }
-  p.font-display.md\:text-\[2\.6rem\],
-  p.font-display.md\:text-\[2\.5rem\] { font-size: 2.1rem; }
-}
-
-.eyebrow {
-  font-weight: 600;
-  letter-spacing: 0.22em;
-}
-
-/* 5. Header -------------------------------------------------------------- */
-#root > header {
-  background-color: var(--header-bg);
-  border-bottom: 1px solid var(--color-border);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  color: var(--color-text);
-}
-#root > header .page { height: 5rem; }
-
-#root > header .page > a:first-child {
-  display: flex;
-  flex-direction: column;
-  font-family: "Cinzel", Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  line-height: 1.2;
-  text-transform: uppercase;
-  color: var(--color-text);
-}
-#root > header .page > a:first-child::after {
-  content: "Fiction \00B7  Essays \00B7  Observations";
-  margin-top: 0.2rem;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.58rem;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  color: var(--color-accent);
-  white-space: nowrap;
-}
-#root > header .page > a:first-child:hover { color: var(--color-accent); }
-
-#root > header nav[aria-label="Primary"] { gap: 1.75rem; }
-#root > header nav[aria-label="Primary"] a {
-  padding: 0.5rem 0;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  color: var(--color-text-muted);
-  opacity: 1;
-}
-#root > header nav[aria-label="Primary"] a:hover,
-#root > header nav[aria-label="Primary"] a[aria-current="page"] { color: var(--color-text); }
-#root > header nav[aria-label="Primary"] a::after {
-  height: 2px;
-  background-color: var(--color-accent);
-}
-
-#root > header button[aria-controls="mobile-menu"] { color: var(--color-text); }
-#root > header button[aria-controls="mobile-menu"]:hover { color: var(--color-accent); }
-
-/* Palette toggle (added by novel-theme.js) */
-.qu-theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-left: auto;
-  margin-right: 0.25rem;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 2px;
-  background-color: var(--color-panel);
-  color: var(--color-text-muted);
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.68rem;
-  line-height: 1.2;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
-}
-.qu-theme-toggle:hover {
-  color: var(--color-text);
-  border-color: var(--color-accent);
-}
-.qu-theme-toggle svg {
-  width: 0.9rem;
-  height: 0.9rem;
-  flex-shrink: 0;
-}
-@media (min-width: 768px) {
-  .qu-theme-toggle { margin-left: 0; margin-right: 0; }
-}
-@media (max-width: 479px) {
-  .qu-theme-toggle { padding: 0.45rem 0.55rem; }
-  .qu-theme-toggle .qu-label { display: none; }
-  #root > header .page > a:first-child { font-size: 0.95rem; }
-}
-
-/* Mobile menu */
-#mobile-menu {
-  background-color: var(--color-panel);
-  color: var(--color-text);
-}
-#mobile-menu .page.h-\[4\.5rem\] { height: 5rem; }
-#mobile-menu .page > span:first-child {
-  font-family: "Cinzel", Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-}
-#mobile-menu nav a {
-  padding: 1.1rem 0;
-  border-bottom-color: var(--color-border);
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  line-height: 1.2;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-#mobile-menu nav a[aria-current="page"] { color: var(--color-accent); }
-
-/* Novel sub-navigation sits under the taller header */
-.min-h-screen > div:first-child { padding-top: 5rem; }
-
-/* 6. Footer -------------------------------------------------------------- */
-#root > footer {
-  background-color: var(--footer-bg);
-  border-top: 1px solid var(--color-border);
-  color: var(--color-text);
-}
-#root > footer .font-display.uppercase {
-  font-family: "Cinzel", Georgia, serif;
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-}
-
-/* 7. Buttons, rules, panels, forms --------------------------------------- */
-.btn {
-  padding: 1rem 2rem;
-  border-radius: 2px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-}
-
-.btn-solid-dark,
-.btn-solid-light {
-  background-color: var(--primary-btn-bg);
-  border-color: var(--primary-btn-bg);
-  color: var(--primary-btn-text);
-}
-.btn-solid-dark:hover,
-.btn-solid-light:hover {
-  background-color: var(--primary-btn-bg);
-  border-color: var(--primary-btn-bg);
-  color: var(--primary-btn-text);
-  opacity: 0.88;
-}
-
-.btn-line-dark,
-.btn-line-light {
-  background-color: transparent;
-  border-color: var(--color-border);
-  color: var(--color-text);
-}
-.btn-line-dark:hover,
-.btn-line-light:hover {
-  border-color: var(--color-accent);
-  color: var(--color-text);
-}
-
-.rule-gold {
-  width: 3rem;
-  background-color: var(--color-accent-line);
-}
-
-.link-quiet { text-decoration-color: var(--color-accent-line); }
-.link-quiet:hover { text-decoration-color: var(--color-accent); }
-
-/* Placeholder boxes become panels */
-.border-dashed {
-  border-style: solid;
-  border-radius: 2px;
-  background-color: var(--color-panel);
-}
-
-form input[type="email"] {
-  padding-top: 0.95rem;
-  padding-bottom: 0.95rem;
-  border-radius: 2px;
-}
-
-/* 8. Reading text -------------------------------------------------------- */
-.prose-lit,
-.prose-dark { color: var(--color-text); }
-
-.prose-lit h2,
-.prose-dark h2 {
-  font-family: "Cinzel", Georgia, serif;
-  font-size: 1.45rem;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0.05em;
-  color: var(--color-text);
-}
-.prose-lit h3,
-.prose-dark h3 { color: var(--color-text); }
-
-.prose-lit blockquote,
-.prose-dark blockquote {
-  border-left: 2px solid var(--color-accent);
-  background-color: var(--color-panel-accent);
-  padding: 0.5rem 0.75rem 0.5rem 1.25rem;
-  border-radius: 0 2px 2px 0;
-  color: var(--color-text-muted);
-}
-
-.prose-lit a { text-decoration-color: var(--color-accent); }
-.prose-lit a:hover { color: var(--color-accent-hover); }
-.prose-lit hr:before { color: var(--color-accent); }
-
-.prose-lit.dropcap > p:first-of-type:first-letter {
-  font-family: "Cinzel", Georgia, serif;
-  font-size: 3.4rem;
-  line-height: 0.85;
-  padding: 0.3rem 0.55rem 0 0;
-  color: var(--color-accent);
-}
-
-/* 9. Decoration and rhythm ----------------------------------------------- */
-svg[role="img"] path[stroke] { stroke: var(--color-accent); }
-.grain:after { opacity: 0.045; }
-
-#root main section + section { border-top: 1px solid var(--color-border-subtle); }
-
-.page.min-h-\[100svh\] { min-height: min(100svh, 52rem); }
-.min-h-\[78svh\] { min-height: min(78svh, 40rem); }
-
-.pt-36 { padding-top: 8rem; }
-.pt-44 { padding-top: 9rem; }
-@media (min-width: 768px) {
-  .md\:pt-44 { padding-top: 9.5rem; }
-  .md\:pt-56 { padding-top: 12rem; }
-  .md\:py-32 { padding-top: 6rem; padding-bottom: 6rem; }
-  .md\:py-36 { padding-top: 6.5rem; padding-bottom: 6.5rem; }
-  .md\:py-44 { padding-top: 7.5rem; padding-bottom: 7.5rem; }
-}
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
