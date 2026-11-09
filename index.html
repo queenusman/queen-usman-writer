@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth" id="rootHtml">
+<html lang="en" class="scroll-smooth theme-dark" id="rootHtml">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QUEEN USMAN — Official Literary Home</title>
   <meta name="description" content="The official website of novelist Queen Usman. Explore novels, original fiction, and creative works focused on psychological fiction and human experience.">
   
-  <!-- Favicon: Author Monogram Device -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%234A1032'/><text x='16' y='22' font-family='serif' font-size='18' fill='%23F7EDE4' text-anchor='middle' font-weight='bold'>Q</text></svg>">
+  <!-- Browser Favicon: Author Monogram Device -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%233E3D43'/><text x='16' y='22' font-family='serif' font-size='18' fill='%23D9C1C6' text-anchor='middle' font-weight='bold'>Q</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,9 +31,11 @@
               'text-faint': 'var(--color-text-faint)',
               heading: 'var(--color-heading)',
               accent: 'var(--color-accent)',
-              'accent-soft': 'var(--color-accent-soft)',
+              secondary: 'var(--color-secondary)',
+              'callout-bg': 'var(--color-callout-bg)',
               btn: 'var(--color-btn)',
               'btn-text': 'var(--color-btn-text)',
+              'btn-border': 'var(--color-btn-border)',
             }
           },
           fontFamily: {
@@ -49,67 +51,75 @@
   
   <style>
     /* ========================================================
-       THEME 1: LIGHT MODE — BERRY & ROSE (Literary Journal)
+       THEME 1: DARK MODE (Charcoal Plum Velvet — Default)
        ======================================================== */
-    :root, .theme-light {
-      --color-bg: #F7EDE4;               /* Warm Ivory */
-      --color-bg-subtle: #EFE4D9;        /* Recessed Ivory */
-      --color-panel: #FAF3EC;            /* Card/Panel surface */
-      --color-panel-hover: #F2E7DC;      /* Tactile hover surface */
+    :root, .theme-dark {
+      --color-bg: #3E3D43;               /* Dominant Charcoal Plum */
+      --color-bg-subtle: #343338;        /* Recessed background */
+      --color-panel: #49474E;            /* Elevated surface */
+      --color-panel-hover: #524E57;      /* Hover panel */
       
-      --color-border: #DBCAC1;          /* Subtle divider rules */
-      --color-border-subtle: #E8DCD4;   /* Hairline rule */
+      --color-border: #625B64;          /* Subtle structural border */
+      --color-border-subtle: #4D4750;   /* Hairline divider */
       
-      --color-heading: #4A1032;         /* Deep Berry */
-      --color-text: #392039;            /* Body Text: Dark Plum */
-      --color-text-muted: #5E3953;      /* Secondary editorial copy */
-      --color-text-faint: #8B667F;      /* Structural metadata */
+      --color-heading: #F8F7F5;         /* Primary warm ivory */
+      --color-text: #F8F7F5;            /* Primary warm ivory */
+      --color-text-muted: #C5BAC1;      /* Muted editorial copy */
+      --color-text-faint: #988F96;      /* Structural metadata */
       
-      --color-accent: #C9A0B3;          /* Dusty Rose */
-      --color-accent-soft: rgba(201, 160, 179, 0.22);
+      --color-accent: #D9C1C6;          /* Primary Accent: Dusty Rose */
+      --color-secondary: #8E7D8A;       /* Secondary Accent: Muted Mauve */
+      --color-callout-bg: rgba(81, 75, 84, 0.45);
       
-      --color-btn: #6F2A61;             /* Muted Plum */
-      --color-btn-text: #FFFFFF;        /* White text */
+      --color-btn: #D9C1C6;             /* Dusty Rose button */
+      --color-btn-text: #3E3D43;        /* Charcoal text */
+      --color-btn-border: #D9C1C6;
       
-      --header-bg: rgba(247, 237, 228, 0.94);
-      --footer-bg: #EFE3D8;
-      --selection-bg: #C9A0B3;
-      --selection-text: #4A1032;
-      --shadow-card: 0 4px 20px -2px rgba(74, 16, 50, 0.05), 0 1px 3px rgba(74, 16, 50, 0.03);
+      --header-bg: rgba(62, 61, 67, 0.94);
+      --footer-bg: #343338;
+      --selection-bg: #8E7D8A;
+      --selection-text: #F8F7F5;
+      --page-texture: radial-gradient(circle at 50% 0%, rgba(142, 125, 138, 0.16) 0%, rgba(62, 61, 67, 0) 70%);
+      --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
     }
 
     /* ========================================================
-       THEME 2: DARK MODE — MIDNIGHT BERRY (Private Library)
+       THEME 2: IMMERSIVE LIGHT MODE (Deep Archival Parchment)
        ======================================================== */
-    .theme-dark {
-      --color-bg: #180D16;               /* Midnight Berry */
-      --color-bg-subtle: #20111D;        /* Recessed Dark */
-      --color-panel: #261623;            /* Elevated surface */
-      --color-panel-hover: #2F1B2B;      /* Hover panel */
+    .theme-ivory {
+      --color-bg: #F4EFEB;             /* Rich archival parchment */
+      --color-bg-subtle: #E9E2DB;      /* Warm laid-paper groove */
+      --color-panel: #FAF7F2;          /* Clean cream deckle surface */
+      --color-panel-hover: #F0E8DF;    /* Tactile paper hover tone */
       
-      --color-border: #3D2438;          /* Restrained Plum border */
-      --color-border-subtle: #2E1A2A;   /* Hairline divider */
+      --color-border: #C8BFB5;        /* Defined, authoritative bookbinder rules */
+      --color-border-subtle: #DCD4C9; /* Subtle divider */
       
-      --color-heading: #EADBD8;         /* Soft Blush */
-      --color-text: #EADBD8;            /* Soft Blush */
-      --color-text-muted: #C8B2BA;      /* Muted narrative text */
-      --color-text-faint: #8E7182;      /* Structural metadata */
+      --color-heading: #2D2C31;       /* Crisp high-contrast letterpress ink */
+      --color-text: #2D2C31;          /* Crisp high-contrast letterpress ink */
+      --color-text-muted: #4F4B54;    /* Rich, deeply legible editorial text */
+      --color-text-faint: #736C78;    /* Distinct sub-metadata */
       
-      --color-accent: #B987A2;          /* Muted Rose */
-      --color-accent-soft: rgba(185, 135, 162, 0.18);
+      --color-accent: #6C5B68;        /* Bold, deeply pigmented mauve accent */
+      --color-secondary: #BFA5AC;     /* Anchored dusty rose tone */
+      --color-callout-bg: rgba(217, 193, 198, 0.32);
       
-      --color-btn: #B987A2;             /* Muted Rose */
-      --color-btn-text: #180D16;        /* Midnight Berry text */
+      --color-btn: #2D2C31;           /* Deep Charcoal button */
+      --color-btn-text: #FAF7F2;      /* Parchment text */
+      --color-btn-border: #212024;
       
-      --header-bg: rgba(24, 13, 22, 0.94);
-      --footer-bg: #140A12;
-      --selection-bg: #392039;
-      --selection-text: #EADBD8;
-      --shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.35);
+      --header-bg: rgba(244, 239, 235, 0.96);
+      --footer-bg: #E7DFD7;
+      --selection-bg: #D9C1C6;
+      --selection-text: #2D2C31;
+      --page-texture: radial-gradient(circle at 50% 0%, rgba(217, 193, 198, 0.25) 0%, rgba(244, 239, 235, 0) 75%);
+      --card-shadow: 0 4px 24px -2px rgba(45, 44, 49, 0.08), 0 1px 3px rgba(45, 44, 49, 0.04);
     }
 
     body {
       background-color: var(--color-bg);
+      background-image: var(--page-texture);
+      background-attachment: fixed;
       color: var(--color-text);
       font-family: 'Newsreader', Georgia, serif;
       -webkit-font-smoothing: antialiased;
@@ -121,11 +131,11 @@
       color: var(--selection-text);
     }
 
-    .editorial-panel {
+    .book-card {
       background-color: var(--color-panel);
       border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-card);
-      transition: border-color 0.2s ease, background-color 0.2s ease;
+      box-shadow: var(--card-shadow);
+      position: relative;
     }
 
     .view-section {
@@ -143,25 +153,30 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between selection:bg-theme-secondary selection:text-theme-text">
 
   <!-- ==================== HEADER & TOP NAVIGATION ==================== -->
   <header id="siteHeader" style="background-color: var(--header-bg); border-color: var(--color-border);" class="sticky top-0 z-50 backdrop-blur-md border-b transition-colors duration-300">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
       
       <!-- Queen Usman Wordmark -->
-      <a href="javascript:void(0)" onclick="switchView('home')" class="group flex flex-col focus:outline-none" aria-label="Return to Queen Usman Home">
-        <span class="font-display tracking-[0.24em] text-lg md:text-xl font-semibold text-theme-heading group-hover:opacity-85 transition-opacity">
-          QUEEN USMAN
-        </span>
-        <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-theme-text-faint font-medium mt-0.5">
-          Novelist &bull; Author
-        </span>
+      <a href="javascript:void(0)" onclick="switchView('home')" class="group flex items-center gap-3.5 focus:outline-none" aria-label="Return to Queen Usman Home">
+        <div class="w-9 h-9 rounded-sm border border-theme-border flex items-center justify-center bg-theme-panel group-hover:border-theme-accent transition-all shadow-sm shrink-0">
+          <span class="font-display font-semibold text-sm text-theme-accent">Q</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display tracking-[0.24em] text-lg md:text-xl font-semibold text-theme-heading group-hover:text-theme-accent transition-colors">
+            QUEEN USMAN
+          </span>
+          <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-theme-secondary font-semibold mt-0.5">
+            Novelist &bull; Author
+          </span>
+        </div>
       </a>
 
       <!-- Primary Navigation Bar -->
       <nav class="hidden md:flex items-center space-x-8 text-xs font-sans uppercase tracking-[0.2em]">
-        <button onclick="switchView('home')" class="nav-button py-1 text-theme-heading border-b border-theme-btn font-semibold transition-colors" data-page="home">
+        <button onclick="switchView('home')" class="nav-button py-1 text-theme-heading border-b border-theme-accent font-semibold transition-colors" data-page="home">
           Home
         </button>
         <button onclick="switchView('books')" class="nav-button py-1 text-theme-text-muted hover:text-theme-heading border-b border-transparent transition-colors" data-page="books">
@@ -180,14 +195,14 @@
 
       <!-- Palette Switcher & Mobile Trigger -->
       <div class="flex items-center space-x-3">
-        <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Toggle light or dark theme" class="px-3.5 py-1.5 border border-theme-border rounded-sm text-[11px] font-sans uppercase tracking-wider text-theme-text-muted hover:text-theme-heading hover:border-theme-accent transition-all flex items-center gap-2 bg-theme-panel">
+        <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Toggle light or dark theme" class="px-3.5 py-1.5 border border-theme-border rounded-sm text-[11px] font-sans uppercase tracking-wider text-theme-text-muted hover:text-theme-heading hover:border-theme-accent transition-all flex items-center gap-2 bg-theme-panel shadow-sm">
           <svg id="themeIconSun" class="w-3.5 h-3.5 inline-block text-theme-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
           <svg id="themeIconMoon" class="w-3.5 h-3.5 hidden text-theme-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
-          <span id="themeToggleLabel">Midnight Berry</span>
+          <span id="themeToggleLabel">Ivory Mode</span>
         </button>
 
         <button onclick="toggleMobileMenu()" class="p-2 md:hidden text-theme-heading hover:text-theme-accent focus:outline-none" aria-label="Open mobile navigation">
@@ -216,15 +231,19 @@
       
       <!-- Hero Section -->
       <section class="max-w-4xl mx-auto px-6 pt-24 pb-20 text-center">
-        <p class="font-sans text-xs uppercase tracking-[0.35em] text-theme-text-faint font-semibold mb-6">
-          Novels &bull; Original Fiction &bull; Narrative Studies
-        </p>
+        <div class="inline-flex items-center gap-2 mb-6 text-theme-secondary">
+          <span class="w-6 h-px bg-theme-secondary/70"></span>
+          <span class="font-sans text-[10px] uppercase tracking-[0.38em] font-bold">
+            Novels &bull; Original Fiction &bull; Narrative Studies
+          </span>
+          <span class="w-6 h-px bg-theme-secondary/70"></span>
+        </div>
         
         <h1 class="font-serif italic text-4xl sm:text-6xl md:text-7xl font-normal text-theme-heading leading-[1.15] mb-8">
           Stories, and the lives that shape them.
         </h1>
         
-        <div class="flex items-center justify-center gap-3 my-8 opacity-80">
+        <div class="flex items-center justify-center gap-3 my-8 opacity-90">
           <div class="w-12 h-px bg-theme-border"></div>
           <div class="text-xs text-theme-accent select-none">✦</div>
           <div class="w-12 h-px bg-theme-border"></div>
@@ -235,7 +254,7 @@
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-xs font-sans uppercase tracking-[0.2em]">
-          <button onclick="switchView('books')" style="background-color: var(--color-btn); color: var(--color-btn-text);" class="w-full sm:w-auto px-8 py-4 font-semibold tracking-[0.22em] rounded-sm hover:opacity-90 transition-opacity">
+          <button onclick="switchView('books')" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full sm:w-auto px-8 py-4 font-semibold tracking-[0.22em] rounded-sm hover:opacity-90 transition-opacity shadow-sm">
             Explore Books &rarr;
           </button>
           <button onclick="switchView('about')" class="w-full sm:w-auto px-8 py-4 border border-theme-border hover:border-theme-accent text-theme-heading transition-colors rounded-sm bg-theme-panel">
@@ -247,7 +266,7 @@
       <!-- Featured Work: Or So She Thought -->
       <section class="max-w-5xl mx-auto px-6 py-16 border-t border-theme-border">
         <div class="flex items-center justify-between mb-8 pb-3 border-b border-theme-border-subtle">
-          <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-text-faint font-bold">
+          <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-secondary font-bold">
             Featured Novel
           </span>
           <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-accent font-semibold">
@@ -255,15 +274,15 @@
           </span>
         </div>
 
-        <div class="editorial-panel p-8 md:p-12 rounded-sm grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+        <div class="book-card p-8 md:p-12 rounded-sm grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
           
           <!-- Book Presentation Tile -->
           <div class="md:col-span-5 flex flex-col items-center justify-center">
             <div class="w-full max-w-[280px] aspect-[2/3] bg-theme-bg-subtle border border-theme-border p-6 flex flex-col justify-between text-center shadow-lg relative group">
               <div class="border border-theme-border-subtle h-full p-6 flex flex-col justify-between">
                 <div>
-                  <span class="font-sans text-[8px] tracking-[0.3em] uppercase text-theme-text-faint block mb-4">A Novel of Norwyn</span>
-                  <h3 class="font-display text-2xl text-theme-heading tracking-widest leading-tight uppercase">
+                  <span class="font-sans text-[8px] tracking-[0.3em] uppercase text-theme-secondary font-bold block mb-4">A Novel of Norwyn</span>
+                  <h3 class="font-display text-2xl text-theme-heading tracking-widest leading-tight uppercase font-semibold">
                     Or So She<br>Thought
                   </h3>
                 </div>
@@ -272,7 +291,7 @@
                 </div>
                 <div>
                   <p class="font-serif italic text-xs text-theme-text-muted mb-2">The Crowned Era</p>
-                  <p class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-text-faint">Queen Usman</p>
+                  <p class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-text-faint font-medium">Queen Usman</p>
                 </div>
               </div>
             </div>
@@ -280,10 +299,10 @@
 
           <!-- Narrative Overview -->
           <div class="md:col-span-7 space-y-5">
-            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-accent font-bold block">
+            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-secondary font-bold block">
               Psychological Fiction &bull; Novel
             </span>
-            <h2 class="font-display text-3xl md:text-4xl text-theme-heading tracking-wide">
+            <h2 class="font-display text-3xl md:text-4xl text-theme-heading tracking-wide font-semibold">
               Or So She Thought
             </h2>
             <p class="font-serif text-base text-theme-text-muted leading-relaxed font-light">
@@ -294,10 +313,10 @@
             </p>
             
             <div class="pt-4 flex flex-col sm:flex-row items-center gap-4 text-xs font-sans uppercase tracking-[0.2em]">
-              <button onclick="openBookDetail('or-so-she-thought')" style="background-color: var(--color-btn); color: var(--color-btn-text);" class="w-full sm:w-auto px-7 py-3.5 font-semibold rounded-sm hover:opacity-90 transition-opacity">
+              <button onclick="openBookDetail('or-so-she-thought')" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full sm:w-auto px-7 py-3.5 font-semibold rounded-sm hover:opacity-90 transition-opacity">
                 Dedicated Book Page &rarr;
               </button>
-              <button onclick="switchView('fiction')" class="w-full sm:w-auto px-7 py-3.5 border border-theme-border hover:border-theme-accent text-theme-heading transition-colors rounded-sm">
+              <button onclick="switchView('fiction')" class="w-full sm:w-auto px-7 py-3.5 border border-theme-border hover:border-theme-accent text-theme-heading transition-colors rounded-sm bg-theme-panel">
                 Short Fiction Archive
               </button>
             </div>
@@ -310,7 +329,7 @@
       <section class="max-w-5xl mx-auto px-6 py-16 border-t border-theme-border">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-text-faint font-bold block mb-3">
+            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-secondary font-bold block mb-3">
               Author Focus
             </span>
             <h2 class="font-serif italic text-3xl md:text-4xl text-theme-heading mb-6">
@@ -325,11 +344,11 @@
           </div>
 
           <!-- Reader List Brief Module -->
-          <div class="editorial-panel p-8 md:p-10 rounded-sm">
-            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-accent font-bold block mb-2">
+          <div class="book-card p-8 md:p-10 rounded-sm">
+            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-secondary font-bold block mb-2">
               Correspondence
             </span>
-            <h3 class="font-display text-2xl text-theme-heading mb-3">
+            <h3 class="font-display text-2xl text-theme-heading mb-3 font-semibold">
               Await the Story
             </h3>
             <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light mb-6">
@@ -337,7 +356,7 @@
             </p>
             <form onsubmit="handleSubscribe(event)" class="space-y-3">
               <input type="email" required placeholder="Enter your email address" class="w-full px-4 py-3 bg-theme-bg text-theme-text border border-theme-border rounded-sm text-sm font-serif focus:outline-none focus:border-theme-accent transition-colors">
-              <button type="submit" style="background-color: var(--color-btn); color: var(--color-btn-text);" class="w-full py-3 px-6 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
+              <button type="submit" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full py-3 px-6 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
                 Subscribe to Reader List
               </button>
             </form>
@@ -352,10 +371,10 @@
       <section class="max-w-5xl mx-auto px-6 py-20">
         
         <div class="text-center max-w-2xl mx-auto mb-16">
-          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-text-faint font-semibold mb-3">
+          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold mb-3">
             Primary Catalogue
           </p>
-          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4">
+          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4 font-semibold">
             Novels & Published Works
           </h1>
           <div class="w-12 h-px bg-theme-border mx-auto my-6"></div>
@@ -368,16 +387,16 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
           
           <!-- Book 1: Or So She Thought (Active) -->
-          <div class="editorial-panel p-8 rounded-sm flex flex-col justify-between">
+          <div class="book-card p-8 rounded-sm flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[9px] font-sans tracking-[0.25em] uppercase text-theme-accent font-bold">
+                <span class="text-[9px] font-sans tracking-[0.25em] uppercase text-theme-secondary font-bold">
                   Novel &bull; Active Edition
                 </span>
                 <span class="text-xs font-serif italic text-theme-text-faint">Published</span>
               </div>
 
-              <h2 class="font-display text-2xl text-theme-heading mb-3">
+              <h2 class="font-display text-2xl text-theme-heading mb-3 font-semibold">
                 Or So She Thought
               </h2>
               <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light mb-6">
@@ -393,22 +412,22 @@
               </div>
             </div>
 
-            <button onclick="openBookDetail('or-so-she-thought')" style="background-color: var(--color-btn); color: var(--color-btn-text);" class="w-full py-3.5 px-6 font-sans text-xs font-semibold tracking-[0.2em] uppercase rounded-sm hover:opacity-90 transition-opacity text-center">
+            <button onclick="openBookDetail('or-so-she-thought')" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full py-3.5 px-6 font-sans text-xs font-semibold tracking-[0.2em] uppercase rounded-sm hover:opacity-90 transition-opacity text-center">
               View Book Page & Excerpts &rarr;
             </button>
           </div>
 
           <!-- Forthcoming Project Card (Structured Expandability) -->
-          <div class="editorial-panel p-8 rounded-sm flex flex-col justify-between border-dashed">
+          <div class="book-card p-8 rounded-sm flex flex-col justify-between border-dashed">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-[9px] font-sans tracking-[0.25em] uppercase text-theme-text-faint font-bold">
+                <span class="text-[9px] font-sans tracking-[0.25em] uppercase text-theme-secondary font-bold">
                   Forthcoming Work
                 </span>
                 <span class="text-xs font-serif italic text-theme-text-faint">In Development</span>
               </div>
 
-              <h2 class="font-display text-2xl text-theme-heading/70 mb-3">
+              <h2 class="font-display text-2xl text-theme-heading/70 mb-3 font-semibold">
                 Untitled Second Novel
               </h2>
               <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light mb-6">
@@ -443,17 +462,17 @@
           <button onclick="switchView('books')" class="font-sans text-xs uppercase tracking-[0.2em] text-theme-text-muted hover:text-theme-heading flex items-center gap-1.5">
             <span>&larr;</span> <span>Back to Books Catalogue</span>
           </button>
-          <span class="font-sans text-[11px] tracking-[0.2em] uppercase text-theme-accent font-semibold">
+          <span class="font-sans text-[11px] tracking-[0.22em] uppercase text-theme-secondary font-bold">
             Novel Presentation
           </span>
         </div>
 
-        <!-- Book Header Header -->
+        <!-- Book Header -->
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-text-faint font-bold">
+          <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold">
             A Royal Coming-of-Age Psychological Novel
           </span>
-          <h1 class="font-display text-4xl sm:text-6xl text-theme-heading tracking-wide">
+          <h1 class="font-display text-4xl sm:text-6xl text-theme-heading tracking-wide font-semibold">
             Or So She Thought
           </h1>
           <p class="font-serif text-xl italic text-theme-text-muted font-light">
@@ -462,18 +481,18 @@
         </div>
 
         <!-- Synopsis & World Overview -->
-        <div class="editorial-panel p-8 md:p-12 rounded-sm space-y-6 font-serif text-base text-theme-text leading-relaxed mb-12">
-          <h2 class="font-display text-xl text-theme-heading tracking-wider uppercase mb-2">
+        <div class="book-card p-8 md:p-12 rounded-sm space-y-6 font-serif text-base text-theme-text leading-relaxed mb-12">
+          <h2 class="font-display text-xl text-theme-heading tracking-wider uppercase mb-2 font-semibold">
             The Premise & Inheritance
           </h2>
           <p>
-            Born into the royal family of Norwyn, <strong class="font-semibold text-theme-heading">Princess Elisabeta</strong> has never had to imagine a life outside the one prepared for her. Her world has its own order, its traditions, its expectations, and its understanding of what makes a good life. Within it, almost everything has an explanation, and almost every decision has its proper place.
+            Born into the royal family of Norwyn, <strong class="font-bold text-theme-heading">Princess Elisabeta</strong> has never had to imagine a life outside the one prepared for her. Her world has its own order, its traditions, its expectations, and its understanding of what makes a good life. Within it, almost everything has an explanation, and almost every decision has its proper place.
           </p>
           <p>
             She has grown up knowing what is expected of her, what her future will look like, and what it means to belong to the family that will one day shape the kingdom's future. But as marriage, family relationships, and the responsibilities of the crown begin to bring those expectations into sharper focus, Elisabeta finds herself confronting questions she has never had reason to ask.
           </p>
           
-          <div class="my-6 p-6 border-l-2 border-theme-accent bg-theme-bg-subtle/80 rounded-r-sm">
+          <div class="my-6 p-6 border-l-2 border-theme-accent bg-theme-callout-bg rounded-r-sm">
             <p class="italic text-base md:text-lg leading-relaxed text-theme-heading">
               What happens when the life you have always understood begins to look different from the inside? When does duty become something you believe in, and when is it simply something you have learned to accept?
             </p>
@@ -486,20 +505,20 @@
 
         <!-- Characters of Record -->
         <div class="mb-14">
-          <h3 class="font-display text-xl text-theme-heading mb-6 tracking-wide">
+          <h3 class="font-display text-xl text-theme-heading mb-6 tracking-wide font-semibold">
             Dramatis Personae
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="editorial-panel p-6 rounded-sm">
-              <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-theme-accent font-bold block mb-1">The Heiress</span>
-              <h4 class="font-display text-lg text-theme-heading mb-2">Princess Elisabeta</h4>
+            <div class="book-card p-6 rounded-sm">
+              <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-theme-secondary font-bold block mb-1">The Heiress</span>
+              <h4 class="font-display text-lg text-theme-heading mb-2 font-semibold">Princess Elisabeta</h4>
               <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light">
                 Formed so carefully to rule that she struggles to distinguish between what she has been educated to want and what belongs to her own desire.
               </p>
             </div>
-            <div class="editorial-panel p-6 rounded-sm">
-              <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-theme-accent font-bold block mb-1">The Sovereign</span>
-              <h4 class="font-display text-lg text-theme-heading mb-2">Queen Ecaterina</h4>
+            <div class="book-card p-6 rounded-sm">
+              <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-theme-secondary font-bold block mb-1">The Sovereign</span>
+              <h4 class="font-display text-lg text-theme-heading mb-2 font-semibold">Queen Ecaterina</h4>
               <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light">
                 She does not control Elisabeta to dominate her; preparation is her highest form of love in a court governed by exposure and precedent.
               </p>
@@ -508,17 +527,17 @@
         </div>
 
         <!-- Call to Action: Reading Experience & Novel Site -->
-        <div class="editorial-panel p-8 md:p-10 text-center rounded-sm space-y-4">
-          <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-accent font-bold">
+        <div class="book-card p-8 md:p-10 text-center rounded-sm space-y-4">
+          <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-secondary font-bold">
             The Norwyn Sanctuary
           </span>
-          <h3 class="font-display text-2xl text-theme-heading">
+          <h3 class="font-display text-2xl text-theme-heading font-semibold">
             Enter the Dedicated Novel Website
           </h3>
           <p class="font-serif text-sm text-theme-text-muted max-w-xl mx-auto font-light leading-relaxed mb-6">
             Explore the territory of Norwyn, discover detailed court records in the Archive vault, and read the serial chapters in an atmospheric, specialized reading environment.
           </p>
-          <a href="https://queenusman.github.io" target="_blank" rel="noopener noreferrer" style="background-color: var(--color-btn); color: var(--color-btn-text);" class="inline-block px-8 py-3.5 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
+          <a href="https://queenusman.github.io" target="_blank" rel="noopener noreferrer" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="inline-block px-8 py-3.5 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
             Visit Or So She Thought Website &rarr;
           </a>
         </div>
@@ -531,10 +550,10 @@
       <section class="max-w-4xl mx-auto px-6 py-20">
         
         <div class="text-center max-w-2xl mx-auto mb-16">
-          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-text-faint font-semibold mb-3">
+          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold mb-3">
             Original Writing
           </p>
-          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4">
+          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4 font-semibold">
             Fiction & Literary Works
           </h1>
           <div class="w-12 h-px bg-theme-border mx-auto my-6"></div>
@@ -546,12 +565,12 @@
         <div class="space-y-8">
           
           <!-- Piece 1 -->
-          <article class="editorial-panel p-8 md:p-10 rounded-sm">
+          <article class="book-card p-8 md:p-10 rounded-sm">
             <div class="flex items-center justify-between pb-3 border-b border-theme-border-subtle mb-4">
-              <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-accent font-bold">Short Fiction</span>
+              <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-secondary font-bold">Short Fiction</span>
               <span class="font-serif text-xs italic text-theme-text-faint">Curated Archive</span>
             </div>
-            <h2 class="font-display text-2xl text-theme-heading mb-3">
+            <h2 class="font-display text-2xl text-theme-heading mb-3 font-semibold">
               The Seamstress at the South Gate
             </h2>
             <p class="font-serif text-base text-theme-text-muted leading-relaxed font-light mb-6">
@@ -566,12 +585,12 @@
           </article>
 
           <!-- Piece 2 -->
-          <article class="editorial-panel p-8 md:p-10 rounded-sm">
+          <article class="book-card p-8 md:p-10 rounded-sm">
             <div class="flex items-center justify-between pb-3 border-b border-theme-border-subtle mb-4">
-              <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-accent font-bold">Narrative Study</span>
+              <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-secondary font-bold">Narrative Study</span>
               <span class="font-serif text-xs italic text-theme-text-faint">Curated Archive</span>
             </div>
-            <h2 class="font-display text-2xl text-theme-heading mb-3">
+            <h2 class="font-display text-2xl text-theme-heading mb-3 font-semibold">
               The Architecture of the Unspoken
             </h2>
             <p class="font-serif text-base text-theme-text-muted leading-relaxed font-light mb-6">
@@ -595,22 +614,22 @@
       <section class="max-w-3xl mx-auto px-6 py-20">
         
         <div class="text-center mb-16">
-          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-text-faint font-semibold mb-3">
+          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold mb-3">
             Author Biography
           </p>
-          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4">
+          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4 font-semibold">
             About Queen Usman
           </h1>
           <div class="w-12 h-px bg-theme-border mx-auto my-6"></div>
         </div>
 
-        <div class="editorial-panel p-8 md:p-14 rounded-sm space-y-6 font-serif text-base md:text-lg text-theme-text leading-relaxed">
+        <div class="book-card p-8 md:p-14 rounded-sm space-y-6 font-serif text-base md:text-lg text-theme-text leading-relaxed">
           <p class="first-letter:text-5xl first-letter:font-serif first-letter:float-left first-letter:mr-4 first-letter:text-theme-accent first-letter:leading-none">
             Queen Usman is a novelist and fiction writer interested in psychological fiction, character interiority, and the quiet mechanisms through which human beings become who they are.
           </p>
           
           <p>
-            Her creative works explore identity, sovereign expectation, the friction of tradition, and the emotional costs of certainty. Rather than relying on overt villainy or high spectacle, her fiction operates within psychological plausibility—tracing the subtle shifts in relationships and internal beliefs when long-held frameworks begin to crack.
+            Her creative works explore identity, sovereign expectation, the friction of tradition, and the emotional costs of certainty. Rather than relying on overt spectacle or exaggerated villainy, her fiction operates within psychological plausibility—tracing the subtle shifts in relationships and internal beliefs when long-held frameworks begin to crack.
           </p>
           
           <p>
@@ -623,7 +642,7 @@
         </div>
 
         <div class="mt-12 text-center">
-          <button onclick="switchView('reader-list')" style="background-color: var(--color-btn); color: var(--color-btn-text);" class="px-8 py-3.5 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
+          <button onclick="switchView('reader-list')" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="px-8 py-3.5 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
             Join the Queen Usman Reader List &rarr;
           </button>
         </div>
@@ -635,11 +654,11 @@
     <div id="view-reader-list" class="view-section view-hidden">
       <section class="max-w-2xl mx-auto px-6 py-24 text-center">
         
-        <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-text-faint font-semibold block mb-3">
+        <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold block mb-3">
           Direct Literary Correspondence
         </span>
         
-        <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4">
+        <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4 font-semibold">
           Await the Story
         </h1>
         
@@ -649,16 +668,16 @@
           Join the Queen Usman Reader List to receive announcements about upcoming novels, original fiction, publication news, and private excerpts from creative works.
         </p>
 
-        <div class="editorial-panel p-8 md:p-10 rounded-sm text-left shadow-md">
+        <div class="book-card p-8 md:p-10 rounded-sm text-left shadow-md">
           <form onsubmit="handleSubscribe(event)" class="space-y-5">
             <div>
-              <label for="subscriber-email" class="block font-sans text-[10px] tracking-[0.2em] uppercase text-theme-text-faint mb-2">
+              <label for="subscriber-email" class="block font-sans text-[10px] tracking-[0.2em] uppercase text-theme-secondary font-bold mb-2">
                 Your Email Address
               </label>
               <input type="email" id="subscriber-email" required placeholder="reader@domain.com" class="w-full px-4 py-3 bg-theme-bg text-theme-text border border-theme-border rounded-sm text-sm font-serif focus:outline-none focus:border-theme-accent transition-colors">
             </div>
             
-            <button type="submit" style="background-color: var(--color-btn); color: var(--color-btn-text);" class="w-full py-4 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
+            <button type="submit" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full py-4 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
               Join Reader List
             </button>
           </form>
@@ -706,7 +725,7 @@
 
   <!-- ==================== CLIENT APPLICATION LOGIC ==================== -->
   <script>
-    let isDarkMode = false;
+    let isIvoryMode = false; // Default: Dark Mode active
 
     // View Switching Controller
     function switchView(viewId) {
@@ -728,10 +747,10 @@
       // Update Navigation Buttons Indicator
       document.querySelectorAll('.nav-button').forEach(btn => {
         if (btn.getAttribute('data-page') === viewId) {
-          btn.classList.add('text-theme-heading', 'border-theme-btn', 'font-semibold');
+          btn.classList.add('text-theme-heading', 'border-theme-accent', 'font-semibold');
           btn.classList.remove('text-theme-text-muted', 'border-transparent');
         } else {
-          btn.classList.remove('text-theme-heading', 'border-theme-btn', 'font-semibold');
+          btn.classList.remove('text-theme-heading', 'border-theme-accent', 'font-semibold');
           btn.classList.add('text-theme-text-muted', 'border-transparent');
         }
       });
@@ -745,32 +764,32 @@
       }
     }
 
-    // Palette Theme Engine (Berry & Rose vs. Midnight Berry)
-    function applyTheme(dark) {
+    // Palette Theme Engine (Charcoal Plum Dark vs. Immersive Ivory Light)
+    function applyTheme(ivory) {
       const root = document.getElementById('rootHtml');
       const label = document.getElementById('themeToggleLabel');
       const iconSun = document.getElementById('themeIconSun');
       const iconMoon = document.getElementById('themeIconMoon');
 
-      if (dark) {
-        root.classList.remove('theme-light');
-        root.classList.add('theme-dark');
-        label.textContent = "Berry & Rose";
+      if (ivory) {
+        root.classList.remove('theme-dark');
+        root.classList.add('theme-ivory');
+        label.textContent = "Night Mode";
         iconSun.classList.add('hidden');
         iconMoon.classList.remove('hidden');
       } else {
-        root.classList.remove('theme-dark');
-        root.classList.add('theme-light');
-        label.textContent = "Midnight Berry";
+        root.classList.remove('theme-ivory');
+        root.classList.add('theme-dark');
+        label.textContent = "Ivory Mode";
         iconSun.classList.remove('hidden');
         iconMoon.classList.add('hidden');
       }
-      isDarkMode = dark;
-      localStorage.setItem('qu_author_theme', dark ? 'dark' : 'light');
+      isIvoryMode = ivory;
+      localStorage.setItem('qu_author_theme_mode', ivory ? 'ivory' : 'dark');
     }
 
     function toggleTheme() {
-      applyTheme(!isDarkMode);
+      applyTheme(!isIvoryMode);
     }
 
     function toggleMobileMenu() {
@@ -785,14 +804,13 @@
       e.target.reset();
     }
 
-    // Initialization & Theme Detection
+    // Initialization & Theme Detection (Defaults to Dark Mode)
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('qu_author_theme');
+      const savedTheme = localStorage.getItem('qu_author_theme_mode');
       if (savedTheme) {
-        applyTheme(savedTheme === 'dark');
+        applyTheme(savedTheme === 'ivory');
       } else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark);
+        applyTheme(false); // Default to Dark Mode
       }
       switchView('home');
     });
