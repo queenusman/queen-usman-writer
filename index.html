@@ -59,20 +59,20 @@
       --color-panel: #49474E;            /* Elevated surface */
       --color-panel-hover: #524E57;      /* Hover panel */
       
-      --color-border: #625B64;          /* Subtle structural border */
+      --color-border: #625B64;          /* Structural border */
       --color-border-subtle: #4D4750;   /* Hairline divider */
       
-      --color-heading: #F8F7F5;         /* Primary warm ivory */
-      --color-text: #F8F7F5;            /* Primary warm ivory */
+      --color-heading: #F8F7F5;         /* Warm Ivory */
+      --color-text: #F8F7F5;            /* Warm Ivory */
       --color-text-muted: #C5BAC1;      /* Muted editorial copy */
-      --color-text-faint: #988F96;      /* Structural metadata */
+      --color-text-faint: #988F96;      /* Sub-metadata */
       
-      --color-accent: #D9C1C6;          /* Primary Accent: Dusty Rose */
-      --color-secondary: #8E7D8A;       /* Secondary Accent: Muted Mauve */
+      --color-accent: #D9C1C6;          /* Dusty Rose */
+      --color-secondary: #8E7D8A;       /* Muted Mauve */
       --color-callout-bg: rgba(81, 75, 84, 0.45);
       
       --color-btn: #D9C1C6;             /* Dusty Rose button */
-      --color-btn-text: #3E3D43;        /* Charcoal text */
+      --color-btn-text: #3E3D43;        /* Charcoal plum text */
       --color-btn-border: #D9C1C6;
       
       --header-bg: rgba(62, 61, 67, 0.94);
@@ -84,36 +84,36 @@
     }
 
     /* ========================================================
-       THEME 2: IMMERSIVE LIGHT MODE (Deep Archival Parchment)
+       THEME 2: LIGHT MODE (Direct Inverse of Dark Mode)
        ======================================================== */
     .theme-ivory {
-      --color-bg: #F4EFEB;             /* Rich archival parchment */
-      --color-bg-subtle: #E9E2DB;      /* Warm laid-paper groove */
-      --color-panel: #FAF7F2;          /* Clean cream deckle surface */
-      --color-panel-hover: #F0E8DF;    /* Tactile paper hover tone */
+      --color-bg: #F8F7F5;               /* Direct inverse of #3E3D43 */
+      --color-bg-subtle: #F1ECE5;        /* Direct inverse of #343338 */
+      --color-panel: #EDEAE4;            /* Direct inverse of #49474E */
+      --color-panel-hover: #E2DDD5;      /* Direct inverse of #524E57 */
       
-      --color-border: #C8BFB5;        /* Defined, authoritative bookbinder rules */
-      --color-border-subtle: #DCD4C9; /* Subtle divider */
+      --color-border: #CCC4BC;          /* Direct inverse of #625B64 */
+      --color-border-subtle: #DCD6CF;   /* Direct inverse of #4D4750 */
       
-      --color-heading: #2D2C31;       /* Crisp high-contrast letterpress ink */
-      --color-text: #2D2C31;          /* Crisp high-contrast letterpress ink */
-      --color-text-muted: #4F4B54;    /* Rich, deeply legible editorial text */
-      --color-text-faint: #736C78;    /* Distinct sub-metadata */
+      --color-heading: #3E3D43;         /* Direct inverse of #F8F7F5 */
+      --color-text: #3E3D43;            /* Direct inverse of #F8F7F5 */
+      --color-text-muted: #5A5760;      /* Direct inverse of #C5BAC1 */
+      --color-text-faint: #7E7985;      /* Direct inverse of #988F96 */
       
-      --color-accent: #6C5B68;        /* Bold, deeply pigmented mauve accent */
-      --color-secondary: #BFA5AC;     /* Anchored dusty rose tone */
-      --color-callout-bg: rgba(217, 193, 198, 0.32);
+      --color-accent: #8E7D8A;          /* Inverted accent dominance */
+      --color-secondary: #D9C1C6;       /* Dusty Rose secondary */
+      --color-callout-bg: rgba(217, 193, 198, 0.28);
       
-      --color-btn: #2D2C31;           /* Deep Charcoal button */
-      --color-btn-text: #FAF7F2;      /* Parchment text */
-      --color-btn-border: #212024;
+      --color-btn: #3E3D43;             /* Charcoal button */
+      --color-btn-text: #F8F7F5;        /* Warm Ivory text */
+      --color-btn-border: #3E3D43;
       
-      --header-bg: rgba(244, 239, 235, 0.96);
-      --footer-bg: #E7DFD7;
+      --header-bg: rgba(248, 247, 245, 0.94);
+      --footer-bg: #F1ECE5;
       --selection-bg: #D9C1C6;
-      --selection-text: #2D2C31;
-      --page-texture: radial-gradient(circle at 50% 0%, rgba(217, 193, 198, 0.25) 0%, rgba(244, 239, 235, 0) 75%);
-      --card-shadow: 0 4px 24px -2px rgba(45, 44, 49, 0.08), 0 1px 3px rgba(45, 44, 49, 0.04);
+      --selection-text: #3E3D43;
+      --page-texture: radial-gradient(circle at 50% 0%, rgba(217, 193, 198, 0.18) 0%, rgba(248, 247, 245, 0) 70%);
+      --card-shadow: 0 4px 20px -2px rgba(62, 61, 67, 0.06), 0 1px 3px rgba(62, 61, 67, 0.04);
     }
 
     body {
@@ -764,7 +764,7 @@
       }
     }
 
-    // Palette Theme Engine (Charcoal Plum Dark vs. Immersive Ivory Light)
+    // Direct Inverse Theme Engine
     function applyTheme(ivory) {
       const root = document.getElementById('rootHtml');
       const label = document.getElementById('themeToggleLabel');
@@ -804,7 +804,7 @@
       e.target.reset();
     }
 
-    // Initialization & Theme Detection (Defaults to Dark Mode)
+    // Initialization (Defaults to Dark Mode)
     window.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('qu_author_theme_mode');
       if (savedTheme) {
