@@ -86,6 +86,7 @@
 
     /* ========================================================
        THEME 2: INVERSE LIGHT MODE (Neutralized Button Tone)
+       Header, Containers & Footer Synchronized to #F8F7F5
        ======================================================== */
     .theme-ivory {
       --color-bg: #F8F7F5;               /* Warm Ivory background */
@@ -165,14 +166,15 @@
   <header id="siteHeader" style="background-color: var(--header-bg); border-color: var(--color-border);" class="sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ease-in-out">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
       
-      <!-- Queen Usman Wordmark (Coronet Icon Box Removed) -->
-      <a href="javascript:void(0)" onclick="switchView('home')" class="group flex flex-col focus:outline-none" aria-label="Return to Queen Usman Home">
-        <span class="font-display tracking-[0.24em] text-lg md:text-xl font-semibold text-theme-heading group-hover:text-theme-accent transition-colors">
-          QUEEN USMAN
-        </span>
-        <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-theme-secondary font-semibold mt-0.5">
-          Novelist &bull; Author
-        </span>
+      <!-- Coronet Icon Emblem Only (Title & Subtitle Removed) -->
+      <a href="javascript:void(0)" onclick="switchView('home')" class="group flex items-center focus:outline-none" aria-label="Return to Queen Usman Home">
+        <div class="w-10 h-10 rounded-sm border border-theme-border flex items-center justify-center bg-theme-panel group-hover:border-theme-accent transition-all shadow-sm shrink-0">
+          <svg class="w-5 h-5 text-theme-accent transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 17L2 8l5 3.5 5-6.5 5 6.5 5-3.5-2 9H4z" />
+            <path d="M4 19h16" stroke-width="1.25" />
+            <circle cx="12" cy="14" r="1" fill="currentColor" />
+          </svg>
+        </div>
       </a>
 
       <!-- Primary Navigation Bar -->
