@@ -6,7 +6,7 @@
   <title>QUEEN USMAN — Official Literary Home</title>
   <meta name="description" content="The official website of novelist Queen Usman. Explore novels, original fiction, and creative works focused on psychological fiction and human experience.">
   
-  <!-- Browser Favicon: The Sovereign Coronet (Matching Novel Website) -->
+  <!-- Browser Favicon: The Sovereign Coronet -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%233E3D43'/><path d='M6 21L4 10l6 4.5L16 6l6 8.5 6-4.5-2 11H6z' stroke='%23D9C1C6' stroke-width='1.8' fill='none' stroke-linejoin='round'/><path d='M6 24h20' stroke='%23D9C1C6' stroke-width='1.8'/><circle cx='16' cy='17' r='1.5' fill='%23D9C1C6'/></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -161,27 +161,18 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-theme-secondary selection:text-theme-text">
 
-  <!-- ==================== HEADER & TOP NAVIGATION ==================== -->
-  <header id="siteHeader" style="background-color: var(--header-bg); border-color: var(--color-border);" class="sticky top-0 z-50 backdrop-blur-md border-b transition-colors duration-300">
+  <!-- ==================== HEADER & TOP NAVIGATION WITH SMART SCROLL ==================== -->
+  <header id="siteHeader" style="background-color: var(--header-bg); border-color: var(--color-border);" class="sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ease-in-out">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
       
-      <!-- Queen Usman Wordmark with Sovereign Coronet Crest -->
-      <a href="javascript:void(0)" onclick="switchView('home')" class="group flex items-center gap-3.5 focus:outline-none" aria-label="Return to Queen Usman Home">
-        <div class="w-9 h-9 rounded-sm border border-theme-border flex items-center justify-center bg-theme-panel group-hover:border-theme-accent transition-all shadow-sm shrink-0">
-          <svg class="w-5 h-5 text-theme-accent transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 17L2 8l5 3.5 5-6.5 5 6.5 5-3.5-2 9H4z" />
-            <path d="M4 19h16" stroke-width="1.25" />
-            <circle cx="12" cy="14" r="1" fill="currentColor" />
-          </svg>
-        </div>
-        <div class="flex flex-col">
-          <span class="font-display tracking-[0.24em] text-lg md:text-xl font-semibold text-theme-heading group-hover:text-theme-accent transition-colors">
-            QUEEN USMAN
-          </span>
-          <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-theme-secondary font-semibold mt-0.5">
-            Novelist &bull; Author
-          </span>
-        </div>
+      <!-- Queen Usman Wordmark (Coronet Icon Box Removed) -->
+      <a href="javascript:void(0)" onclick="switchView('home')" class="group flex flex-col focus:outline-none" aria-label="Return to Queen Usman Home">
+        <span class="font-display tracking-[0.24em] text-lg md:text-xl font-semibold text-theme-heading group-hover:text-theme-accent transition-colors">
+          QUEEN USMAN
+        </span>
+        <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-theme-secondary font-semibold mt-0.5">
+          Novelist &bull; Author
+        </span>
       </a>
 
       <!-- Primary Navigation Bar -->
@@ -813,6 +804,28 @@
       if (msg) msg.classList.remove('hidden');
       e.target.reset();
     }
+
+    // Smart Scroll: Header hides when scrolling down, reappears when scrolling up
+    let lastScrollY = window.pageYOffset;
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('siteHeader');
+      const currentScrollY = window.pageYOffset;
+
+      if (currentScrollY <= 20) {
+        header.classList.remove('-translate-y-full');
+        header.classList.add('translate-y-0');
+      } else if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Scrolling down -> hide header
+        header.classList.remove('translate-y-0');
+        header.classList.add('-translate-y-full');
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up -> reveal header
+        header.classList.remove('-translate-y-full');
+        header.classList.add('translate-y-0');
+      }
+
+      lastScrollY = currentScrollY;
+    }, { passive: true });
 
     // Initialization (Always defaults to Dark Mode until explicitly changed)
     window.addEventListener('DOMContentLoaded', () => {
