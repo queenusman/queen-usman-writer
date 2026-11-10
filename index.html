@@ -71,6 +71,7 @@
       --color-secondary: #8E7D8A;       /* Muted Mauve */
       --color-callout-bg: rgba(81, 75, 84, 0.45);
       
+      /* Primary Button Styling (Uniform across modes) */
       --color-btn: #D9C1C6;             /* Dusty Rose button */
       --color-btn-text: #3E3D43;        /* Charcoal plum text */
       --color-btn-border: #D9C1C6;
@@ -84,13 +85,15 @@
     }
 
     /* ========================================================
-       THEME 2: INVERSE LIGHT MODE (High-Contrast Visible Rose)
+       THEME 2: INVERSE LIGHT MODE (Matching Header & Container)
        ======================================================== */
     .theme-ivory {
       --color-bg: #F8F7F5;               /* Direct inverse of #3E3D43 */
       --color-bg-subtle: #F1ECE5;        /* Direct inverse of #343338 */
-      --color-panel: #EDEAE4;            /* Direct inverse of #49474E */
-      --color-panel-hover: #E2DDD5;      /* Direct inverse of #524E57 */
+      
+      /* Container / panel color matches the light header canvas */
+      --color-panel: #F8F7F5;            
+      --color-panel-hover: #F1ECE5;      
       
       --color-border: #CCC4BC;          /* Direct inverse of #625B64 */
       --color-border-subtle: #DCD6CF;   /* Direct inverse of #4D4750 */
@@ -104,12 +107,15 @@
       --color-secondary: #B27B91;       /* Deep Rose for structural labels */
       --color-callout-bg: rgba(178, 123, 145, 0.16);
       
-      --color-btn: #3E3D43;             /* Charcoal button */
-      --color-btn-text: #F8F7F5;        /* Warm Ivory text */
-      --color-btn-border: #3E3D43;
-      
+      /* Navigation header matches the container/canvas color */
       --header-bg: rgba(248, 247, 245, 0.94);
       --footer-bg: #F1ECE5;
+      
+      /* Primary Button Styling (Uniform: identical to dark mode) */
+      --color-btn: #D9C1C6;
+      --color-btn-text: #3E3D43;
+      --color-btn-border: #D9C1C6;
+      
       --selection-bg: #B27B91;
       --selection-text: #F8F7F5;
       --page-texture: radial-gradient(circle at 50% 0%, rgba(178, 123, 145, 0.12) 0%, rgba(248, 247, 245, 0) 70%);
@@ -218,7 +224,7 @@
     </div>
 
     <!-- Mobile Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden border-b border-theme-border bg-theme-bg px-6 py-6 space-y-4 text-xs font-sans uppercase tracking-[0.2em]">
+    <div id="mobileMenu" class="hidden md:hidden border-b border-theme-border bg-theme-panel px-6 py-6 space-y-4 text-xs font-sans uppercase tracking-[0.2em]">
       <button onclick="switchView('home'); toggleMobileMenu()" class="block w-full text-left py-2 text-theme-heading font-medium">Home</button>
       <button onclick="switchView('books'); toggleMobileMenu()" class="block w-full text-left py-2 text-theme-text-muted hover:text-theme-heading">Books</button>
       <button onclick="switchView('fiction'); toggleMobileMenu()" class="block w-full text-left py-2 text-theme-text-muted hover:text-theme-heading">Fiction</button>
