@@ -143,21 +143,25 @@ html, body {
   z-index: 4;
 }
 
+.cube.returning .face-front {
+  pointer-events: none;
+}
+
 /* ==========================================================================
-   CENTERED SIDE-EDGE CHEVRON ARROWS (NO TAIL)
+   EXTREME SIDE-EDGE TAILLESS ARROWHEADS (CENTERED)
    ========================================================================== */
 .edge-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 68px;
+  width: 34px;
+  height: 64px;
   padding: 0;
   border: 0;
   background: none;
   color: var(--charcoal);
   font-family: var(--font-sans);
-  font-size: 1.9rem;
+  font-size: 1.85rem;
   font-weight: 300;
   line-height: 1;
   display: grid;
@@ -169,22 +173,22 @@ html, body {
 }
 
 .edge-arrow.left {
-  left: 2px;
+  left: 0;
 }
 
 .edge-arrow.right {
-  right: 2px;
+  right: 0;
 }
 
 .edge-arrow.left:hover {
   color: var(--accent-deep);
-  transform: translate(-3px, -50%);
+  transform: translate(-2px, -50%);
 }
 
 .edge-arrow.right:hover,
 .home-screen:hover .edge-arrow.right {
   color: var(--accent-deep);
-  transform: translate(3px, -50%);
+  transform: translate(2px, -50%);
 }
 
 /* ==========================================================================
@@ -194,7 +198,7 @@ html, body {
   position: relative;
   flex: 1;
   width: 100%;
-  padding: calc(env(safe-area-inset-top, 0px) + 32px) 38px calc(env(safe-area-inset-bottom, 0px) + 36px);
+  padding: calc(env(safe-area-inset-top, 0px) + 32px) 36px calc(env(safe-area-inset-bottom, 0px) + 36px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -273,7 +277,7 @@ html, body {
 }
 
 /* ==========================================================================
-   TWIN SWIPEABLE PAGES (LEFT-ALIGNED OPEN BOTTOM-BORDER ROWS + EDGE ARROWS)
+   TWIN SWIPEABLE PAGES (JUSTIFIED HEADINGS + LEFT-ALIGNED OPEN ROWS)
    ========================================================================== */
 .top-bar {
   display: flex;
@@ -313,7 +317,7 @@ html, body {
   flex: 0 0 100%;
   width: 100%;
   scroll-snap-align: start;
-  padding: 12px 48px 20px;
+  padding: 12px 42px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -330,9 +334,10 @@ html, body {
 }
 
 .nb-header {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .nb-kicker {
@@ -343,9 +348,11 @@ html, body {
   text-transform: uppercase;
   color: var(--accent-deep);
   margin: 0 0 12px;
+  text-align: justify;
 }
 
 .nb-display {
+  width: 100%;
   font-family: var(--font-serif);
   font-size: clamp(2.35rem, 7.6vw, 3.5rem);
   font-weight: 400;
@@ -353,6 +360,7 @@ html, body {
   line-height: 1.04;
   color: var(--ink);
   margin: 0 0 18px;
+  text-align: justify;
 }
 
 .nb-copy {
@@ -488,21 +496,14 @@ html, body {
 }
 
 .sc h2 {
+  width: 100%;
   font-family: var(--font-serif);
   font-size: clamp(1.85rem, 4vw, 2.5rem);
   font-weight: 400;
   letter-spacing: 0.06em;
-  margin: 14px 0 6px;
-}
-
-.sub {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
   color: var(--accent-deep);
-  margin-bottom: 22px;
+  text-align: justify;
+  margin: 14px 0 22px;
 }
 
 .prose-sheet {
@@ -633,17 +634,17 @@ html, body {
   }
 
   .edge-arrow {
-    width: 52px;
-    height: 76px;
+    width: 44px;
+    height: 72px;
     font-size: 1.9rem;
   }
 
   .edge-arrow.left {
-    left: 10px;
+    left: 0;
   }
 
   .edge-arrow.right {
-    right: 10px;
+    right: 0;
   }
 
   .top-bar {
@@ -655,7 +656,7 @@ html, body {
   }
 
   .page {
-    padding: 18px 84px 26px;
+    padding: 18px 80px 26px;
   }
 
   .nb-sheet {
@@ -691,10 +692,6 @@ html, body {
 
   .sc h2 {
     font-size: clamp(1.65rem, 3.2vw, 2.1rem);
-  }
-
-  .sub {
-    font-size: 0.5625rem;
   }
 
   .prose-sheet {
@@ -810,18 +807,22 @@ var slideCounter = document.getElementById('slideCounter');
 var pager = document.getElementById('pager');
 var dots = document.querySelectorAll('#dots i');
 var turnTimer = null;
+var isTurning = false;
+var lastTouchTap = 0;
 
 function turnToInner(){
+  if(isTurning) return;
+  isTurning = true;
   clearTimeout(turnTimer);
   pager.scrollTo({left: 0, behavior: 'auto'});
   stage.classList.remove('flat');
-  cube.classList.remove('settled');
-  cube.classList.remove('turned');
+  cube.classList.remove('settled', 'returning', 'turned');
   void cube.offsetWidth;
   requestAnimationFrame(function(){
     cube.classList.add('turned');
   });
   turnTimer = setTimeout(function(){
+    isTurning = false;
     if(cube.classList.contains('turned')){
       cube.classList.add('settled');
       stage.classList.add('flat');
@@ -830,20 +831,20 @@ function turnToInner(){
 }
 
 function turnToCover(){
+  if(isTurning) return;
+  isTurning = true;
   clearTimeout(turnTimer);
   closeScreen();
   stage.classList.remove('flat');
   cube.classList.remove('settled');
-  cube.classList.add('turned');
+  cube.classList.add('returning', 'turned');
   void cube.offsetWidth;
   requestAnimationFrame(function(){
     cube.classList.remove('turned');
   });
   turnTimer = setTimeout(function(){
-    if(!cube.classList.contains('turned')){
-      cube.classList.add('settled');
-      stage.classList.add('flat');
-    }
+    isTurning = false;
+    cube.classList.remove('returning');
   }, 850);
 }
 
@@ -852,12 +853,6 @@ function goSlide(index){
   var target = Math.max(0, Math.min(max, index));
   pager.scrollTo({left: target * pager.clientWidth, behavior: 'smooth'});
 }
-
-homeTrigger.addEventListener('click', turnToInner);
-edgeEnter.addEventListener('click', function(e){
-  e.stopPropagation();
-  turnToInner();
-});
 
 pager.addEventListener('scroll', function(){
   if(!pager.clientWidth) return;
@@ -912,21 +907,18 @@ var LISTS = {
 
 var PROSE = {
   'Author Note': {
-    sub: 'A Note From the Author',
     paragraphs: [
       'I wrote Or So She Thought for women learning the difference between loving where they come from and surrendering who they are becoming.',
       'Set in the 1990s island kingdom of Norwyn, this story follows Princess Elisabeta as expectations tighten around her—and as she discovers how quiet a real choice can be.'
     ]
   },
   'Premise': {
-    sub: 'The Premise',
     paragraphs: [
       'In 1990s Norwyn, duty is inherited long before a title is claimed. Princess Elisabeta has spent her life reading the room, keeping the peace, and fulfilling what others assume she wants.',
       'When an unexpected shift inside the court and her own inner life forces a reckoning, the story she believed about her future begins to unravel—one honest decision at a time.'
     ]
   },
   'Copyright Notice': {
-    sub: 'Copyright & Content Notice',
     paragraphs: [
       '© Queen Usman. All rights reserved. Norwyn, Or So She Thought, and all characters, places, and archival materials are original works of fiction.',
       'This preview space explores themes of family obligation, emotional restraint, identity, and personal autonomy.'
@@ -956,7 +948,6 @@ function openScreen(name){
     var p = PROSE[name];
     showScreen(
       '<h2>' + esc(name) + '</h2>' +
-      '<div class="sub">' + esc(p.sub) + '</div>' +
       '<div class="prose-sheet">' + p.paragraphs.map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('') + '</div>'
     );
     return;
@@ -969,7 +960,6 @@ function openScreen(name){
       : '';
     showScreen(
       '<h2>' + esc(name) + '</h2>' +
-      '<div class="sub">' + items.length + ' entries · tap to mark</div>' +
       '<ul class="ix">' + items.map(function(r){
         return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
       }).join('') + '</ul>' +
@@ -979,9 +969,9 @@ function openScreen(name){
 }
 
 function handleTap(target){
-  var x;
-  if(x = target.closest('[data-nav]')){
-    var dir = x.dataset.nav;
+  var navBtn = target.closest('[data-nav]');
+  if(navBtn){
+    var dir = navBtn.dataset.nav;
     var cur = pager.clientWidth ? Math.round(pager.scrollLeft / pager.clientWidth) : 0;
     if(dir === 'home'){
       turnToCover();
@@ -992,16 +982,18 @@ function handleTap(target){
     }
     return true;
   }
-  if(x = target.closest('[data-open]')){
-    openScreen(x.dataset.open);
+  var openBtn = target.closest('[data-open]');
+  if(openBtn){
+    openScreen(openBtn.dataset.open);
     return true;
   }
   if(target.closest('[data-x]')){
     closeScreen();
     return true;
   }
-  if(x = target.closest('.ix li')){
-    x.classList.toggle('on');
+  var listItem = target.closest('.ix li');
+  if(listItem){
+    listItem.classList.toggle('on');
     return true;
   }
   if(target.closest('.ad')){
@@ -1018,7 +1010,7 @@ function handleTap(target){
   return false;
 }
 
-var tapStart = null, lastTouchTap = 0;
+var tapStart = null;
 document.addEventListener('touchstart', function(e){
   if(e.touches.length === 1){
     tapStart = {x: e.touches[0].clientX, y: e.touches[0].clientY, target: e.target};
@@ -1032,20 +1024,24 @@ document.addEventListener('touchend', function(e){
   var target = tapStart.target;
   tapStart = null;
   if(dx < 10 && dy < 10){
-    if(target.closest('#homeTrigger, #edgeEnter')){
-      lastTouchTap = Date.now();
-      turnToInner();
+    lastTouchTap = Date.now();
+    if(handleTap(target)){
       return;
     }
-    if(handleTap(target)){
-      lastTouchTap = Date.now();
+    if(target.closest('#homeTrigger, #edgeEnter')){
+      turnToInner();
     }
   }
 }, {passive: true});
 
 document.addEventListener('click', function(e){
-  if(Date.now() - lastTouchTap < 450) return;
-  handleTap(e.target);
+  if(Date.now() - lastTouchTap < 850) return;
+  if(handleTap(e.target)){
+    return;
+  }
+  if(e.target.closest('#homeTrigger, #edgeEnter')){
+    turnToInner();
+  }
 });
 </script>
 </body>
