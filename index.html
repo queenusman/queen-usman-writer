@@ -338,7 +338,7 @@ html, body {
 
 .nb-sheet {
   width: 100%;
-  max-width: 31rem;
+  max-width: 34rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -349,20 +349,26 @@ html, body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .nb-display {
   width: 100%;
   font-family: var(--font-serif);
-  font-size: clamp(2.35rem, 7.6vw, 3.5rem);
+  font-size: clamp(1.85rem, 5.2vw, 2.75rem);
   font-weight: 400;
   letter-spacing: 0.02em;
-  line-height: 1.08;
-  color: var(--ink);
+  line-height: 1.12;
+  color: var(--accent-deep);
   margin: 0 0 18px;
-  text-align: justify;
-  text-align-last: justify;
+  text-align: left;
+  white-space: nowrap;
+}
+
+@media (max-width: 440px) {
+  .nb-display {
+    white-space: normal;
+  }
 }
 
 .nb-copy {
@@ -647,12 +653,12 @@ html, body {
   }
 
   .nb-sheet {
-    max-width: 34rem;
+    max-width: 36rem;
     gap: 26px;
   }
 
   .nb-display {
-    font-size: clamp(2.5rem, 3.8vw, 3.35rem);
+    font-size: clamp(2.1rem, 3.1vw, 2.75rem);
     margin-bottom: 16px;
   }
 
