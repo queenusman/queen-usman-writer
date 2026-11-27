@@ -12,8 +12,8 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --bg: #F5F1EA;
-  --panel: #FAF7F2;
-  --panel-hover: #F2ECE2;
+  --sheet: #FAF7F2;
+  --sheet-hover: #F1EBE0;
   --border: #DED5C7;
   --border-subtle: #EAE2D6;
   --ink: #111111;
@@ -24,7 +24,7 @@
   --callout: rgba(185, 168, 143, 0.22);
   --dot: #D5CBB9;
   --dotOn: #111111;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 250, 0.78) 0%, rgba(245, 241, 234, 0) 72%);
+  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 250, 0.82) 0%, rgba(245, 241, 234, 0) 72%);
 
   --card-w: 100vw;
   --card-h: 100dvh;
@@ -245,13 +245,13 @@ html, body {
 }
 
 /* ==========================================================================
-   QUIET EDITORIAL CARDS (ONE CARD PER SWIPEABLE PAGE)
+   NOTEBOOK-SHEET SWIPEABLE SLIDES (INSPIRED BY REFERENCE)
    ========================================================================== */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: calc(env(safe-area-inset-top, 0px) + 18px) 24px 6px;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) 24px 4px;
   position: relative;
   z-index: 6;
   flex-shrink: 0;
@@ -279,6 +279,15 @@ html, body {
   color: var(--accent-deep);
 }
 
+.top-meta {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 .pager {
   flex: 1;
   display: flex;
@@ -297,99 +306,120 @@ html, body {
   flex: 0 0 100%;
   width: 100%;
   scroll-snap-align: start;
-  padding: 12px 24px 20px;
+  padding: 8px 26px 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow-y: auto;
 }
 
-.ed-card {
+.nb-sheet {
   width: 100%;
-  max-width: 28.5rem;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 30px 24px;
+  max-width: 34rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
 }
 
-.ed-kicker {
+.nb-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nb-kicker {
   font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--accent-deep);
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 
-.ed-heading {
+.nb-display {
   font-family: var(--font-serif);
-  font-size: clamp(1.75rem, 4.6vw, 2.25rem);
+  font-size: clamp(2.45rem, 8.2vw, 3.6rem);
   font-weight: 400;
-  letter-spacing: 0.08em;
-  line-height: 1.16;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.03;
   color: var(--ink);
+  margin: 0 0 18px;
+}
+
+.nb-copy {
+  font-family: var(--font-body);
+  font-size: 1.04rem;
+  line-height: 1.68;
+  color: var(--charcoal);
+  margin: 0;
+  max-width: 28rem;
+}
+
+/* Tactile Bottom Index Section (Matching the Reference's Bottom Phase Dock) */
+.nb-dock {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+
+.nb-dock-label {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
   margin: 0 0 14px;
 }
 
-.ed-rule {
-  width: 36px;
-  height: 1px;
-  background: var(--accent);
-  margin: 0 0 16px;
+.nb-tokens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
-.ed-copy {
-  font-family: var(--font-body);
-  font-size: 1.02rem;
-  line-height: 1.72;
-  color: var(--muted);
-  margin: 0 0 24px;
+.nb-tokens.four {
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.ed-rows {
-  border-top: 1px solid var(--border);
-}
-
-.ed-row {
-  width: 100%;
+.nb-token {
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 16px 14px;
+  min-height: 86px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   text-align: left;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 15px 6px;
-  font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--charcoal);
   cursor: pointer;
   touch-action: manipulation;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.ed-row:hover {
-  background: var(--panel-hover);
-  color: var(--ink);
-  padding-left: 12px;
+.nb-token:hover {
+  background: var(--sheet-hover);
+  border-color: var(--ink);
+  transform: translateY(-2px);
 }
 
-.ed-row span {
+.nb-token-num {
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  letter-spacing: 0;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   color: var(--accent-deep);
-  transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.ed-row:hover span {
+.nb-token-title {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.22;
   color: var(--ink);
-  transform: translateX(3px);
 }
 
 .dots {
@@ -479,8 +509,7 @@ html, body {
   font-family: var(--font-serif);
   font-size: clamp(1.85rem, 4vw, 2.5rem);
   font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   margin: 14px 0 6px;
 }
 
@@ -581,7 +610,7 @@ html, body {
 }
 
 .ui-btn {
-  background: var(--panel);
+  background: var(--sheet);
   color: var(--charcoal);
   border: 1px solid var(--border);
   padding: 0 18px;
@@ -597,11 +626,11 @@ html, body {
 .ui-btn:hover {
   border-color: var(--ink);
   color: var(--ink);
-  background: var(--panel-hover);
+  background: var(--sheet-hover);
 }
 
 /* ==========================================================================
-   DESKTOP PROPORTIONS (NO OUTER BOXED FRAME)
+   DESKTOP EDITORIAL PROPORTIONS (NO BOXED CONTAINER)
    ========================================================================== */
 @media (min-width: 760px) {
   .face-front {
@@ -617,22 +646,41 @@ html, body {
   }
 
   .page {
-    padding: 20px 56px 28px;
+    padding: 16px 56px 28px;
   }
 
-  .ed-card {
-    max-width: 34rem;
-    padding: 42px 44px;
+  .nb-sheet {
+    max-width: 44rem;
+    gap: 34px;
   }
 
-  .ed-copy {
-    font-size: 1.08rem;
+  .nb-display {
+    font-size: clamp(3rem, 4.8vw, 4.2rem);
+    margin-bottom: 20px;
+  }
+
+  .nb-copy {
+    font-size: 1.12rem;
     line-height: 1.78;
-    margin-bottom: 28px;
+    max-width: 36rem;
   }
 
-  .ed-row {
-    padding: 17px 8px;
+  .nb-tokens {
+    gap: 14px;
+  }
+
+  .nb-tokens.four {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .nb-token {
+    padding: 20px 18px;
+    min-height: 108px;
+    border-radius: 26px;
+  }
+
+  .nb-token-title {
+    font-size: 1.24rem;
   }
 }
 </style>
@@ -661,48 +709,80 @@ html, body {
       </div>
     </main>
 
-    <!-- RIGHT FACE: Quiet Editorial Cards (One Card Per Swipeable Page) -->
+    <!-- RIGHT FACE: Two Swipeable Notebook-Sheet Slides -->
     <section class="face face-right" aria-label="Novel Pages">
       <div class="top-bar">
         <button type="button" class="back-home" id="toCover" aria-label="Back to home">←</button>
+        <span class="top-meta" id="slideCounter">01 / 02</span>
       </div>
 
       <div class="pager" id="pager">
-        <!-- Page 1: Before You Begin -->
+        <!-- Slide 1: Before You Begin -->
         <section class="page" aria-label="Before You Begin">
-          <article class="ed-card">
-            <p class="ed-kicker">Opening Threshold</p>
-            <h2 class="ed-heading">Before You Begin</h2>
-            <div class="ed-rule" aria-hidden="true"></div>
-            <p class="ed-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
-            <div class="ed-rows">
-              <button type="button" class="ed-row" data-open="Author Note">A Note From the Author <span>→</span></button>
-              <button type="button" class="ed-row" data-open="Premise">The Premise <span>→</span></button>
-              <button type="button" class="ed-row" data-open="Copyright Notice">Copyright &amp; Content Notice <span>→</span></button>
+          <article class="nb-sheet">
+            <div class="nb-header">
+              <p class="nb-kicker">Opening Threshold</p>
+              <h2 class="nb-display">Before<br>You Begin</h2>
+              <p class="nb-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
+            </div>
+
+            <div class="nb-dock">
+              <p class="nb-dock-label">Essential Notes</p>
+              <div class="nb-tokens">
+                <button type="button" class="nb-token" data-open="Author Note">
+                  <span class="nb-token-num">I</span>
+                  <span class="nb-token-title">A Note From the Author</span>
+                </button>
+                <button type="button" class="nb-token" data-open="Premise">
+                  <span class="nb-token-num">II</span>
+                  <span class="nb-token-title">The Premise</span>
+                </button>
+                <button type="button" class="nb-token" data-open="Copyright Notice">
+                  <span class="nb-token-num">III</span>
+                  <span class="nb-token-title">Copyright &amp; Content</span>
+                </button>
+              </div>
             </div>
           </article>
         </section>
 
-        <!-- Page 2: Story & World of Norwyn -->
+        <!-- Slide 2: Story & World of Norwyn -->
         <section class="page" aria-label="Story and World of Norwyn">
-          <article class="ed-card">
-            <p class="ed-kicker">Or So She Thought</p>
-            <h2 class="ed-heading">Story &amp; World of Norwyn</h2>
-            <div class="ed-rule" aria-hidden="true"></div>
-            <p class="ed-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its cast, and the bound records in the archives.</p>
-            <div class="ed-rows">
-              <button type="button" class="ed-row" data-open="Chapters">Read the Chapters <span>→</span></button>
-              <button type="button" class="ed-row" data-open="World of Norwyn">The World of Norwyn <span>→</span></button>
-              <button type="button" class="ed-row" data-open="Characters">The Characters <span>→</span></button>
-              <button type="button" class="ed-row" data-open="Norwyn Archives">The Norwyn Archives <span>→</span></button>
+          <article class="nb-sheet">
+            <div class="nb-header">
+              <p class="nb-kicker">Or So She Thought</p>
+              <h2 class="nb-display">Story &amp;<br>World of<br>Norwyn</h2>
+              <p class="nb-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its characters, and the bound records in the archives.</p>
+            </div>
+
+            <div class="nb-dock">
+              <p class="nb-dock-label">Explore the Volume</p>
+              <div class="nb-tokens four">
+                <button type="button" class="nb-token" data-open="Chapters">
+                  <span class="nb-token-num">01</span>
+                  <span class="nb-token-title">Read the Chapters</span>
+                </button>
+                <button type="button" class="nb-token" data-open="World of Norwyn">
+                  <span class="nb-token-num">02</span>
+                  <span class="nb-token-title">The World of Norwyn</span>
+                </button>
+                <button type="button" class="nb-token" data-open="Characters">
+                  <span class="nb-token-num">03</span>
+                  <span class="nb-token-title">The Characters</span>
+                </button>
+                <button type="button" class="nb-token" data-open="Norwyn Archives">
+                  <span class="nb-token-num">04</span>
+                  <span class="nb-token-title">The Norwyn Archives</span>
+                </button>
+              </div>
             </div>
           </article>
         </section>
       </div>
 
       <div class="dots" id="dots" aria-label="Page indicators">
-        <i class="on" aria-label="Page 1"></i>
-        <i aria-label="Page 2"></i>
+        <i class="on" aria-label="Slide 1"></i>
+        <i aria-label="Slide 2"></i>
       </div>
     </section>
 
@@ -716,6 +796,7 @@ var stage = document.getElementById('stage');
 var cube = document.getElementById('cube');
 var homeTrigger = document.getElementById('homeTrigger');
 var toCover = document.getElementById('toCover');
+var slideCounter = document.getElementById('slideCounter');
 var turnTimer = null;
 
 function turnToInner(){
@@ -759,6 +840,7 @@ pager.addEventListener('scroll', function(){
   if(!pager.clientWidth) return;
   var n = Math.round(pager.scrollLeft / pager.clientWidth);
   dots.forEach(function(d, i){ d.classList.toggle('on', i === n); });
+  if(slideCounter) slideCounter.textContent = '0' + (n + 1) + ' / 0' + dots.length;
 });
 
 dots.forEach(function(d, i){
