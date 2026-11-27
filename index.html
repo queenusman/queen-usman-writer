@@ -6,6 +6,9 @@
 <title>Novel</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
+/* ==========================================================================
+1. DESIGN TOKENS (COLORS, FONTS, SPACING & RADII)
+   ========================================================================== */
 :root {
   /* --- Font Families --- */
   --font-display: 'Cinzel', Georgia, serif;
@@ -37,6 +40,45 @@
   --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
   --card-shadow: 0 10px 28px -6px rgba(92, 42, 62, 0.12), 0 2px 8px rgba(92, 42, 62, 0.05);
 
+  /* --- Scriptorium Archive Tokens --- */
+  --room: #EDE0E5;
+  --room-hi: #FFFDFD;
+  --case-bg: #E5D3DA;
+  --case-hi: #F6ECEF;
+  --shelf-back: #D9C3CC;
+  --plank-top: #FFFDFD;
+  --plank-mid: #EDE0E5;
+  --plank-bot: #D9C3CC;
+  --gilt: #9E5672;
+  --gilt-dim: #B5738D;
+  --plate-bg-1: #FFFDFD;
+  --plate-bg-2: #F6ECEF;
+  --plate-text: #2B1D24;
+  --plate-border: #DFC8D0;
+  --ink: #2B1D24;
+  --ink-muted: #6E5260;
+  --vellum: #FFFDFD;
+  --vellum-edge: #ECDCE2;
+  --rubric: #8C4863;
+  --ui: #2B1D24;
+  --ui-dim: #6E5260;
+  --btn-bg: rgba(255, 253, 253, 0.92);
+  --btn-hover: rgba(250, 242, 245, 0.98);
+  --btn-border: #D9BFC9;
+  --btn-border-hover: #9E5672;
+  --foil-gradient: linear-gradient(100deg, #9E5672 0%, #D49BB0 35%, #8C4863 65%, #C789A1 100%);
+
+  /* --- Cinematic Intro Tokens --- */
+  --qu-bg: #F6ECEF;
+  --qu-charcoal: #EDE0E5;
+  --qu-panel: rgba(255, 253, 253, 0.9);
+  --qu-border: rgba(158, 86, 114, 0.28);
+  --qu-accent: #9E5672;
+  --qu-secondary: #8C4863;
+  --qu-text: #2B1D24;
+  --qu-text-muted: rgba(110, 82, 96, 0.85);
+  --qu-reveal: #F6ECEF;
+
   /* --- Spacing, Radii & Layout Scale --- */
   --u: 8px;
   --radius-card: 2px;
@@ -45,6 +87,10 @@
   --radius-btn: 8px;
   --radius-control: 10px;
   --radius-full: 999px;
+  --container-prose: 48rem;
+  --container-gateway: 56rem;
+  --container-header: 64rem;
+  --container-archive: 72rem;
 
   /* --- Viewport Card Frame --- */
   --outer-bg: #F2E4E9;
@@ -65,6 +111,9 @@
   }
 }
 
+/* ==========================================================================
+2. BASE & EDITORIAL TYPOGRAPHY SCALE
+   ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -93,7 +142,7 @@ html, body {
   color: var(--selection-text);
 }
 
-/* Editorial Typography Classes */
+/* Display & Editorial Headings */
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(2.25rem, 5vw, 3.75rem);
@@ -119,6 +168,7 @@ html, body {
   color: var(--color-secondary);
 }
 
+/* Prose & Chapter Reading Body */
 .prose-body {
   font-family: var(--font-body);
   font-size: 1.08rem;
@@ -157,6 +207,18 @@ html, body {
   font-weight: 400;
 }
 
+/* ==========================================================================
+3. UI COMPONENTS & SPACING
+   ========================================================================== */
+.book-card {
+  background-color: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--card-shadow);
+  padding: 2rem;
+  position: relative;
+}
+
 .ui-btn {
   background-color: var(--primary-btn-bg);
   color: var(--primary-btn-text);
@@ -177,7 +239,60 @@ html, body {
   color: var(--color-accent);
 }
 
-/* 3D Cube Stage */
+/* ==========================================================================
+4. CINEMATIC INTRO & SCRIPTORIUM SCALE TOKENS
+   ========================================================================== */
+.qu-name {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 6.8vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: var(--qu-text);
+}
+
+.qu-tag {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: var(--qu-text-muted);
+}
+
+.scriptorium-book {
+  font-size: 18px;
+}
+
+.scriptorium-book .tx {
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.scriptorium-book .tx p.first::first-letter {
+  font-family: var(--font-display);
+  font-size: 2.8em;
+  line-height: 0.82;
+  color: var(--rubric);
+}
+
+.scriptorium-book .rh {
+  font-family: var(--font-sans);
+  font-size: 0.58em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rubric);
+}
+
+.scriptorium-book .ft {
+  font-family: var(--font-serif);
+  font-size: 0.78em;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+/* ==========================================================================
+5. 3D CUBE STAGE, COVER & INNER PAGES
+   ========================================================================== */
 .stage {
   position: relative;
   width: var(--card-w);
@@ -190,6 +305,7 @@ html, body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+  will-change: transform;
   transition: transform 0.85s cubic-bezier(0.22, 0.82, 0.24, 1);
   transform: translateZ(calc(var(--card-w) * -0.5)) rotateY(0deg);
 }
@@ -240,17 +356,8 @@ html, body {
   z-index: 3;
 }
 
-.cube.settled {
-  transform: none;
-  transform-style: flat;
-}
-
 .cube.settled .face-front {
   display: none;
-}
-
-.cube.settled .face-right {
-  transform: none;
 }
 
 /* Pure Typographic Cover */
@@ -441,7 +548,9 @@ html, body {
   background: var(--color-accent);
 }
 
-/* Slide-up Sub-screens */
+/* ==========================================================================
+6. SLIDE-UP SUB-SCREENS
+   ========================================================================== */
 .sc {
   position: fixed;
   top: 50%;
@@ -861,7 +970,7 @@ function turnToInner(){
   cube.classList.add('turned');
   turnTimer = setTimeout(function(){
     if(cube.classList.contains('turned')) cube.classList.add('settled');
-  }, 860);
+  }, 850);
 }
 
 function turnToCover(){
