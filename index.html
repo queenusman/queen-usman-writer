@@ -143,9 +143,54 @@ html, body {
 }
 
 /* ==========================================================================
+   SHARED EDGE CHEVRON ARROWS (NO TAIL)
+   ========================================================================== */
+.edge-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 68px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  font-size: 1.95rem;
+  font-weight: 300;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  z-index: 8;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.edge-arrow.left {
+  left: 4px;
+}
+
+.edge-arrow.right {
+  right: 4px;
+}
+
+.edge-arrow.left:hover {
+  color: var(--accent-deep);
+  transform: translate(-3px, -50%);
+}
+
+.edge-arrow.right:hover,
+.home-screen:hover .edge-arrow.right {
+  color: var(--accent-deep);
+  transform: translate(3px, -50%);
+}
+
+/* ==========================================================================
    HOME SCREEN: OR SO SHE THOUGHT
    ========================================================================== */
 .home-screen {
+  position: relative;
   flex: 1;
   width: 100%;
   display: flex;
@@ -156,12 +201,11 @@ html, body {
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease;
 }
 
 .home-screen:active {
-  opacity: 0.84;
-  transform: scale(0.995);
+  opacity: 0.88;
 }
 
 .title-top {
@@ -195,7 +239,7 @@ html, body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 36px;
 }
 
 .novel-title {
@@ -213,7 +257,6 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
   padding-bottom: 8px;
 }
 
@@ -227,63 +270,24 @@ html, body {
   margin: 0;
 }
 
-.enter-label {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  border-bottom: 1px solid var(--accent);
-  padding-bottom: 3px;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.home-screen:hover .enter-label {
-  color: var(--accent-deep);
-  border-color: var(--ink);
-}
-
 /* ==========================================================================
-   NOTEBOOK-SHEET SWIPEABLE SLIDES (INSPIRED BY REFERENCE)
+   TWIN SWIPEABLE PAGES (UNDERLINED CLICKABLE TEXT + EDGE ARROWS)
    ========================================================================== */
 .top-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: calc(env(safe-area-inset-top, 0px) + 16px) 24px 4px;
+  justify-content: flex-end;
+  padding: calc(env(safe-area-inset-top, 0px) + 20px) 26px 4px;
   position: relative;
   z-index: 6;
   flex-shrink: 0;
-}
-
-.back-home {
-  background: none;
-  border: 0;
-  color: var(--ink);
-  font-family: var(--font-sans);
-  font-size: 1.45rem;
-  line-height: 1;
-  min-width: 48px;
-  min-height: 48px;
-  display: grid;
-  place-items: center;
-  justify-content: start;
-  padding: 0;
-  cursor: pointer;
-  touch-action: manipulation;
-  transition: color 0.2s ease;
-}
-
-.back-home:hover {
-  color: var(--accent-deep);
 }
 
 .top-meta {
   font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 500;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -303,10 +307,11 @@ html, body {
 }
 
 .page {
+  position: relative;
   flex: 0 0 100%;
   width: 100%;
   scroll-snap-align: start;
-  padding: 8px 26px 18px;
+  padding: 12px 48px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -315,11 +320,11 @@ html, body {
 
 .nb-sheet {
   width: 100%;
-  max-width: 34rem;
+  max-width: 31rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
+  gap: 28px;
 }
 
 .nb-header {
@@ -340,86 +345,57 @@ html, body {
 
 .nb-display {
   font-family: var(--font-serif);
-  font-size: clamp(2.45rem, 8.2vw, 3.6rem);
+  font-size: clamp(2.35rem, 7.6vw, 3.5rem);
   font-weight: 400;
   letter-spacing: 0.02em;
-  line-height: 1.03;
+  line-height: 1.04;
   color: var(--ink);
   margin: 0 0 18px;
 }
 
 .nb-copy {
   font-family: var(--font-body);
-  font-size: 1.04rem;
+  font-size: 1.03rem;
   line-height: 1.68;
   color: var(--charcoal);
   margin: 0;
   max-width: 28rem;
 }
 
-/* Tactile Bottom Index Section (Matching the Reference's Bottom Phase Dock) */
-.nb-dock {
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
-}
-
-.nb-dock-label {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 14px;
-}
-
-.nb-tokens {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.nb-tokens.four {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.nb-token {
-  background: var(--sheet);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 16px 14px;
-  min-height: 86px;
+.nb-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: flex-start;
+  gap: 16px;
+}
+
+.nb-text-link {
+  background: none;
+  border: 0;
+  padding: 3px 0;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
   text-align: left;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--accent);
   cursor: pointer;
   touch-action: manipulation;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease, transform 0.2s ease;
 }
 
-.nb-token:hover {
-  background: var(--sheet-hover);
-  border-color: var(--ink);
-  transform: translateY(-2px);
-}
-
-.nb-token-num {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+.nb-text-link:hover {
   color: var(--accent-deep);
-}
-
-.nb-token-title {
-  font-family: var(--font-serif);
-  font-size: 1.12rem;
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.22;
-  color: var(--ink);
+  text-decoration-color: var(--ink);
+  transform: translateX(3px);
 }
 
 .dots {
@@ -641,46 +617,51 @@ html, body {
     width: 56px;
   }
 
+  .edge-arrow {
+    width: 56px;
+    height: 80px;
+    font-size: 2.2rem;
+  }
+
+  .edge-arrow.left {
+    left: 16px;
+  }
+
+  .edge-arrow.right {
+    right: 16px;
+  }
+
   .top-bar {
     padding: 24px 48px 8px;
   }
 
   .page {
-    padding: 16px 56px 28px;
+    padding: 20px 88px 28px;
   }
 
   .nb-sheet {
-    max-width: 44rem;
+    max-width: 36rem;
     gap: 34px;
   }
 
   .nb-display {
-    font-size: clamp(3rem, 4.8vw, 4.2rem);
+    font-size: clamp(3rem, 4.8vw, 4.1rem);
     margin-bottom: 20px;
   }
 
   .nb-copy {
     font-size: 1.12rem;
     line-height: 1.78;
-    max-width: 36rem;
+    max-width: 34rem;
   }
 
-  .nb-tokens {
-    gap: 14px;
+  .nb-links {
+    gap: 18px;
   }
 
-  .nb-tokens.four {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .nb-token {
-    padding: 20px 18px;
-    min-height: 108px;
-    border-radius: 26px;
-  }
-
-  .nb-token-title {
-    font-size: 1.24rem;
+  .nb-text-link {
+    font-size: 0.76rem;
+    letter-spacing: 0.26em;
   }
 }
 </style>
@@ -692,9 +673,9 @@ html, body {
 
     <!-- FRONT FACE: Or So She Thought Home Screen -->
     <main class="face face-front" id="frontFace">
-      <div class="home-screen" id="homeTrigger" role="button" tabindex="0" aria-label="Enter Or So She Thought">
+      <div class="home-screen" id="homeTrigger">
         <div class="title-top">
-          <p class="eyebrow">A Novel of Norwyn · 1990s</p>
+          <p class="eyebrow">A Royal Psychological Novel</p>
           <span class="title-rule" aria-hidden="true"></span>
         </div>
 
@@ -704,21 +685,23 @@ html, body {
 
         <div class="title-bottom">
           <p class="byline">By Queen Usman</p>
-          <span class="enter-label">Enter</span>
         </div>
+
+        <button type="button" class="edge-arrow right" id="edgeEnter" aria-label="Enter novel pages">›</button>
       </div>
     </main>
 
-    <!-- RIGHT FACE: Two Swipeable Notebook-Sheet Slides -->
+    <!-- RIGHT FACE: Twin Swipeable Pages -->
     <section class="face face-right" aria-label="Novel Pages">
       <div class="top-bar">
-        <button type="button" class="back-home" id="toCover" aria-label="Back to home">←</button>
         <span class="top-meta" id="slideCounter">01 / 02</span>
       </div>
 
       <div class="pager" id="pager">
-        <!-- Slide 1: Before You Begin -->
+        <!-- Twin Slide 1: Before You Begin -->
         <section class="page" aria-label="Before You Begin">
+          <button type="button" class="edge-arrow left" data-nav="home" aria-label="Back to home">‹</button>
+
           <article class="nb-sheet">
             <div class="nb-header">
               <p class="nb-kicker">Opening Threshold</p>
@@ -726,28 +709,20 @@ html, body {
               <p class="nb-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
             </div>
 
-            <div class="nb-dock">
-              <p class="nb-dock-label">Essential Notes</p>
-              <div class="nb-tokens">
-                <button type="button" class="nb-token" data-open="Author Note">
-                  <span class="nb-token-num">I</span>
-                  <span class="nb-token-title">A Note From the Author</span>
-                </button>
-                <button type="button" class="nb-token" data-open="Premise">
-                  <span class="nb-token-num">II</span>
-                  <span class="nb-token-title">The Premise</span>
-                </button>
-                <button type="button" class="nb-token" data-open="Copyright Notice">
-                  <span class="nb-token-num">III</span>
-                  <span class="nb-token-title">Copyright &amp; Content</span>
-                </button>
-              </div>
-            </div>
+            <ul class="nb-links">
+              <li><button type="button" class="nb-text-link" data-open="Author Note">A Note From the Author</button></li>
+              <li><button type="button" class="nb-text-link" data-open="Premise">The Premise</button></li>
+              <li><button type="button" class="nb-text-link" data-open="Copyright Notice">Copyright &amp; Content Notice</button></li>
+            </ul>
           </article>
+
+          <button type="button" class="edge-arrow right" data-nav="next" aria-label="Next page">›</button>
         </section>
 
-        <!-- Slide 2: Story & World of Norwyn -->
+        <!-- Twin Slide 2: Story & World of Norwyn (Last Page: Backward Only) -->
         <section class="page" aria-label="Story and World of Norwyn">
+          <button type="button" class="edge-arrow left" data-nav="prev" aria-label="Previous page">‹</button>
+
           <article class="nb-sheet">
             <div class="nb-header">
               <p class="nb-kicker">Or So She Thought</p>
@@ -755,27 +730,12 @@ html, body {
               <p class="nb-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its characters, and the bound records in the archives.</p>
             </div>
 
-            <div class="nb-dock">
-              <p class="nb-dock-label">Explore the Volume</p>
-              <div class="nb-tokens four">
-                <button type="button" class="nb-token" data-open="Chapters">
-                  <span class="nb-token-num">01</span>
-                  <span class="nb-token-title">Read the Chapters</span>
-                </button>
-                <button type="button" class="nb-token" data-open="World of Norwyn">
-                  <span class="nb-token-num">02</span>
-                  <span class="nb-token-title">The World of Norwyn</span>
-                </button>
-                <button type="button" class="nb-token" data-open="Characters">
-                  <span class="nb-token-num">03</span>
-                  <span class="nb-token-title">The Characters</span>
-                </button>
-                <button type="button" class="nb-token" data-open="Norwyn Archives">
-                  <span class="nb-token-num">04</span>
-                  <span class="nb-token-title">The Norwyn Archives</span>
-                </button>
-              </div>
-            </div>
+            <ul class="nb-links">
+              <li><button type="button" class="nb-text-link" data-open="Chapters">Read the Chapters</button></li>
+              <li><button type="button" class="nb-text-link" data-open="World of Norwyn">The World of Norwyn</button></li>
+              <li><button type="button" class="nb-text-link" data-open="Characters">The Characters</button></li>
+              <li><button type="button" class="nb-text-link" data-open="Norwyn Archives">The Norwyn Archives</button></li>
+            </ul>
           </article>
         </section>
       </div>
@@ -795,12 +755,15 @@ html, body {
 var stage = document.getElementById('stage');
 var cube = document.getElementById('cube');
 var homeTrigger = document.getElementById('homeTrigger');
-var toCover = document.getElementById('toCover');
+var edgeEnter = document.getElementById('edgeEnter');
 var slideCounter = document.getElementById('slideCounter');
+var pager = document.getElementById('pager');
+var dots = document.querySelectorAll('#dots i');
 var turnTimer = null;
 
 function turnToInner(){
   clearTimeout(turnTimer);
+  pager.scrollTo({left: 0, behavior: 'auto'});
   stage.classList.remove('flat');
   cube.classList.remove('settled');
   void cube.offsetWidth;
@@ -823,18 +786,17 @@ function turnToCover(){
   cube.classList.remove('turned');
 }
 
+function goSlide(index){
+  var max = dots.length - 1;
+  var target = Math.max(0, Math.min(max, index));
+  pager.scrollTo({left: target * pager.clientWidth, behavior: 'smooth'});
+}
+
 homeTrigger.addEventListener('click', turnToInner);
-homeTrigger.addEventListener('keydown', function(e){
-  if(e.key === 'Enter' || e.key === ' '){
-    e.preventDefault();
-    turnToInner();
-  }
+edgeEnter.addEventListener('click', function(e){
+  e.stopPropagation();
+  turnToInner();
 });
-
-toCover.addEventListener('click', turnToCover);
-
-var pager = document.getElementById('pager');
-var dots = document.querySelectorAll('#dots i');
 
 pager.addEventListener('scroll', function(){
   if(!pager.clientWidth) return;
@@ -845,7 +807,7 @@ pager.addEventListener('scroll', function(){
 
 dots.forEach(function(d, i){
   d.addEventListener('click', function(){
-    pager.scrollTo({left: i * pager.clientWidth, behavior: 'smooth'});
+    goSlide(i);
   });
 });
 
@@ -957,6 +919,18 @@ function openScreen(name){
 
 function handleTap(target){
   var x;
+  if(x = target.closest('[data-nav]')){
+    var dir = x.dataset.nav;
+    var cur = pager.clientWidth ? Math.round(pager.scrollLeft / pager.clientWidth) : 0;
+    if(dir === 'home'){
+      turnToCover();
+    } else if(dir === 'next'){
+      goSlide(cur + 1);
+    } else if(dir === 'prev'){
+      goSlide(cur - 1);
+    }
+    return true;
+  }
   if(x = target.closest('[data-open]')){
     openScreen(x.dataset.open);
     return true;
@@ -997,14 +971,9 @@ document.addEventListener('touchend', function(e){
   var target = tapStart.target;
   tapStart = null;
   if(dx < 10 && dy < 10){
-    if(target.closest('#homeTrigger')){
+    if(target.closest('#homeTrigger, #edgeEnter')){
       lastTouchTap = Date.now();
       turnToInner();
-      return;
-    }
-    if(target.closest('#toCover')){
-      lastTouchTap = Date.now();
-      turnToCover();
       return;
     }
     if(handleTap(target)){
