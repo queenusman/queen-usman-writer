@@ -103,7 +103,6 @@ html, body {
   transform: rotateY(0deg) translateZ(calc(var(--card-w) * 0.5));
   display: flex;
   flex-direction: column;
-  padding: calc(env(safe-area-inset-top, 0px) + 32px) 28px calc(env(safe-area-inset-bottom, 0px) + 36px);
   z-index: 2;
 }
 
@@ -131,7 +130,9 @@ html, body {
 }
 
 .cube.settled .face-front {
-  display: none;
+  display: flex;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .cube.settled .face-right {
@@ -143,7 +144,7 @@ html, body {
 }
 
 /* ==========================================================================
-   SHARED EDGE CHEVRON ARROWS (NO TAIL)
+   CENTERED SIDE-EDGE CHEVRON ARROWS (NO TAIL)
    ========================================================================== */
 .edge-arrow {
   position: absolute;
@@ -156,7 +157,7 @@ html, body {
   background: none;
   color: var(--charcoal);
   font-family: var(--font-sans);
-  font-size: 1.95rem;
+  font-size: 1.9rem;
   font-weight: 300;
   line-height: 1;
   display: grid;
@@ -168,11 +169,11 @@ html, body {
 }
 
 .edge-arrow.left {
-  left: 4px;
+  left: 2px;
 }
 
 .edge-arrow.right {
-  right: 4px;
+  right: 2px;
 }
 
 .edge-arrow.left:hover {
@@ -193,6 +194,7 @@ html, body {
   position: relative;
   flex: 1;
   width: 100%;
+  padding: calc(env(safe-area-inset-top, 0px) + 32px) 38px calc(env(safe-area-inset-bottom, 0px) + 36px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -239,7 +241,7 @@ html, body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 20px 36px;
+  padding: 20px 0;
 }
 
 .novel-title {
@@ -271,7 +273,7 @@ html, body {
 }
 
 /* ==========================================================================
-   TWIN SWIPEABLE PAGES (UNDERLINED CLICKABLE TEXT + EDGE ARROWS)
+   TWIN SWIPEABLE PAGES (FULL-WIDTH OPEN BOTTOM-BORDER ROWS + EDGE ARROWS)
    ========================================================================== */
 .top-bar {
   display: flex;
@@ -366,36 +368,40 @@ html, body {
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
+  gap: 6px;
+}
+
+.nb-links li {
+  width: 100%;
 }
 
 .nb-text-link {
+  width: 100%;
   background: none;
   border: 0;
-  padding: 3px 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 15px 12px;
   font-family: var(--font-sans);
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  text-align: left;
+  text-align: center;
   color: var(--ink);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 6px;
-  text-decoration-color: var(--accent);
+  display: block;
   cursor: pointer;
   touch-action: manipulation;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease, border-bottom-color 0.2s ease, background-color 0.2s ease;
 }
 
 .nb-text-link:hover {
   color: var(--accent-deep);
-  text-decoration-color: var(--ink);
-  transform: translateX(3px);
+  border-bottom-color: var(--ink);
+  background-color: rgba(185, 168, 143, 0.08);
 }
 
 .dots {
@@ -606,62 +612,105 @@ html, body {
 }
 
 /* ==========================================================================
-   DESKTOP EDITORIAL PROPORTIONS (NO BOXED CONTAINER)
+   DESKTOP PROPORTIONS & SLIGHTLY SCALED-DOWN DESKTOP TYPE
    ========================================================================== */
 @media (min-width: 760px) {
-  .face-front {
-    padding: 44px 56px 46px;
+  .home-screen {
+    padding: 40px 64px 42px;
+  }
+
+  .eyebrow,
+  .byline {
+    font-size: 0.625rem;
   }
 
   .title-rule {
-    width: 56px;
+    width: 52px;
+  }
+
+  .novel-title {
+    font-size: clamp(2.15rem, 4.2vw, 3.05rem);
   }
 
   .edge-arrow {
-    width: 56px;
-    height: 80px;
-    font-size: 2.2rem;
+    width: 52px;
+    height: 76px;
+    font-size: 1.9rem;
   }
 
   .edge-arrow.left {
-    left: 16px;
+    left: 10px;
   }
 
   .edge-arrow.right {
-    right: 16px;
+    right: 10px;
   }
 
   .top-bar {
-    padding: 24px 48px 8px;
+    padding: 22px 48px 6px;
+  }
+
+  .top-meta {
+    font-size: 0.5625rem;
   }
 
   .page {
-    padding: 20px 88px 28px;
+    padding: 18px 84px 26px;
   }
 
   .nb-sheet {
-    max-width: 36rem;
-    gap: 34px;
+    max-width: 34rem;
+    gap: 26px;
+  }
+
+  .nb-kicker {
+    font-size: 0.5625rem;
   }
 
   .nb-display {
-    font-size: clamp(3rem, 4.8vw, 4.1rem);
-    margin-bottom: 20px;
+    font-size: clamp(2.5rem, 3.8vw, 3.35rem);
+    margin-bottom: 16px;
   }
 
   .nb-copy {
-    font-size: 1.12rem;
-    line-height: 1.78;
-    max-width: 34rem;
+    font-size: 0.96rem;
+    line-height: 1.72;
+    max-width: 32rem;
   }
 
   .nb-links {
-    gap: 18px;
+    gap: 4px;
   }
 
   .nb-text-link {
-    font-size: 0.76rem;
-    letter-spacing: 0.26em;
+    padding: 14px 12px;
+    font-size: 0.65rem;
+    letter-spacing: 0.24em;
+  }
+
+  .sc h2 {
+    font-size: clamp(1.65rem, 3.2vw, 2.1rem);
+  }
+
+  .sub {
+    font-size: 0.5625rem;
+  }
+
+  .prose-sheet {
+    font-size: 0.98rem;
+    line-height: 1.78;
+  }
+
+  .prose-sheet p:first-of-type::first-letter {
+    font-size: 2.85rem;
+  }
+
+  .ix li {
+    font-size: 0.95rem;
+  }
+
+  .ix li em {
+    font-size: 0.65rem;
   }
 }
 </style>
@@ -686,9 +735,9 @@ html, body {
         <div class="title-bottom">
           <p class="byline">By Queen Usman</p>
         </div>
-
-        <button type="button" class="edge-arrow right" id="edgeEnter" aria-label="Enter novel pages">›</button>
       </div>
+
+      <button type="button" class="edge-arrow right" id="edgeEnter" aria-label="Enter novel pages">›</button>
     </main>
 
     <!-- RIGHT FACE: Twin Swipeable Pages -->
@@ -766,8 +815,11 @@ function turnToInner(){
   pager.scrollTo({left: 0, behavior: 'auto'});
   stage.classList.remove('flat');
   cube.classList.remove('settled');
+  cube.classList.remove('turned');
   void cube.offsetWidth;
-  cube.classList.add('turned');
+  requestAnimationFrame(function(){
+    cube.classList.add('turned');
+  });
   turnTimer = setTimeout(function(){
     if(cube.classList.contains('turned')){
       cube.classList.add('settled');
@@ -783,7 +835,15 @@ function turnToCover(){
   cube.classList.remove('settled');
   cube.classList.add('turned');
   void cube.offsetWidth;
-  cube.classList.remove('turned');
+  requestAnimationFrame(function(){
+    cube.classList.remove('turned');
+  });
+  turnTimer = setTimeout(function(){
+    if(!cube.classList.contains('turned')){
+      cube.classList.add('settled');
+      stage.classList.add('flat');
+    }
+  }, 850);
 }
 
 function goSlide(index){
