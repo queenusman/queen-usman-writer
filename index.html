@@ -14,51 +14,7 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: ui-monospace, Menlo, Consolas, monospace;
 
-  /* --- Default Mode: Ash + Crisp White --- */
-  --color-bg: #ECEAE4;
-  --color-bg-subtle: #E3E0D8;
-  --color-panel: #FFFFFF;
-  --color-panel-hover: #F7F6F3;
-  --color-border: #D2CEC4;
-  --color-border-subtle: #E1DDD3;
-  --color-text: #18181B;
-  --color-text-muted: #52525B;
-  --color-text-faint: #71717A;
-  --color-accent: #18181B;
-  --color-secondary: #52525B;
-  --color-callout-bg: rgba(24, 24, 27, 0.06);
-  --header-bg: rgba(236, 234, 228, 0.94);
-  --footer-bg: #E3E0D8;
-  --primary-btn-bg: #FFFFFF;
-  --primary-btn-text: #18181B;
-  --primary-btn-border: #C8C3B8;
-  --selection-bg: #18181B;
-  --selection-text: #FFFFFF;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.65) 0%, rgba(236, 234, 228, 0) 72%);
-  --card-shadow: 0 8px 24px -6px rgba(24, 24, 27, 0.08), 0 2px 6px rgba(24, 24, 27, 0.04);
-
-  /* --- Spacing, Radii & Layout Scale --- */
-  --u: 8px;
-  --radius-card: 2px;
-  --radius-case: 4px;
-  --radius-pill: 7px;
-  --radius-btn: 8px;
-  --radius-control: 10px;
-  --radius-full: 999px;
-
-  /* --- Viewport Card Frame --- */
-  --outer-bg: #E2DFD7;
-  --card-w: 100vw;
-  --card-h: 100dvh;
-  --card-r: 0px;
-
-  box-sizing: border-box;
-  color-scheme: light;
-}
-
-/* --- Pinkish Mode (data-theme="dark") --- */
-:root[data-theme="dark"],
-.theme-dark {
+  /* --- Single Blush / Rose Palette --- */
   --color-bg: #F6ECEF;
   --color-bg-subtle: #EDE0E5;
   --color-panel: #FFFDFD;
@@ -81,64 +37,23 @@
   --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
   --card-shadow: 0 10px 28px -6px rgba(92, 42, 62, 0.12), 0 2px 8px rgba(92, 42, 62, 0.05);
 
-  --outer-bg: #EBDCE1;
+  /* --- Spacing, Radii & Layout Scale --- */
+  --u: 8px;
+  --radius-card: 2px;
+  --radius-case: 4px;
+  --radius-pill: 7px;
+  --radius-btn: 8px;
+  --radius-control: 10px;
+  --radius-full: 999px;
+
+  /* --- Viewport Card Frame --- */
+  --outer-bg: #F2E4E9;
+  --card-w: 100vw;
+  --card-h: 100dvh;
+  --card-r: 0px;
+
+  box-sizing: border-box;
   color-scheme: light;
-}
-
-/* --- Ash + Crisp White Mode (data-theme="light") --- */
-:root[data-theme="light"],
-.theme-ivory {
-  --color-bg: #ECEAE4;
-  --color-bg-subtle: #E3E0D8;
-  --color-panel: #FFFFFF;
-  --color-panel-hover: #F7F6F3;
-  --color-border: #D2CEC4;
-  --color-border-subtle: #E1DDD3;
-  --color-text: #18181B;
-  --color-text-muted: #52525B;
-  --color-text-faint: #71717A;
-  --color-accent: #18181B;
-  --color-secondary: #52525B;
-  --color-callout-bg: rgba(24, 24, 27, 0.06);
-  --header-bg: rgba(236, 234, 228, 0.94);
-  --footer-bg: #E3E0D8;
-  --primary-btn-bg: #FFFFFF;
-  --primary-btn-text: #18181B;
-  --primary-btn-border: #C8C3B8;
-  --selection-bg: #18181B;
-  --selection-text: #FFFFFF;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.65) 0%, rgba(236, 234, 228, 0) 72%);
-  --card-shadow: 0 8px 24px -6px rgba(24, 24, 27, 0.08), 0 2px 6px rgba(24, 24, 27, 0.04);
-
-  --outer-bg: #E2DFD7;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not([data-theme="dark"]) {
-    --color-bg: #F6ECEF;
-    --color-bg-subtle: #EDE0E5;
-    --color-panel: #FFFDFD;
-    --color-panel-hover: #FAF2F5;
-    --color-border: #DFC8D0;
-    --color-border-subtle: #ECDCE2;
-    --color-text: #2B1D24;
-    --color-text-muted: #6E5260;
-    --color-text-faint: #8F6F7F;
-    --color-accent: #9E5672;
-    --color-secondary: #8C4863;
-    --color-callout-bg: rgba(158, 86, 114, 0.12);
-    --header-bg: rgba(246, 236, 239, 0.94);
-    --footer-bg: #EDE0E5;
-    --primary-btn-bg: #FFFDFD;
-    --primary-btn-text: #2B1D24;
-    --primary-btn-border: #D9BFC9;
-    --selection-bg: #E8B8C8;
-    --selection-text: #2B1D24;
-    --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
-    --card-shadow: 0 10px 28px -6px rgba(92, 42, 62, 0.12), 0 2px 8px rgba(92, 42, 62, 0.05);
-    --outer-bg: #EBDCE1;
-  }
 }
 
 /* Desktop View: Tall Vertical Portrait Rectangle with Curved Edges */
@@ -390,27 +305,6 @@ html, body {
   justify-content: start;
   padding: 0;
   cursor: pointer;
-}
-
-.mode-dot {
-  width: 36px;
-  height: 36px;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  display: grid;
-  place-items: center;
-}
-
-.mode-dot::after {
-  content: "";
-  width: 16px;
-  height: 16px;
-  border-radius: var(--radius-full);
-  border: 1.5px solid var(--color-text);
-  background: var(--color-accent);
-  display: block;
 }
 
 .pager {
@@ -911,7 +805,6 @@ html, body {
     <section class="face face-right" aria-label="Novel Pages">
       <div class="top-nav">
         <button class="back-cover" id="toCover" aria-label="Back to cover">←</button>
-        <button class="mode-dot" id="themeToggle" aria-label="Switch color mode" title="Switch Ash / Pinkish"></button>
       </div>
 
       <div class="pager" id="pager">
@@ -957,15 +850,9 @@ html, body {
 <div class="sc" id="sc"></div>
 
 <script>
-(function(){
-  var q = new URLSearchParams(location.search).get('theme');
-  if(q === 'dark' || q === 'light') document.documentElement.setAttribute('data-theme', q);
-})();
-
 var cube = document.getElementById('cube');
 var coverTrigger = document.getElementById('coverTrigger');
 var toCover = document.getElementById('toCover');
-var themeToggle = document.getElementById('themeToggle');
 var turnTimer = null;
 
 function turnToInner(){
@@ -993,13 +880,6 @@ coverTrigger.addEventListener('keydown', function(e){
 });
 
 toCover.addEventListener('click', turnToCover);
-
-themeToggle.addEventListener('click', function(){
-  var root = document.documentElement;
-  var isPink = root.getAttribute('data-theme') === 'dark' ||
-    (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  root.setAttribute('data-theme', isPink ? 'light' : 'dark');
-});
 
 var pager = document.getElementById('pager'), dots = document.querySelectorAll('#dots i');
 pager.addEventListener('scroll', function(){
