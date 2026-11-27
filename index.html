@@ -27,21 +27,20 @@
   --dot: #D9BFC9;
   --dotOn: #9E5672;
   --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
-  --shadow: 0 10px 28px -6px rgba(92, 42, 62, 0.12), 0 2px 8px rgba(92, 42, 62, 0.05);
+  --shadow: 0 14px 36px -8px rgba(92, 42, 62, 0.14), 0 3px 10px rgba(92, 42, 62, 0.05);
 
   --card-w: 100vw;
   --card-h: 100dvh;
   --card-r: 0px;
 
   box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
   color-scheme: light;
 }
 
-@media (min-width: 600px) {
+/* Desktop View: ~2x Wider Editorial Container */
+@media (min-width: 680px) {
   :root {
-    --card-w: min(390px, 88vw);
+    --card-w: min(760px, 90vw);
     --card-h: min(780px, 90vh);
     --card-r: 38px;
   }
@@ -67,65 +66,123 @@ html, body {
   justify-content: center;
 }
 
-.frame {
+::selection {
+  background: #E8B8C8;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   3D CUBE STAGE & FACES
+   ========================================================================== */
+.stage {
   position: relative;
   width: var(--card-w);
   height: var(--card-h);
-  border-radius: var(--card-r);
-  background: var(--bg);
-  background-image: var(--page-texture);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  perspective: 1800px;
 }
 
-/* Opening Home Screen: Or So She Thought */
-.home-view {
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.85s cubic-bezier(0.22, 0.82, 0.24, 1);
+  transform: translateZ(calc(var(--card-w) * -0.5)) rotateY(0deg);
+}
+
+.cube.turned {
+  transform: translateZ(calc(var(--card-w) * -0.5)) rotateY(-90deg);
+}
+
+.face {
   position: absolute;
   inset: 0;
-  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  background-image: var(--page-texture);
+  border-radius: var(--card-r);
+  box-shadow: var(--shadow);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.face-front {
+  transform: rotateY(0deg) translateZ(calc(var(--card-w) * 0.5));
+  display: flex;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + 32px) 28px calc(env(safe-area-inset-bottom, 0px) + 36px);
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.face-right {
+  transform: rotateY(90deg) translateZ(calc(var(--card-w) * 0.5));
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cube.turned .face-front {
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cube.turned .face-right {
+  pointer-events: auto;
+  z-index: 4;
+}
+
+.cube.settled .face-front {
+  display: none;
+  visibility: hidden;
+}
+
+/* ==========================================================================
+   HOME SCREEN: OR SO SHE THOUGHT
+   ========================================================================== */
+.home-screen {
+  flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  padding: 28px 24px 34px;
-  background: var(--bg);
-  background-image: var(--page-texture);
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  transition: opacity 0.32s ease, transform 0.32s ease, visibility 0.32s;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.home-view.hidden {
-  opacity: 0;
-  transform: translateY(-10px);
-  visibility: hidden;
-  pointer-events: none;
+.home-screen:active {
+  opacity: 0.82;
+  transform: scale(0.994);
 }
 
 .title-top {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding-top: 8px;
+  gap: 8px;
+  padding-top: 10px;
 }
 
 .eyebrow {
   font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--muted);
   margin: 0;
 }
 
 .title-rule {
-  width: 36px;
+  width: 40px;
   height: 1px;
   background: var(--border);
   margin-top: 8px;
@@ -137,15 +194,15 @@ html, body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 16px 0;
+  padding: 20px 0;
 }
 
 .novel-title {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 7.5vw, 2.75rem);
+  font-size: clamp(2.4rem, 5vw, 3.35rem);
   font-weight: 400;
-  letter-spacing: 0.14em;
-  line-height: 1.18;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
   text-transform: uppercase;
   color: var(--ink);
   margin: 0;
@@ -156,14 +213,14 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
 }
 
 .byline {
   font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--muted);
   margin: 0;
@@ -173,17 +230,28 @@ html, body {
   font-family: var(--font-sans);
   font-size: 0.5625rem;
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--accent);
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Inner Novel Pager */
+.home-screen:hover .enter-label {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   INNER NOVEL PAGES
+   ========================================================================== */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px 4px;
+  padding: calc(env(safe-area-inset-top, 0px) + 20px) 26px 4px;
+  position: relative;
+  z-index: 6;
   flex-shrink: 0;
 }
 
@@ -202,6 +270,8 @@ html, body {
   padding: 0;
   cursor: pointer;
   touch-action: manipulation;
+  position: relative;
+  z-index: 7;
 }
 
 .pager {
@@ -221,7 +291,7 @@ html, body {
 .page {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  padding: 16px 22px 20px;
+  padding: 16px 28px 22px;
   display: flex;
   flex-direction: column;
 }
@@ -231,19 +301,22 @@ html, body {
 }
 
 .p1 a {
+  display: block;
   font-family: var(--font-display);
-  font-size: clamp(1.55rem, 6vw, 1.95rem);
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
   font-weight: 500;
-  letter-spacing: 0.04em;
-  line-height: 1.65;
+  letter-spacing: 0.05em;
+  line-height: 1.72;
   color: var(--ink);
   text-decoration: none;
   padding-left: 10px;
   touch-action: manipulation;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .p1 a:hover {
   color: var(--accent);
+  transform: translateX(4px);
 }
 
 .p2 {
@@ -254,8 +327,11 @@ html, body {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 18px 16px;
+  padding: 20px 22px;
   box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
 }
 
 .list button {
@@ -266,12 +342,16 @@ html, body {
   border: 0;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   font-weight: 500;
-  line-height: 1.35;
-  padding: 13px 0;
+  line-height: 1.4;
+  padding: 14px 0;
   cursor: pointer;
   touch-action: manipulation;
+}
+
+.list button + button {
+  border-top: 1px solid var(--border-subtle);
 }
 
 .list button.done {
@@ -284,6 +364,7 @@ html, body {
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   margin: auto 0;
+  width: 100%;
 }
 
 .tile {
@@ -291,7 +372,7 @@ html, body {
   border: 1px solid var(--border);
   border-radius: 18px;
   aspect-ratio: 1 / 1;
-  padding: 16px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -299,13 +380,14 @@ html, body {
   gap: 10px;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 600;
   line-height: 1.25;
   text-align: left;
   cursor: pointer;
   touch-action: manipulation;
   box-shadow: var(--shadow);
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .tile:hover {
@@ -322,8 +404,8 @@ html, body {
 .dots {
   display: flex;
   justify-content: center;
-  gap: 9px;
-  padding: 8px 0 22px;
+  gap: 10px;
+  padding: 8px 0 calc(env(safe-area-inset-bottom, 0px) + 22px);
   flex-shrink: 0;
 }
 
@@ -341,25 +423,42 @@ html, body {
   background: var(--dotOn);
 }
 
-/* Slide-Up Sub-Screens */
+/* ==========================================================================
+   SLIDE-UP SUB-SCREENS
+   ========================================================================== */
 .sc {
-  position: absolute;
-  inset: 0;
-  z-index: 25;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-r);
+  z-index: 50;
   overflow-y: auto;
-  padding: 18px 24px 24px;
-  transform: translateY(100%);
+  padding: calc(env(safe-area-inset-top, 0px) + 22px) 28px calc(env(safe-area-inset-bottom, 0px) + 28px);
+  transform: translate(-50%, 65%);
+  opacity: 0;
   visibility: hidden;
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.35s;
+  pointer-events: none;
+  transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, visibility 0.38s;
   background: var(--bg);
   background-image: var(--page-texture);
+  box-shadow: var(--shadow);
   color: var(--ink);
   font-family: var(--font-body);
 }
 
 .sc.open {
-  transform: none;
+  transform: translate(-50%, -50%);
+  opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+}
+
+.sc-inner {
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
 }
 
 .sc button {
@@ -384,10 +483,10 @@ html, body {
 
 .sc h2 {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  margin: 16px 0 4px;
+  letter-spacing: 0.05em;
+  margin: 16px 0 6px;
 }
 
 .sub {
@@ -397,7 +496,7 @@ html, body {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--secondary);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .ix {
@@ -411,11 +510,11 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 6px;
+  padding: 16px 8px;
   border-bottom: 1px solid var(--border-subtle);
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 1.05rem;
+  line-height: 1.55;
   cursor: pointer;
   touch-action: manipulation;
   transition: background 0.2s;
@@ -424,7 +523,7 @@ html, body {
 .ix li em {
   font-style: normal;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--muted);
 }
 
@@ -450,7 +549,7 @@ html, body {
   border: 0;
   border-bottom: 1px solid var(--border);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   padding: 8px 2px;
   outline: 0;
   color: var(--ink);
@@ -462,12 +561,20 @@ html, body {
   color: var(--ink);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 0 16px;
+  padding: 0 18px;
+  height: 40px;
   font-family: var(--font-sans);
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.add button:hover,
+.ui-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .tl {
@@ -490,7 +597,7 @@ html, body {
 .tl li {
   position: relative;
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   font-weight: 400;
   line-height: 1.45;
   padding: 14px 0;
@@ -525,9 +632,9 @@ html, body {
 
 .jt {
   font-family: var(--font-display);
-  font-size: 1.65rem;
+  font-size: clamp(1.6rem, 2.8vw, 2rem);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-align: center;
   margin-top: 20px;
 }
@@ -549,10 +656,10 @@ html, body {
   background: transparent;
   border: 0;
   border-top: 1px solid var(--border);
-  padding: 16px 2px;
+  padding: 18px 2px;
   font-family: var(--font-body);
-  font-size: 1.1rem;
-  line-height: 1.75;
+  font-size: 1.15rem;
+  line-height: 1.8;
   color: var(--ink);
   outline: 0;
   resize: none;
@@ -560,37 +667,37 @@ html, body {
 
 .jb {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   border-top: 1px solid var(--border);
   padding-top: 16px;
 }
 
 .jb button {
   flex: 1;
-  height: 42px;
+  height: 44px;
 }
 
 .excerpt-body {
   margin-top: 18px;
   border-top: 1px solid var(--border);
-  padding-top: 20px;
+  padding-top: 22px;
   font-family: var(--font-body);
-  font-size: 1.1rem;
-  line-height: 1.78;
+  font-size: 1.15rem;
+  line-height: 1.82;
 }
 
 .excerpt-body p {
   text-align: justify;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.6rem;
 }
 
 .excerpt-body p:first-of-type::first-letter {
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: 3.15rem;
   float: left;
   line-height: 0.82;
   padding-top: 4px;
-  padding-right: 11px;
+  padding-right: 12px;
   color: var(--accent);
 }
 
@@ -601,8 +708,8 @@ html, body {
 }
 
 .av {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 999px;
   background: var(--panel);
   border: 1px solid var(--border);
@@ -610,7 +717,7 @@ html, body {
   display: grid;
   place-items: center;
   font-family: var(--font-display);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
@@ -626,7 +733,7 @@ html, body {
 
 .bal {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: clamp(2.4rem, 4vw, 3.1rem);
   font-weight: 400;
   letter-spacing: 0.08em;
   line-height: 1.12;
@@ -635,11 +742,11 @@ html, body {
 
 .bal small {
   font-family: var(--font-sans);
-  font-size: 0.625rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.3em;
   color: var(--muted);
-  margin-left: 6px;
+  margin-left: 8px;
 }
 
 .acts {
@@ -666,17 +773,17 @@ html, body {
 .fr {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   background: var(--panel);
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
-  padding: 13px 14px;
+  padding: 14px 16px;
   margin-bottom: 10px;
 }
 
 .fr i {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 999px;
   display: grid;
   place-items: center;
@@ -684,7 +791,7 @@ html, body {
   border: 1px solid var(--border);
   color: var(--accent);
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 600;
   font-style: normal;
 }
@@ -692,106 +799,212 @@ html, body {
 .fr b {
   flex: 1;
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 500;
 }
 
 .fr span {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--muted);
 }
 
 .fr svg {
-  width: 64px;
+  width: 68px;
   height: 22px;
   fill: none;
   stroke: var(--accent);
   stroke-width: 1.6;
 }
+
+/* ==========================================================================
+   DESKTOP EDITORIAL PROPORTIONS (~2X WIDER CONTAINER)
+   ========================================================================== */
+@media (min-width: 680px) {
+  .face-front {
+    padding: 44px 48px 46px;
+  }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.34em;
+  }
+
+  .title-rule {
+    width: 52px;
+    margin-top: 10px;
+  }
+
+  .novel-title {
+    letter-spacing: 0.18em;
+    line-height: 1.22;
+  }
+
+  .byline {
+    font-size: 0.6875rem;
+    letter-spacing: 0.34em;
+  }
+
+  .enter-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.32em;
+  }
+
+  .top-bar {
+    padding: 24px 36px 6px;
+  }
+
+  .page {
+    padding: 20px 48px 26px;
+  }
+
+  .p1 {
+    align-items: center;
+    text-align: center;
+  }
+
+  .p1 a {
+    padding-left: 0;
+    letter-spacing: 0.08em;
+    line-height: 1.85;
+  }
+
+  .p1 a:hover {
+    transform: translateY(-2px);
+  }
+
+  .list {
+    padding: 26px 32px;
+  }
+
+  .list button {
+    font-size: 1.05rem;
+    padding: 16px 0;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 38rem;
+    margin: auto;
+  }
+
+  .tile {
+    padding: 20px;
+    font-size: 0.95rem;
+  }
+
+  .sc {
+    padding: 28px 44px 36px;
+  }
+}
 </style>
 </head>
 <body>
 
-<div class="frame">
-  <!-- Home Screen: Or So She Thought -->
-  <main class="home-view" id="homeView" role="button" tabindex="0" aria-label="Enter Or So She Thought">
-    <div class="title-top">
-      <p class="eyebrow">A Royal Psychological Novel</p>
-      <span class="title-rule" aria-hidden="true"></span>
-    </div>
+<div class="stage">
+  <div class="cube" id="cube">
 
-    <div class="title-center">
-      <h1 class="novel-title">OR SO<br>SHE<br>THOUGHT</h1>
-    </div>
+    <!-- FRONT FACE: Or So She Thought Home Screen -->
+    <main class="face face-front" id="frontFace">
+      <div class="home-screen" id="homeTrigger" role="button" tabindex="0" aria-label="Enter Or So She Thought">
+        <div class="title-top">
+          <p class="eyebrow">A Royal Psychological Novel</p>
+          <span class="title-rule" aria-hidden="true"></span>
+        </div>
 
-    <div class="title-bottom">
-      <p class="byline">By Queen Usman</p>
-      <span class="enter-label">Enter</span>
-    </div>
-  </main>
+        <div class="title-center">
+          <h1 class="novel-title">OR SO<br>SHE<br>THOUGHT</h1>
+        </div>
 
-  <div class="top-bar">
-    <button type="button" class="back-home" id="backHome" aria-label="Back to title">←</button>
-  </div>
-
-  <div class="pager" id="pager">
-    <section class="page p1">
-      <a href="#" data-open="Excerpt">Excerpt</a>
-      <a href="#" data-open="Chapters">Chapters</a>
-      <a href="#" data-open="Characters">Characters</a>
-      <a href="#" data-open="Notes">Author Notes</a>
-      <a href="#" data-open="Order">Get the Book</a>
-    </section>
-
-    <section class="page p2">
-      <div class="list" id="list">
-        <button type="button">Chapter I — The Quiet Before</button>
-        <button type="button">Chapter II — What She Kept</button>
-        <button type="button">Chapter III — The Line Drawn</button>
-        <button type="button">Chapter IV — Unapologetic</button>
-        <button type="button" class="done">Prologue — First Choice</button>
+        <div class="title-bottom">
+          <p class="byline">By Queen Usman</p>
+          <span class="enter-label">Enter</span>
+        </div>
       </div>
-    </section>
+    </main>
 
-    <section class="page p3">
-      <div class="grid">
-        <button type="button" class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
-        <button type="button" class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
-        <button type="button" class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
-        <button type="button" class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
-        <button type="button" class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
-        <button type="button" class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
+    <!-- RIGHT FACE: Rest of the Novel Pages -->
+    <section class="face face-right" aria-label="Novel Pages">
+      <div class="top-bar">
+        <button type="button" class="back-home" id="toCover" aria-label="Back to home">←</button>
       </div>
-    </section>
-  </div>
 
-  <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
-  <div class="sc" id="sc"></div>
+      <div class="pager" id="pager">
+        <!-- Page 1: Novel Navigation -->
+        <section class="page p1">
+          <a href="#" data-open="Excerpt">Excerpt</a>
+          <a href="#" data-open="Chapters">Chapters</a>
+          <a href="#" data-open="Characters">Characters</a>
+          <a href="#" data-open="Notes">Author Notes</a>
+          <a href="#" data-open="Order">Get the Book</a>
+        </section>
+
+        <!-- Page 2: Reader Check-in / Chapters -->
+        <section class="page p2">
+          <div class="list" id="list">
+            <button type="button">Chapter I — The Quiet Before</button>
+            <button type="button">Chapter II — What She Kept</button>
+            <button type="button">Chapter III — The Line Drawn</button>
+            <button type="button">Chapter IV — Unapologetic</button>
+            <button type="button" class="done">Prologue — First Choice</button>
+          </div>
+        </section>
+
+        <!-- Page 3: Story World Tiles -->
+        <section class="page p3">
+          <div class="grid">
+            <button type="button" class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
+            <button type="button" class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
+            <button type="button" class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
+            <button type="button" class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
+            <button type="button" class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
+            <button type="button" class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+    </section>
+
+  </div>
 </div>
 
+<div class="sc" id="sc"></div>
+
 <script>
-var homeView = document.getElementById('homeView');
-var backHome = document.getElementById('backHome');
+var cube = document.getElementById('cube');
+var homeTrigger = document.getElementById('homeTrigger');
+var toCover = document.getElementById('toCover');
+var turnTimer = null;
 
-function openPages(){
-  homeView.classList.add('hidden');
+function turnToInner(){
+  clearTimeout(turnTimer);
+  cube.classList.remove('settled');
+  cube.classList.add('turned');
+  turnTimer = setTimeout(function(){
+    if(cube.classList.contains('turned')) cube.classList.add('settled');
+  }, 850);
 }
 
-function openHome(){
+function turnToCover(){
+  clearTimeout(turnTimer);
   sc.classList.remove('open');
-  homeView.classList.remove('hidden');
+  cube.classList.remove('settled');
+  void cube.offsetWidth;
+  cube.classList.remove('turned');
 }
 
-homeView.addEventListener('click', openPages);
-homeView.addEventListener('keydown', function(e){
+homeTrigger.addEventListener('click', turnToInner);
+homeTrigger.addEventListener('keydown', function(e){
   if(e.key === 'Enter' || e.key === ' '){
     e.preventDefault();
-    openPages();
+    turnToInner();
   }
 });
-backHome.addEventListener('click', openHome);
+
+toCover.addEventListener('click', turnToCover);
 
 var pager = document.getElementById('pager'), dots = document.querySelectorAll('#dots i');
 pager.addEventListener('scroll', function(){
@@ -855,7 +1068,7 @@ function spark(a){
 
 function show(cls, html){
   sc.className = 'sc t-' + cls;
-  sc.innerHTML = html;
+  sc.innerHTML = '<div class="sc-inner">' + html + '</div>';
   void sc.offsetHeight;
   sc.classList.add('open');
 }
