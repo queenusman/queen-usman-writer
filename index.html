@@ -6,7 +6,7 @@
 <title>Novel</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f7f7;--ink:#0a0a0a;--tile:#fff;--muted:#9a9a9a;--dot:#bdbdbd;--dotOn:#3a3a3a;--panel:#efefef;
+:root{--bg:#f2f2f2;--ink:#0a0a0a;--tile:#fff;--muted:#9a9a9a;--dot:#bdbdbd;--dotOn:#3a3a3a;--panel:#f5f5f5;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111;--ink:#f2f2f2;--tile:#1e1e1e;--muted:#6b6b6b;--dot:#444;--dotOn:#ddd;--panel:#161616;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#111;--ink:#f2f2f2;--tile:#1e1e1e;--muted:#6b6b6b;--dot:#444;--dotOn:#ddd;--panel:#161616;color-scheme:dark}
@@ -15,10 +15,10 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family
 body{display:flex;flex-direction:column;overflow:hidden}
 .pager{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;min-height:0}
 .pager::-webkit-scrollbar{display:none}
-.page{flex:0 0 100%;scroll-snap-align:start;padding:24px 28px;display:flex;flex-direction:column}
+.page{flex:0 0 100%;scroll-snap-align:start;padding:24px 22px;display:flex;flex-direction:column}
 .p1{justify-content:center}
-.manifesto{max-width:340px;padding-left:6px}
-.manifesto p{font-size:26px;font-weight:500;letter-spacing:-.025em;line-height:1.38;margin:0 0 22px;color:var(--ink)}
+.manifesto{background:var(--tile);border-radius:22px;padding:28px 24px}
+.manifesto p{font-size:24px;font-weight:500;letter-spacing:-.025em;line-height:1.38;margin:0 0 20px;color:var(--ink)}
 .manifesto p:last-child{margin-bottom:0;font-weight:600}
 .p2{justify-content:center}
 .list{background:var(--panel);border-radius:22px;padding:18px 16px}
