@@ -245,7 +245,7 @@ html, body {
 }
 
 /* ==========================================================================
-   SPLIT-FLOW SWIPEABLE PAGES
+   BORDERLESS MANUSCRIPT SHEETS (SWIPEABLE PAGES)
    ========================================================================== */
 .top-bar {
   display: flex;
@@ -297,88 +297,102 @@ html, body {
   flex: 0 0 100%;
   width: 100%;
   scroll-snap-align: start;
-  padding: 12px 24px 20px;
+  padding: 16px 28px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow-y: auto;
 }
 
-.sheet {
+.manuscript {
   width: 100%;
-  max-width: 27rem;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 26px 22px;
+  max-width: 31rem;
+  padding: 8px 0;
 }
 
-.sheet-kicker {
+.ms-eyebrow {
   font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--accent-deep);
   margin: 0 0 10px;
 }
 
-.sheet-heading {
+.ms-heading {
   font-family: var(--font-serif);
-  font-size: clamp(1.65rem, 4.5vw, 2.15rem);
-  font-weight: 500;
+  font-size: clamp(1.9rem, 5vw, 2.55rem);
+  font-weight: 400;
   letter-spacing: 0.08em;
-  line-height: 1.18;
+  line-height: 1.14;
   text-transform: uppercase;
   color: var(--ink);
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 }
 
-.sheet-copy {
+.ms-rule {
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin: 0 0 16px;
+}
+
+.ms-copy {
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.68;
-  color: var(--muted);
-  margin: 0 0 22px;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--charcoal);
+  margin: 0 0 24px;
 }
 
-.sheet-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.ms-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
 }
 
-.sheet-btn {
+.ms-links li {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ms-btn {
   width: 100%;
   text-align: left;
-  background: transparent;
-  border: 1px solid var(--border);
-  padding: 13px 16px;
+  background: none;
+  border: 0;
+  padding: 15px 4px;
   font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--charcoal);
+  color: var(--ink);
   cursor: pointer;
   touch-action: manipulation;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
-.sheet-btn:hover {
-  background: var(--panel-hover);
-  border-color: var(--ink);
-  color: var(--ink);
+.ms-btn:hover {
+  color: var(--accent-deep);
+  padding-left: 8px;
 }
 
-.sheet-btn::after {
-  content: "→";
+.ms-btn span {
   font-family: var(--font-sans);
   font-size: 0.875rem;
   letter-spacing: 0;
-  color: var(--accent-deep);
+  color: var(--muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.ms-btn:hover span {
+  color: var(--ink);
+  transform: translateX(3px);
 }
 
 .dots {
@@ -436,7 +450,7 @@ html, body {
 
 .sc-inner {
   width: 100%;
-  max-width: 44rem;
+  max-width: 42rem;
   margin: 0 auto;
 }
 
@@ -589,34 +603,8 @@ html, body {
   background: var(--panel-hover);
 }
 
-.sc textarea {
-  width: 100%;
-  height: 40vh;
-  background: transparent;
-  border: 0;
-  border-top: 1px solid var(--border);
-  padding: 18px 2px;
-  font-family: var(--font-body);
-  font-size: 1.12rem;
-  line-height: 1.8;
-  color: var(--ink);
-  outline: 0;
-  resize: none;
-}
-
-.jb {
-  display: flex;
-  gap: 12px;
-  border-top: 1px solid var(--border);
-  padding-top: 16px;
-}
-
-.jb button {
-  flex: 1;
-}
-
 /* ==========================================================================
-   DESKTOP SPLIT-FLOW SPREAD (NO OUTER CONTAINER FRAME)
+   DESKTOP BORDERLESS EDITORIAL RHYTHM
    ========================================================================== */
 @media (min-width: 760px) {
   .face-front {
@@ -632,25 +620,21 @@ html, body {
   }
 
   .page {
-    padding: 20px 56px 28px;
+    padding: 24px 56px 32px;
   }
 
-  .sheet {
-    max-width: 52rem;
-    padding: 38px 42px;
+  .manuscript {
+    max-width: 36rem;
   }
 
-  .sheet-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.05fr;
-    gap: 36px;
-    align-items: center;
+  .ms-copy {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 28px;
   }
 
-  .sheet-copy {
-    margin-bottom: 0;
-    font-size: 1.06rem;
-    line-height: 1.76;
+  .ms-btn {
+    padding: 17px 6px;
   }
 }
 </style>
@@ -679,7 +663,7 @@ html, body {
       </div>
     </main>
 
-    <!-- RIGHT FACE: Swipeable Split-Flow Pages -->
+    <!-- RIGHT FACE: Swipeable Borderless Manuscript Pages -->
     <section class="face face-right" aria-label="Novel Pages">
       <div class="top-bar">
         <button type="button" class="back-home" id="toCover" aria-label="Back to home">←</button>
@@ -688,38 +672,32 @@ html, body {
       <div class="pager" id="pager">
         <!-- Page 1: Before You Begin -->
         <section class="page" aria-label="Before You Begin">
-          <article class="sheet">
-            <div class="sheet-grid">
-              <div>
-                <p class="sheet-kicker">Opening Threshold</p>
-                <h2 class="sheet-heading">Before You Begin</h2>
-                <p class="sheet-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
-              </div>
-              <div class="sheet-actions">
-                <button type="button" class="sheet-btn" data-open="Author Note">A Note From the Author</button>
-                <button type="button" class="sheet-btn" data-open="Premise">The Premise</button>
-                <button type="button" class="sheet-btn" data-open="Copyright Notice">Copyright &amp; Content Notice</button>
-              </div>
-            </div>
+          <article class="manuscript">
+            <p class="ms-eyebrow">Opening Threshold</p>
+            <h2 class="ms-heading">Before You Begin</h2>
+            <div class="ms-rule" aria-hidden="true"></div>
+            <p class="ms-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
+            <ul class="ms-links">
+              <li><button type="button" class="ms-btn" data-open="Author Note">A Note From the Author <span>→</span></button></li>
+              <li><button type="button" class="ms-btn" data-open="Premise">The Premise <span>→</span></button></li>
+              <li><button type="button" class="ms-btn" data-open="Copyright Notice">Copyright &amp; Content Notice <span>→</span></button></li>
+            </ul>
           </article>
         </section>
 
         <!-- Page 2: Story & World of Norwyn -->
         <section class="page" aria-label="Story and World of Norwyn">
-          <article class="sheet">
-            <div class="sheet-grid">
-              <div>
-                <p class="sheet-kicker">Or So She Thought</p>
-                <h2 class="sheet-heading">Story &amp; World of Norwyn</h2>
-                <p class="sheet-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its cast, and the bound records in the archives.</p>
-              </div>
-              <div class="sheet-actions">
-                <button type="button" class="sheet-btn" data-open="Chapters">Read the Chapters</button>
-                <button type="button" class="sheet-btn" data-open="World of Norwyn">The World of Norwyn</button>
-                <button type="button" class="sheet-btn" data-open="Characters">The Characters</button>
-                <button type="button" class="sheet-btn" data-open="Norwyn Archives">The Norwyn Archives</button>
-              </div>
-            </div>
+          <article class="manuscript">
+            <p class="ms-eyebrow">Or So She Thought</p>
+            <h2 class="ms-heading">Story &amp; World of Norwyn</h2>
+            <div class="ms-rule" aria-hidden="true"></div>
+            <p class="ms-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its cast, and the bound records in the archives.</p>
+            <ul class="ms-links">
+              <li><button type="button" class="ms-btn" data-open="Chapters">Read the Chapters <span>→</span></button></li>
+              <li><button type="button" class="ms-btn" data-open="World of Norwyn">The World of Norwyn <span>→</span></button></li>
+              <li><button type="button" class="ms-btn" data-open="Characters">The Characters <span>→</span></button></li>
+              <li><button type="button" class="ms-btn" data-open="Norwyn Archives">The Norwyn Archives <span>→</span></button></li>
+            </ul>
           </article>
         </section>
       </div>
