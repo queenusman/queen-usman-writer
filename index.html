@@ -1,844 +1,127 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth theme-dark" id="rootHtml">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QUEEN USMAN — Official Literary Home</title>
-  <meta name="description" content="The official website of novelist Queen Usman. Explore novels, original fiction, and creative works focused on psychological fiction and human experience.">
-  
-  <!-- Browser Favicon: The Sovereign Coronet -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%233E3D43'/><path d='M6 21L4 10l6 4.5L16 6l6 8.5 6-4.5-2 11H6z' stroke='%23D9C1C6' stroke-width='1.8' fill='none' stroke-linejoin='round'/><path d='M6 24h20' stroke='%23D9C1C6' stroke-width='1.8'/><circle cx='16' cy='17' r='1.5' fill='%23D9C1C6'/></svg>">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            theme: {
-              bg: 'var(--color-bg)',
-              'bg-subtle': 'var(--color-bg-subtle)',
-              panel: 'var(--color-panel)',
-              'panel-hover': 'var(--color-panel-hover)',
-              border: 'var(--color-border)',
-              'border-subtle': 'var(--color-border-subtle)',
-              text: 'var(--color-text)',
-              'text-muted': 'var(--color-text-muted)',
-              'text-faint': 'var(--color-text-faint)',
-              heading: 'var(--color-heading)',
-              accent: 'var(--color-accent)',
-              secondary: 'var(--color-secondary)',
-              'callout-bg': 'var(--color-callout-bg)',
-              btn: 'var(--color-btn)',
-              'btn-text': 'var(--color-btn-text)',
-              'btn-border': 'var(--color-btn-border)',
-            }
-          },
-          fontFamily: {
-            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
-            display: ['Cinzel', 'serif'],
-            body: ['Newsreader', 'Georgia', 'serif'],
-            sans: ['Inter', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-  
-  <style>
-    /* ========================================================
-       THEME 1: DARK MODE (Charcoal Plum Velvet — Default)
-       ======================================================== */
-    :root, .theme-dark {
-      --color-bg: #3E3D43;               /* Dominant Charcoal Plum */
-      --color-bg-subtle: #343338;        /* Recessed background */
-      --color-panel: #49474E;            /* Elevated surface */
-      --color-panel-hover: #524E57;      /* Hover panel */
-      
-      --color-border: #625B64;          /* Structural border */
-      --color-border-subtle: #4D4750;   /* Hairline divider */
-      
-      --color-heading: #F8F7F5;         /* Warm Ivory */
-      --color-text: #F8F7F5;            /* Warm Ivory */
-      --color-text-muted: #C5BAC1;      /* Muted editorial copy */
-      --color-text-faint: #988F96;      /* Sub-metadata */
-      
-      --color-accent: #D9C1C6;          /* Dusty Rose */
-      --color-secondary: #8E7D8A;       /* Muted Mauve */
-      --color-callout-bg: rgba(81, 75, 84, 0.45);
-      
-      /* Primary Button Styling (Dark Mode) */
-      --color-btn: #D9C1C6;             /* Dusty Rose button */
-      --color-btn-text: #3E3D43;        /* Charcoal plum text */
-      --color-btn-border: #D9C1C6;
-      
-      --header-bg: rgba(62, 61, 67, 0.94);
-      --footer-bg: #343338;
-      --selection-bg: #8E7D8A;
-      --selection-text: #F8F7F5;
-      --page-texture: radial-gradient(circle at 50% 0%, rgba(142, 125, 138, 0.16) 0%, rgba(62, 61, 67, 0) 70%);
-      --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
-    }
-
-    /* ========================================================
-       THEME 2: INVERSE LIGHT MODE (Neutralized Button Tone)
-       Header, Containers & Footer Synchronized to #F8F7F5
-       ======================================================== */
-    .theme-ivory {
-      --color-bg: #F8F7F5;               /* Warm Ivory background */
-      --color-bg-subtle: #F1ECE5;        /* Soft ambient tone */
-      
-      /* Containers match header & footer canvas color */
-      --color-panel: #F8F7F5;            
-      --color-panel-hover: #F1ECE5;      
-      
-      --color-border: #CCC4BC;          /* Structural rule */
-      --color-border-subtle: #DCD6CF;   /* Hairline divider */
-      
-      --color-heading: #3E3D43;         /* Charcoal Plum heading */
-      --color-text: #3E3D43;            /* Charcoal Plum text */
-      --color-text-muted: #5A5760;      /* Editorial body */
-      --color-text-faint: #7E7985;      /* Sub-metadata */
-      
-      --color-accent: #B27B91;          /* Visible, rich Antique Rose */
-      --color-secondary: #B27B91;       /* Deep Rose for structural labels */
-      --color-callout-bg: rgba(178, 123, 145, 0.14);
-      
-      /* Navigation header & footer match canvas */
-      --header-bg: rgba(248, 247, 245, 0.94);
-      --footer-bg: #F8F7F5;
-      
-      /* Primary Button Styling (Neutralized, desaturated stone-rose) */
-      --color-btn: #D1C4C7;
-      --color-btn-text: #3E3D43;
-      --color-btn-border: #C6B7BA;
-      
-      --selection-bg: #B27B91;
-      --selection-text: #F8F7F5;
-      --page-texture: radial-gradient(circle at 50% 0%, rgba(178, 123, 145, 0.12) 0%, rgba(248, 247, 245, 0) 70%);
-      --card-shadow: 0 2px 12px -2px rgba(62, 61, 67, 0.05), 0 1px 3px rgba(62, 61, 67, 0.03);
-    }
-
-    body {
-      background-color: var(--color-bg);
-      background-image: var(--page-texture);
-      background-attachment: fixed;
-      color: var(--color-text);
-      font-family: 'Newsreader', Georgia, serif;
-      -webkit-font-smoothing: antialiased;
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    ::selection {
-      background-color: var(--selection-bg);
-      color: var(--selection-text);
-    }
-
-    .book-card {
-      background-color: var(--color-panel);
-      border: 1px solid var(--color-border);
-      box-shadow: var(--card-shadow);
-      position: relative;
-    }
-
-    .view-section {
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-    .view-hidden {
-      display: none !important;
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    .view-visible {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Novel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f7f7;--ink:#0a0a0a;--tile:#fff;--muted:#9a9a9a;--dot:#bdbdbd;--dotOn:#3a3a3a;--panel:#efefef;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111;--ink:#f2f2f2;--tile:#1e1e1e;--muted:#6b6b6b;--dot:#444;--dotOn:#ddd;--panel:#161616;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111;--ink:#f2f2f2;--tile:#1e1e1e;--muted:#6b6b6b;--dot:#444;--dotOn:#ddd;--panel:#161616;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,"Helvetica Neue",Arial,sans-serif}
+body{display:flex;flex-direction:column;overflow:hidden}
+.pager{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;min-height:0}
+.pager::-webkit-scrollbar{display:none}
+.page{flex:0 0 100%;scroll-snap-align:start;padding:24px 28px;display:flex;flex-direction:column}
+.p1{justify-content:center}
+.manifesto{max-width:340px;padding-left:6px}
+.manifesto p{font-size:26px;font-weight:500;letter-spacing:-.025em;line-height:1.38;margin:0 0 22px;color:var(--ink)}
+.manifesto p:last-child{margin-bottom:0;font-weight:600}
+.p2{justify-content:center}
+.list{background:var(--panel);border-radius:22px;padding:18px 16px}
+.list button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--ink);font:500 18px/1.2 Inter,sans-serif;padding:13px 0;cursor:pointer}
+.list button.done{color:var(--muted);text-decoration:line-through}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.tile{background:var(--tile);border:0;border-radius:22px;aspect-ratio:1/1;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:10px;color:var(--ink);font:600 15px/1.2 Inter,sans-serif;text-align:left;cursor:pointer}
+.tile svg{width:24px;height:24px;fill:currentColor}
+.dots{display:flex;justify-content:center;gap:9px;padding:10px 0 16px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--dot);transition:background .2s;cursor:pointer}
+.dots i.on{background:var(--dotOn)}
+.dock{display:flex;justify-content:center;gap:16px;padding:0 20px 14px}
+.dock a{width:64px;height:64px;border-radius:18px;background:var(--tile);display:grid;place-items:center;color:var(--ink);text-decoration:none}
+.dock svg{width:32px;height:32px}
+.sc{position:fixed;inset:0;z-index:20;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 18px) 24px calc(env(safe-area-inset-bottom,0px) + 24px);transform:translateY(100%);visibility:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),visibility .35s;color:#2a2320;font-family:Inter,-apple-system,Arial,sans-serif;color-scheme:light}
+.sc.open{transform:none;visibility:visible}
+.t-dune{background:linear-gradient(#f4e9de,#e6d2c0)}.t-list{background:#e6e3dc}.t-tl{background:linear-gradient(160deg,#eee4e2,#decfcc)}
+.sc button{font-family:inherit;color:inherit;cursor:pointer}
+.bk{background:none;border:0;font-size:28px;line-height:1;padding:0}
+.sc h2{font-size:15px;font-weight:500;margin:22px 0 4px;letter-spacing:.02em}.sub{font-size:12px;color:#7a766d;margin-bottom:18px}
+.ix{list-style:none;margin:0;padding:0;border-top:1px solid #1a1a1a}.ix li{display:flex;justify-content:space-between;align-items:center;padding:17px 6px;border-bottom:1px solid #1a1a1a;font-size:15px;cursor:pointer;transition:background .2s}.ix li em{font-style:normal;font-size:12px;color:#7a766d}.ix li.on{background:#6fe38f}.ix li.on em{color:#1a1a1a}
+.add{display:flex;gap:10px;margin-top:22px}.add input{flex:1;background:none;border:0;border-bottom:1px solid #1a1a1a;font:15px Inter,sans-serif;padding:8px 2px;outline:0;color:#1a1a1a}.add button{background:#1a1a1a;color:#e6e3dc;border:0;border-radius:6px;padding:0 18px;font-size:14px}
+.tl{list-style:none;margin:30px 0 0;padding:0 0 0 52px;position:relative}.tl:before{content:"";position:absolute;left:11px;top:14px;bottom:14px;width:1.5px;background:#4a3f3d}.tl li{position:relative;font-size:22px;font-weight:300;padding:15px 0;cursor:pointer}.tl li:before{content:"";position:absolute;left:-47px;top:50%;width:11px;height:11px;margin-top:-5.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.08);transition:box-shadow .25s}.tl li.on{font-weight:600}.tl li.on:before{box-shadow:0 0 0 7px rgba(255,255,255,.7),0 2px 8px rgba(0,0,0,.18)}
+.t-tl h2{font-size:13px;font-weight:300;margin:26px 0 0 52px;color:#6d605e}
+.jt{font-size:34px;letter-spacing:.06em;text-align:center;margin-top:36px}.js{font-size:13px;font-weight:300;text-align:center;color:#7a6a67;margin:6px 0 20px}
+.sc textarea{width:100%;height:46vh;background:transparent;border:0;border-top:1px solid rgba(0,0,0,.15);padding:16px 2px;font:300 18px/1.6 Inter,sans-serif;color:#2a2320;outline:0;resize:none}
+.jb{display:flex;border-top:1px solid rgba(0,0,0,.15)}.jb button{flex:1;background:none;border:0;padding:18px;font-size:15px;font-weight:300}
+.top{display:flex;justify-content:space-between;align-items:center}.av{width:36px;height:36px;border-radius:50%;background:#2b1710;color:#f4e9de;display:grid;place-items:center;font-size:14px}
+.tb{font-size:13px;color:#7b6556;margin-top:26px}.bal{font-size:46px;font-weight:500;letter-spacing:-.03em;margin:4px 0 0}.bal small{font-size:14px;font-weight:400;color:#7b6556;margin-left:4px}
+.acts{display:flex;gap:12px;margin:22px 0 26px}.acts button{flex:1;height:52px;border-radius:26px;border:0;background:#f9f2eb;font-size:20px}.acts button:last-child{background:#2b1710;color:#fff}
+.fv{font-size:15px;font-weight:500;margin-bottom:12px}.fr{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.55);border-radius:18px;padding:13px 14px;margin-bottom:10px}.fr i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;font:600 15px Inter,sans-serif;font-style:normal}.fr b{flex:1;font-size:15px;font-weight:500}.fr span{font-size:14px;font-weight:500}.fr svg{width:64px;height:22px;fill:none;stroke:#2b1710;stroke-width:1.6}
+</style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-theme-secondary selection:text-theme-text">
-
-  <!-- ==================== HEADER & TOP NAVIGATION WITH SMART SCROLL ==================== -->
-  <header id="siteHeader" style="background-color: var(--header-bg); border-color: var(--color-border);" class="sticky top-0 z-50 backdrop-blur-md border-b transition-all duration-300 ease-in-out">
-    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-      
-      <!-- Coronet Icon Emblem Only (Title & Subtitle Removed) -->
-      <a href="javascript:void(0)" onclick="switchView('home')" class="group flex items-center focus:outline-none" aria-label="Return to Queen Usman Home">
-        <div class="w-10 h-10 rounded-sm border border-theme-border flex items-center justify-center bg-theme-panel group-hover:border-theme-accent transition-all shadow-sm shrink-0">
-          <svg class="w-5 h-5 text-theme-accent transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 17L2 8l5 3.5 5-6.5 5 6.5 5-3.5-2 9H4z" />
-            <path d="M4 19h16" stroke-width="1.25" />
-            <circle cx="12" cy="14" r="1" fill="currentColor" />
-          </svg>
-        </div>
-      </a>
-
-      <!-- Primary Navigation Bar -->
-      <nav class="hidden md:flex items-center space-x-8 text-xs font-sans uppercase tracking-[0.2em]">
-        <button onclick="switchView('home')" class="nav-button py-1 text-theme-heading border-b border-theme-accent font-semibold transition-colors" data-page="home">
-          Home
-        </button>
-        <button onclick="switchView('books')" class="nav-button py-1 text-theme-text-muted hover:text-theme-heading border-b border-transparent transition-colors" data-page="books">
-          Books
-        </button>
-        <button onclick="switchView('fiction')" class="nav-button py-1 text-theme-text-muted hover:text-theme-heading border-b border-transparent transition-colors" data-page="fiction">
-          Fiction
-        </button>
-        <button onclick="switchView('about')" class="nav-button py-1 text-theme-text-muted hover:text-theme-heading border-b border-transparent transition-colors" data-page="about">
-          About
-        </button>
-        <button onclick="switchView('reader-list')" class="nav-button py-1 text-theme-text-muted hover:text-theme-heading border-b border-transparent transition-colors" data-page="reader-list">
-          Reader List
-        </button>
-      </nav>
-
-      <!-- Palette Switcher & Mobile Trigger -->
-      <div class="flex items-center space-x-3">
-        <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Toggle light or dark theme" class="px-3.5 py-1.5 border border-theme-border rounded-sm text-[11px] font-sans uppercase tracking-wider text-theme-text-muted hover:text-theme-heading hover:border-theme-accent transition-all flex items-center gap-2 bg-theme-panel shadow-sm">
-          <svg id="themeIconSun" class="w-3.5 h-3.5 inline-block text-theme-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-          <svg id="themeIconMoon" class="w-3.5 h-3.5 hidden text-theme-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-          <span id="themeToggleLabel">Ivory Mode</span>
-        </button>
-
-        <button onclick="toggleMobileMenu()" class="p-2 md:hidden text-theme-heading hover:text-theme-accent focus:outline-none" aria-label="Open mobile navigation">
-          <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 7h16M4 12h16M4 17h16" />
-          </svg>
-        </button>
-      </div>
+<body>
+<div class="pager" id="pager">
+  <section class="page p1">
+    <div class="manifesto">
+      <p>I wrote a woman who finally chooses.</p>
+      <p>You may not like how much of you is in her, or how long you've been waiting to be her.</p>
+      <p>She's done waiting. You don't have to be.</p>
     </div>
-
-    <!-- Mobile Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden border-b border-theme-border bg-theme-panel px-6 py-6 space-y-4 text-xs font-sans uppercase tracking-[0.2em]">
-      <button onclick="switchView('home'); toggleMobileMenu()" class="block w-full text-left py-2 text-theme-heading font-medium">Home</button>
-      <button onclick="switchView('books'); toggleMobileMenu()" class="block w-full text-left py-2 text-theme-text-muted hover:text-theme-heading">Books</button>
-      <button onclick="switchView('fiction'); toggleMobileMenu()" class="block w-full text-left py-2 text-theme-text-muted hover:text-theme-heading">Fiction</button>
-      <button onclick="switchView('about'); toggleMobileMenu()" class="block w-full text-left py-2 text-theme-text-muted hover:text-theme-heading">About</button>
-      <button onclick="switchView('reader-list'); toggleMobileMenu()" class="block w-full text-left py-2 text-theme-text-muted hover:text-theme-heading">Reader List</button>
+  </section>
+  <section class="page p2">
+    <div class="list" id="list">
+      <button>Chapter 1 — The Ultimatum</button>
+      <button>Chapter 2 — Packed Bags</button>
+      <button>Chapter 3 — Unanswered Calls</button>
+      <button>Chapter 4 — First Morning Alone</button>
+      <button class="done">Prologue — Before the Choice</button>
+      <button class="done">Character Dossier</button>
     </div>
-  </header>
-
-  <!-- ==================== MAIN CONTENT AREAS ==================== -->
-  <main class="flex-grow">
-
-    <!-- VIEW 1: HOME -->
-    <div id="view-home" class="view-section view-visible">
-      
-      <!-- Hero Section -->
-      <section class="max-w-4xl mx-auto px-6 pt-24 pb-20 text-center">
-        <div class="inline-flex items-center gap-2 mb-6 text-theme-secondary">
-          <span class="w-6 h-px bg-theme-secondary/70"></span>
-          <span class="font-sans text-[10px] uppercase tracking-[0.38em] font-bold">
-            Novels &bull; Original Fiction &bull; Narrative Studies
-          </span>
-          <span class="w-6 h-px bg-theme-secondary/70"></span>
-        </div>
-        
-        <h1 class="font-serif italic text-4xl sm:text-6xl md:text-7xl font-normal text-theme-heading leading-[1.15] mb-8">
-          Stories, and the lives that shape them.
-        </h1>
-        
-        <div class="flex items-center justify-center gap-3 my-8 opacity-90">
-          <div class="w-12 h-px bg-theme-border"></div>
-          <div class="text-xs text-theme-accent select-none">✦</div>
-          <div class="w-12 h-px bg-theme-border"></div>
-        </div>
-        
-        <p class="text-lg md:text-xl font-serif text-theme-text-muted max-w-2xl mx-auto leading-relaxed font-light mb-12">
-          Welcome to the literary home of Queen Usman. Explore novels, original fiction, and creative works shaped by an enduring interest in character psychology and the complexities of human experience.
-        </p>
-
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-xs font-sans uppercase tracking-[0.2em]">
-          <button onclick="switchView('books')" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full sm:w-auto px-8 py-4 font-semibold tracking-[0.22em] rounded-sm hover:opacity-90 transition-opacity shadow-sm">
-            Explore Books &rarr;
-          </button>
-          <button onclick="switchView('about')" class="w-full sm:w-auto px-8 py-4 border border-theme-border hover:border-theme-accent text-theme-heading transition-colors rounded-sm bg-theme-panel">
-            Author Biography
-          </button>
-        </div>
-      </section>
-
-      <!-- Featured Work: Or So She Thought -->
-      <section class="max-w-5xl mx-auto px-6 py-16 border-t border-theme-border">
-        <div class="flex items-center justify-between mb-8 pb-3 border-b border-theme-border-subtle">
-          <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-secondary font-bold">
-            Featured Novel
-          </span>
-          <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-accent font-semibold">
-            First Edition &bull; Available Now
-          </span>
-        </div>
-
-        <div class="book-card p-8 md:p-12 rounded-sm grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-          
-          <!-- Book Presentation Tile -->
-          <div class="md:col-span-5 flex flex-col items-center justify-center">
-            <div class="w-full max-w-[280px] aspect-[2/3] bg-theme-bg-subtle border border-theme-border p-6 flex flex-col justify-between text-center shadow-lg relative group">
-              <div class="border border-theme-border-subtle h-full p-6 flex flex-col justify-between">
-                <div>
-                  <span class="font-sans text-[8px] tracking-[0.3em] uppercase text-theme-secondary font-bold block mb-4">A Novel of Norwyn</span>
-                  <h3 class="font-display text-2xl text-theme-heading tracking-widest leading-tight uppercase font-semibold">
-                    Or So She<br>Thought
-                  </h3>
-                </div>
-                <div class="my-4">
-                  <span class="text-xs text-theme-accent">&diams;</span>
-                </div>
-                <div>
-                  <p class="font-serif italic text-xs text-theme-text-muted mb-2">The Crowned Era</p>
-                  <p class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-text-faint font-medium">Queen Usman</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Narrative Overview -->
-          <div class="md:col-span-7 space-y-5">
-            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-secondary font-bold block">
-              Psychological Fiction &bull; Novel
-            </span>
-            <h2 class="font-display text-3xl md:text-4xl text-theme-heading tracking-wide font-semibold">
-              Or So She Thought
-            </h2>
-            <p class="font-serif text-base text-theme-text-muted leading-relaxed font-light">
-              Born into the royal family of Norwyn, Princess Elisabeta has never had to imagine a life outside the one prepared for her. Her world has its own order, its traditions, its expectations, and its understanding of what makes a good life.
-            </p>
-            <p class="font-serif text-base text-theme-text-muted leading-relaxed font-light">
-              A novel exploring the architecture of certainty, the lives shaped by institutional expectation, and the difficult discovery of a self beyond the life one has always known.
-            </p>
-            
-            <div class="pt-4 flex flex-col sm:flex-row items-center gap-4 text-xs font-sans uppercase tracking-[0.2em]">
-              <button onclick="openBookDetail('or-so-she-thought')" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full sm:w-auto px-7 py-3.5 font-semibold rounded-sm hover:opacity-90 transition-opacity">
-                Dedicated Book Page &rarr;
-              </button>
-              <button onclick="switchView('fiction')" class="w-full sm:w-auto px-7 py-3.5 border border-theme-border hover:border-theme-accent text-theme-heading transition-colors rounded-sm bg-theme-panel">
-                Short Fiction Archive
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Literary Inquiry Preview -->
-      <section class="max-w-5xl mx-auto px-6 py-16 border-t border-theme-border">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-secondary font-bold block mb-3">
-              Author Focus
-            </span>
-            <h2 class="font-serif italic text-3xl md:text-4xl text-theme-heading mb-6">
-              "How people become who they are."
-            </h2>
-            <p class="font-serif text-base text-theme-text-muted leading-relaxed font-light mb-6">
-              Queen Usman writes psychological fiction centered on internal conviction, sovereign duty, relationship dynamics, and character interiority. Her narratives examine what happens when inherited assumptions begin to shift from the inside.
-            </p>
-            <button onclick="switchView('about')" class="text-xs font-sans tracking-[0.2em] uppercase text-theme-heading font-semibold hover:underline">
-              Read Complete Biography &rarr;
-            </button>
-          </div>
-
-          <!-- Reader List Brief Module -->
-          <div class="book-card p-8 md:p-10 rounded-sm">
-            <span class="font-sans text-[10px] tracking-[0.25em] uppercase text-theme-secondary font-bold block mb-2">
-              Correspondence
-            </span>
-            <h3 class="font-display text-2xl text-theme-heading mb-3 font-semibold">
-              Await the Story
-            </h3>
-            <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light mb-6">
-              Join the Queen Usman Reader List to receive private announcements regarding novel releases, selected excerpts, and new creative works.
-            </p>
-            <form onsubmit="handleSubscribe(event)" class="space-y-3">
-              <input type="email" required placeholder="Enter your email address" class="w-full px-4 py-3 bg-theme-bg text-theme-text border border-theme-border rounded-sm text-sm font-serif focus:outline-none focus:border-theme-accent transition-colors">
-              <button type="submit" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full py-3 px-6 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
-                Subscribe to Reader List
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
+  </section>
+  <section class="page p3">
+    <div class="grid" style="margin-top:0">
+      <button class="tile"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
+      <button class="tile"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>Characters</button>
+      <button class="tile"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
+      <button class="tile"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Notes</button>
+      <button class="tile"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>Key Scenes</button>
+      <button class="tile"><svg viewBox="0 0 24 24"><path d="M12 2L15 8l6 1-4.5 4.3L17.6 20 12 17l-5.6 3 1.1-6.7L3 9l6-1z"/></svg>Pre-Order</button>
     </div>
-
-    <!-- VIEW 2: BOOKS CATALOGUE -->
-    <div id="view-books" class="view-section view-hidden">
-      <section class="max-w-5xl mx-auto px-6 py-20">
-        
-        <div class="text-center max-w-2xl mx-auto mb-16">
-          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold mb-3">
-            Primary Catalogue
-          </p>
-          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4 font-semibold">
-            Novels & Published Works
-          </h1>
-          <div class="w-12 h-px bg-theme-border mx-auto my-6"></div>
-          <p class="font-serif text-base text-theme-text-muted font-light italic">
-            Long-form fiction exploring character psychology, sovereign expectations, and internal transformation.
-          </p>
-        </div>
-
-        <!-- Catalogue Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-          
-          <!-- Book 1: Or So She Thought (Active) -->
-          <div class="book-card p-8 rounded-sm flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-[9px] font-sans tracking-[0.25em] uppercase text-theme-secondary font-bold">
-                  Novel &bull; Active Edition
-                </span>
-                <span class="text-xs font-serif italic text-theme-text-faint">Published</span>
-              </div>
-
-              <h2 class="font-display text-2xl text-theme-heading mb-3 font-semibold">
-                Or So She Thought
-              </h2>
-              <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light mb-6">
-                A multi-layered psychological novel set in the fictional kingdom of Norwyn, following Princess Elisabeta as duty, family, and the crown force her to confront what she has learned to desire.
-              </p>
-              
-              <div class="border-t border-theme-border-subtle pt-4 mb-6">
-                <ul class="text-[11px] font-sans uppercase tracking-[0.16em] text-theme-text-faint space-y-1.5">
-                  <li>&bull; Classification: Psychological Fiction</li>
-                  <li>&bull; Setting: The Kingdom of Norwyn</li>
-                  <li>&bull; Focus: The Architecture of Duty</li>
-                </ul>
-              </div>
-            </div>
-
-            <button onclick="openBookDetail('or-so-she-thought')" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full py-3.5 px-6 font-sans text-xs font-semibold tracking-[0.2em] uppercase rounded-sm hover:opacity-90 transition-opacity text-center">
-              View Book Page & Excerpts &rarr;
-            </button>
-          </div>
-
-          <!-- Forthcoming Project Card (Structured Expandability) -->
-          <div class="book-card p-8 rounded-sm flex flex-col justify-between border-dashed">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-[9px] font-sans tracking-[0.25em] uppercase text-theme-secondary font-bold">
-                  Forthcoming Work
-                </span>
-                <span class="text-xs font-serif italic text-theme-text-faint">In Development</span>
-              </div>
-
-              <h2 class="font-display text-2xl text-theme-heading/70 mb-3 font-semibold">
-                Untitled Second Novel
-              </h2>
-              <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light mb-6">
-                A new long-form literary project exploring relational autonomy, psychological friction, and the quiet dynamics of personal compromise.
-              </p>
-
-              <div class="border-t border-theme-border-subtle pt-4 mb-6">
-                <ul class="text-[11px] font-sans uppercase tracking-[0.16em] text-theme-text-faint space-y-1.5">
-                  <li>&bull; Classification: Psychological Fiction</li>
-                  <li>&bull; Status: Manuscript Preparation</li>
-                  <li>&bull; Details: Reader List Release</li>
-                </ul>
-              </div>
-            </div>
-
-            <button onclick="switchView('reader-list')" class="w-full py-3.5 px-6 font-sans text-xs font-semibold tracking-[0.2em] uppercase rounded-sm border border-theme-border text-theme-text-muted hover:text-theme-heading hover:border-theme-accent transition-colors text-center bg-theme-panel">
-              Subscribe for Announcements &rarr;
-            </button>
-          </div>
-
-        </div>
-
-      </section>
-    </div>
-
-    <!-- VIEW 3: DEDICATED BOOK PAGE (Or So She Thought) -->
-    <div id="view-book-detail" class="view-section view-hidden">
-      <section class="max-w-4xl mx-auto px-6 py-16">
-        
-        <!-- Breadcrumb Bar -->
-        <div class="mb-10 flex items-center justify-between pb-4 border-b border-theme-border">
-          <button onclick="switchView('books')" class="font-sans text-xs uppercase tracking-[0.2em] text-theme-text-muted hover:text-theme-heading flex items-center gap-1.5">
-            <span>&larr;</span> <span>Back to Books Catalogue</span>
-          </button>
-          <span class="font-sans text-[11px] tracking-[0.22em] uppercase text-theme-secondary font-bold">
-            Novel Presentation
-          </span>
-        </div>
-
-        <!-- Book Header -->
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold">
-            A Royal Coming-of-Age Psychological Novel
-          </span>
-          <h1 class="font-display text-4xl sm:text-6xl text-theme-heading tracking-wide font-semibold">
-            Or So She Thought
-          </h1>
-          <p class="font-serif text-xl italic text-theme-text-muted font-light">
-            "A novel about the making of certainty, the lives shaped by it, and what happens when we begin to question what we have always believed."
-          </p>
-        </div>
-
-        <!-- Synopsis & World Overview -->
-        <div class="book-card p-8 md:p-12 rounded-sm space-y-6 font-serif text-base text-theme-text leading-relaxed mb-12">
-          <h2 class="font-display text-xl text-theme-heading tracking-wider uppercase mb-2 font-semibold">
-            The Premise & Inheritance
-          </h2>
-          <p>
-            Born into the royal family of Norwyn, <strong class="font-bold text-theme-heading">Princess Elisabeta</strong> has never had to imagine a life outside the one prepared for her. Her world has its own order, its traditions, its expectations, and its understanding of what makes a good life. Within it, almost everything has an explanation, and almost every decision has its proper place.
-          </p>
-          <p>
-            She has grown up knowing what is expected of her, what her future will look like, and what it means to belong to the family that will one day shape the kingdom's future. But as marriage, family relationships, and the responsibilities of the crown begin to bring those expectations into sharper focus, Elisabeta finds herself confronting questions she has never had reason to ask.
-          </p>
-          
-          <div class="my-6 p-6 border-l-2 border-theme-accent bg-theme-callout-bg rounded-r-sm">
-            <p class="italic text-base md:text-lg leading-relaxed text-theme-heading">
-              What happens when the life you have always understood begins to look different from the inside? When does duty become something you believe in, and when is it simply something you have learned to accept?
-            </p>
-          </div>
-          
-          <p>
-            Her difficulty is not simply deciding whether to follow the life expected of her or turn away from it. It is discovering how much of her understanding of herself, her family, and the world has been formed by the very life she is beginning to question.
-          </p>
-        </div>
-
-        <!-- Characters of Record -->
-        <div class="mb-14">
-          <h3 class="font-display text-xl text-theme-heading mb-6 tracking-wide font-semibold">
-            Dramatis Personae
-          </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="book-card p-6 rounded-sm">
-              <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-theme-secondary font-bold block mb-1">The Heiress</span>
-              <h4 class="font-display text-lg text-theme-heading mb-2 font-semibold">Princess Elisabeta</h4>
-              <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light">
-                Formed so carefully to rule that she struggles to distinguish between what she has been educated to want and what belongs to her own desire.
-              </p>
-            </div>
-            <div class="book-card p-6 rounded-sm">
-              <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-theme-secondary font-bold block mb-1">The Sovereign</span>
-              <h4 class="font-display text-lg text-theme-heading mb-2 font-semibold">Queen Ecaterina</h4>
-              <p class="font-serif text-sm text-theme-text-muted leading-relaxed font-light">
-                She does not control Elisabeta to dominate her; preparation is her highest form of love in a court governed by exposure and precedent.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Call to Action: Reading Experience & Novel Site -->
-        <div class="book-card p-8 md:p-10 text-center rounded-sm space-y-4">
-          <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-secondary font-bold">
-            The Norwyn Sanctuary
-          </span>
-          <h3 class="font-display text-2xl text-theme-heading font-semibold">
-            Enter the Dedicated Novel Website
-          </h3>
-          <p class="font-serif text-sm text-theme-text-muted max-w-xl mx-auto font-light leading-relaxed mb-6">
-            Explore the territory of Norwyn, discover detailed court records in the Archive vault, and read the serial chapters in an atmospheric, specialized reading environment.
-          </p>
-          <a href="https://queenusman.github.io" target="_blank" rel="noopener noreferrer" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="inline-block px-8 py-3.5 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
-            Visit Or So She Thought Website &rarr;
-          </a>
-        </div>
-
-      </section>
-    </div>
-
-    <!-- VIEW 4: FICTION ARCHIVE -->
-    <div id="view-fiction" class="view-section view-hidden">
-      <section class="max-w-4xl mx-auto px-6 py-20">
-        
-        <div class="text-center max-w-2xl mx-auto mb-16">
-          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold mb-3">
-            Original Writing
-          </p>
-          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4 font-semibold">
-            Fiction & Literary Works
-          </h1>
-          <div class="w-12 h-px bg-theme-border mx-auto my-6"></div>
-          <p class="font-serif text-base text-theme-text-muted font-light italic">
-            Short stories, standalone fictional pieces, and literary excerpts curated by Queen Usman.
-          </p>
-        </div>
-
-        <div class="space-y-8">
-          
-          <!-- Piece 1 -->
-          <article class="book-card p-8 md:p-10 rounded-sm">
-            <div class="flex items-center justify-between pb-3 border-b border-theme-border-subtle mb-4">
-              <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-secondary font-bold">Short Fiction</span>
-              <span class="font-serif text-xs italic text-theme-text-faint">Curated Archive</span>
-            </div>
-            <h2 class="font-display text-2xl text-theme-heading mb-3 font-semibold">
-              The Seamstress at the South Gate
-            </h2>
-            <p class="font-serif text-base text-theme-text-muted leading-relaxed font-light mb-6">
-              An intimate portrait of quiet domestic negotiation, observing how two sisters living in a northern railway town manage obligations that neither of them agreed to inherit.
-            </p>
-            <div class="flex items-center justify-between pt-4 border-t border-theme-border-subtle text-xs font-sans uppercase tracking-[0.18em]">
-              <span class="text-theme-text-faint">Reading Time &bull; 14 Mins</span>
-              <button onclick="switchView('reader-list')" class="text-theme-heading hover:underline font-semibold">
-                Read via Reader List &rarr;
-              </button>
-            </div>
-          </article>
-
-          <!-- Piece 2 -->
-          <article class="book-card p-8 md:p-10 rounded-sm">
-            <div class="flex items-center justify-between pb-3 border-b border-theme-border-subtle mb-4">
-              <span class="font-sans text-[9px] tracking-[0.25em] uppercase text-theme-secondary font-bold">Narrative Study</span>
-              <span class="font-serif text-xs italic text-theme-text-faint">Curated Archive</span>
-            </div>
-            <h2 class="font-display text-2xl text-theme-heading mb-3 font-semibold">
-              The Architecture of the Unspoken
-            </h2>
-            <p class="font-serif text-base text-theme-text-muted leading-relaxed font-light mb-6">
-              A standalone psychological narrative detailing an afternoon between an estranged father and his adult daughter in an empty museum courtyard.
-            </p>
-            <div class="flex items-center justify-between pt-4 border-t border-theme-border-subtle text-xs font-sans uppercase tracking-[0.18em]">
-              <span class="text-theme-text-faint">Reading Time &bull; 9 Mins</span>
-              <button onclick="switchView('reader-list')" class="text-theme-heading hover:underline font-semibold">
-                Read via Reader List &rarr;
-              </button>
-            </div>
-          </article>
-
-        </div>
-
-      </section>
-    </div>
-
-    <!-- VIEW 5: ABOUT THE AUTHOR -->
-    <div id="view-about" class="view-section view-hidden">
-      <section class="max-w-3xl mx-auto px-6 py-20">
-        
-        <div class="text-center mb-16">
-          <p class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold mb-3">
-            Author Biography
-          </p>
-          <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4 font-semibold">
-            About Queen Usman
-          </h1>
-          <div class="w-12 h-px bg-theme-border mx-auto my-6"></div>
-        </div>
-
-        <div class="book-card p-8 md:p-14 rounded-sm space-y-6 font-serif text-base md:text-lg text-theme-text leading-relaxed">
-          <p class="first-letter:text-5xl first-letter:font-serif first-letter:float-left first-letter:mr-4 first-letter:text-theme-accent first-letter:leading-none">
-            Queen Usman is a novelist and fiction writer interested in psychological fiction, character interiority, and the quiet mechanisms through which human beings become who they are.
-          </p>
-          
-          <p>
-            Her creative works explore identity, sovereign expectation, the friction of tradition, and the emotional costs of certainty. Rather than relying on overt spectacle or exaggerated villainy, her fiction operates within psychological plausibility—tracing the subtle shifts in relationships and internal beliefs when long-held frameworks begin to crack.
-          </p>
-          
-          <p>
-            She is the author of the novel <em class="font-serif italic text-theme-heading">Or So She Thought</em>, an exploration of royal expectation and inherited order set within the fictional realm of Norwyn.
-          </p>
-          
-          <p>
-            Outside her novels, she authors essays and critical craft examinations of human experience and the psychology of writing psychological fiction. Her author platform serves as the permanent home and repository for her growing body of literary and creative works.
-          </p>
-        </div>
-
-        <div class="mt-12 text-center">
-          <button onclick="switchView('reader-list')" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="px-8 py-3.5 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
-            Join the Queen Usman Reader List &rarr;
-          </button>
-        </div>
-
-      </section>
-    </div>
-
-    <!-- VIEW 6: READER LIST -->
-    <div id="view-reader-list" class="view-section view-hidden">
-      <section class="max-w-2xl mx-auto px-6 py-24 text-center">
-        
-        <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-theme-secondary font-bold block mb-3">
-          Direct Literary Correspondence
-        </span>
-        
-        <h1 class="font-display text-3xl md:text-5xl text-theme-heading tracking-wide mb-4 font-semibold">
-          Await the Story
-        </h1>
-        
-        <div class="w-12 h-px bg-theme-border mx-auto my-6"></div>
-        
-        <p class="font-serif text-lg text-theme-text-muted leading-relaxed font-light mb-12">
-          Join the Queen Usman Reader List to receive announcements about upcoming novels, original fiction, publication news, and private excerpts from creative works.
-        </p>
-
-        <div class="book-card p-8 md:p-10 rounded-sm text-left shadow-md">
-          <form onsubmit="handleSubscribe(event)" class="space-y-5">
-            <div>
-              <label for="subscriber-email" class="block font-sans text-[10px] tracking-[0.2em] uppercase text-theme-secondary font-bold mb-2">
-                Your Email Address
-              </label>
-              <input type="email" id="subscriber-email" required placeholder="reader@domain.com" class="w-full px-4 py-3 bg-theme-bg text-theme-text border border-theme-border rounded-sm text-sm font-serif focus:outline-none focus:border-theme-accent transition-colors">
-            </div>
-            
-            <button type="submit" style="background-color: var(--color-btn); color: var(--color-btn-text); border: 1px solid var(--color-btn-border);" class="w-full py-4 text-xs font-sans uppercase tracking-[0.2em] font-semibold rounded-sm hover:opacity-90 transition-opacity">
-              Join Reader List
-            </button>
-          </form>
-
-          <p id="subscribeSuccess" class="hidden font-serif italic text-sm text-theme-heading text-center mt-4 pt-3 border-t border-theme-border-subtle">
-            Thank you. Your address has been entered into the reader list.
-          </p>
-        </div>
-
-      </section>
-    </div>
-
-  </main>
-
-  <!-- ==================== FOOTER ==================== -->
-  <footer id="siteFooter" style="background-color: var(--footer-bg); border-color: var(--color-border);" class="border-t py-12 transition-colors duration-300">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      
-      <div class="flex flex-col items-center md:items-start">
-        <span class="font-display tracking-[0.2em] text-sm font-semibold text-theme-heading">
-          QUEEN USMAN
-        </span>
-        <span class="font-serif italic text-xs text-theme-text-faint mt-1">
-          Stories, and the lives that shape them.
-        </span>
-      </div>
-
-      <!-- Navigation & Medium Outlink -->
-      <div class="flex flex-wrap items-center justify-center gap-6 text-xs font-sans uppercase tracking-[0.18em]">
-        <button onclick="switchView('books')" class="text-theme-text-muted hover:text-theme-heading transition-colors">Books</button>
-        <button onclick="switchView('fiction')" class="text-theme-text-muted hover:text-theme-heading transition-colors">Fiction</button>
-        <button onclick="switchView('about')" class="text-theme-text-muted hover:text-theme-heading transition-colors">About</button>
-        <button onclick="switchView('reader-list')" class="text-theme-text-muted hover:text-theme-heading transition-colors">Reader List</button>
-        <a href="https://medium.com/@queenusman" target="_blank" rel="noopener noreferrer" class="text-theme-accent hover:underline">
-          Essays on Medium &rarr;
-        </a>
-      </div>
-
-      <div class="text-[11px] font-sans tracking-widest text-theme-text-faint">
-        &copy; 2026 Queen Usman. All rights reserved.
-      </div>
-
-    </div>
-  </footer>
-
-  <!-- ==================== CLIENT APPLICATION LOGIC ==================== -->
-  <script>
-    let isIvoryMode = false; // Default: Dark Mode active
-
-    // View Switching Controller
-    function switchView(viewId) {
-      const views = ['home', 'books', 'book-detail', 'fiction', 'about', 'reader-list'];
-      
-      views.forEach(v => {
-        const el = document.getElementById(`view-${v}`);
-        if (el) {
-          if (v === viewId) {
-            el.classList.remove('view-hidden');
-            el.classList.add('view-visible');
-          } else {
-            el.classList.add('view-hidden');
-            el.classList.remove('view-visible');
-          }
-        }
-      });
-
-      // Update Navigation Buttons Indicator
-      document.querySelectorAll('.nav-button').forEach(btn => {
-        if (btn.getAttribute('data-page') === viewId) {
-          btn.classList.add('text-theme-heading', 'border-theme-accent', 'font-semibold');
-          btn.classList.remove('text-theme-text-muted', 'border-transparent');
-        } else {
-          btn.classList.remove('text-theme-heading', 'border-theme-accent', 'font-semibold');
-          btn.classList.add('text-theme-text-muted', 'border-transparent');
-        }
-      });
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function openBookDetail(bookSlug) {
-      if (bookSlug === 'or-so-she-thought') {
-        switchView('book-detail');
-      }
-    }
-
-    // Direct Inverse Theme Engine (Defaults to Dark Mode)
-    function applyTheme(ivory) {
-      const root = document.getElementById('rootHtml');
-      const label = document.getElementById('themeToggleLabel');
-      const iconSun = document.getElementById('themeIconSun');
-      const iconMoon = document.getElementById('themeIconMoon');
-
-      if (ivory) {
-        root.classList.remove('theme-dark');
-        root.classList.add('theme-ivory');
-        label.textContent = "Night Mode";
-        iconSun.classList.add('hidden');
-        iconMoon.classList.remove('hidden');
-      } else {
-        root.classList.remove('theme-ivory');
-        root.classList.add('theme-dark');
-        label.textContent = "Ivory Mode";
-        iconSun.classList.remove('hidden');
-        iconMoon.classList.add('hidden');
-      }
-      isIvoryMode = ivory;
-      localStorage.setItem('qu_author_theme_mode', ivory ? 'ivory' : 'dark');
-    }
-
-    function toggleTheme() {
-      applyTheme(!isIvoryMode);
-    }
-
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('hidden');
-    }
-
-    function handleSubscribe(e) {
-      e.preventDefault();
-      const msg = document.getElementById('subscribeSuccess');
-      if (msg) msg.classList.remove('hidden');
-      e.target.reset();
-    }
-
-    // Smart Scroll: Header hides when scrolling down, reappears when scrolling up
-    let lastScrollY = window.pageYOffset;
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('siteHeader');
-      const currentScrollY = window.pageYOffset;
-
-      if (currentScrollY <= 20) {
-        header.classList.remove('-translate-y-full');
-        header.classList.add('translate-y-0');
-      } else if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        // Scrolling down -> hide header
-        header.classList.remove('translate-y-0');
-        header.classList.add('-translate-y-full');
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up -> reveal header
-        header.classList.remove('-translate-y-full');
-        header.classList.add('translate-y-0');
-      }
-
-      lastScrollY = currentScrollY;
-    }, { passive: true });
-
-    // Initialization (Always defaults to Dark Mode until explicitly changed)
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('qu_author_theme_mode');
-      if (savedTheme === 'ivory') {
-        applyTheme(true);
-      } else {
-        applyTheme(false); // Default to Dark Mode
-      }
-      switchView('home');
-    });
-  </script>
+  </section>
+</div>
+<div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+<nav class="dock">
+  <a href="#" data-open="Chapters" aria-label="Read Sample"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 6h18a3 3 0 0 1 3 3v21H10a3 3 0 0 0-3 3V6z"/><path d="M7 27h21"/></svg></a>
+  <a href="#" data-open="Story Arc" aria-label="Timeline"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="18" r="12"/><path d="M18 11v7l5 3"/></svg></a>
+  <a href="#" data-open="Reader Notes" aria-label="Notes"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 28l2-7L23 8l5 5-13 13z"/></svg></a>
+  <a href="#" data-open="Pre-Order" aria-label="Get the Book"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 13h18l-1.5 16h-15z"/><path d="M14 13V10a4 4 0 0 1 8 0v3"/></svg></a>
+</nav>
+<script>
+var pager=document.getElementById('pager'),dots=document.querySelectorAll('#dots i');
+pager.addEventListener('scroll',function(){var n=Math.round(pager.scrollLeft/pager.clientWidth);dots.forEach(function(d,i){d.classList.toggle('on',i===n)})});
+dots.forEach(function(d,i){d.addEventListener('click',function(){pager.scrollTo({left:i*pager.clientWidth,behavior:'smooth'})})});
+document.getElementById('list').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')e.target.classList.toggle('done')});
+document.querySelectorAll('a[href="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();if(a.dataset.open)openScreen(a.dataset.open)})});
+</script>
+<div class="sc" id="sc"></div>
+<script>
+var sc=document.getElementById('sc'),copies=1420;
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var L={'Chapters':[['Prologue: Before the Choice','4 min read'],['Chapter 1: The Ultimatum','9 min read'],['Chapter 2: Packed Bags','11 min read'],['Chapter 3: Unanswered Calls','8 min read'],['Chapter 4: First Morning Alone','12 min read']],
+'Characters':[['Her','The woman who finally chooses'],['Him','Still waiting on the old version'],['The Friend','The one who knew first'],['The City','Where she starts over']]};
+var T={'Story Arc':['The Silence','The Breaking Point','The Decision','The Departure','The Reckoning','The Becoming'],'Key Scenes':['The kitchen table conversation','Leaving the keys on the counter','The 2:00 AM train','Blocking the number','First breath in the new apartment','Looking back once']};
+var F=[['Hardcover Edition','H','#2b1710','$28.00',[3,5,6,8,9,10]],['Signed First Print','S','#7b6556','$36.00',[4,6,8,9,10,10]],['Digital E-Book','E','#4a3f3d','$14.99',[2,4,5,7,8,9]],['Audiobook (Author Narrated)','A','#9a7b66','$24.99',[3,4,6,7,9,10]]];
+function spark(a){return '<svg viewBox="0 0 64 22"><polyline points="'+a.map(function(v,i){return i*12.8+','+(21-v*2)}).join(' ')+'"/></svg>'}
+function show(cls,html){sc.className='sc t-'+cls;sc.innerHTML=html;void sc.offsetHeight;sc.classList.add('open')}
+function fmt(n){return n.toLocaleString('en-US')}
+function openScreen(n){
+ if(L[n]){show('list','<button class="bk" data-x>←</button><h2>'+n+'</h2><div class="sub">'+L[n].length+' entries · tap to mark read</div><ul class="ix">'+L[n].map(function(r){return '<li><span>'+esc(r[0])+'</span><em>'+esc(r[1])+'</em></li>'}).join('')+'</ul><div class="add"><input placeholder="Add note or bookmark"><button class="ad">Add</button></div>')}
+ else if(T[n]){show('tl','<button class="bk" data-x>×</button><h2>'+n+'</h2><ol class="tl">'+T[n].map(function(s,i){return '<li'+(i==0?' class="on"':'')+'>'+s+'</li>'}).join('')+'</ol>')}
+ else if(n==='Reader Notes'){var v='';try{v=localStorage.getItem('jr')||''}catch(e){}
+  show('tl','<button class="bk" data-x>×</button><div class="jt">REFLECTIONS</div><div class="js">What resonated with you?</div><textarea placeholder="Write your thoughts on the story...">'+esc(v)+'</textarea><div class="jb"><button data-j="c">Clear</button><button data-j="s">Save</button></div>')}
+ else if(n==='Pre-Order'){show('dune','<div class="top"><div class="av">1st</div><button class="bk" data-x>×</button></div><div class="tb">Early Readers</div><div class="bal" id="bal">'+fmt(copies)+'<small>copies reserved</small></div><div class="acts"><button>↗</button><button>♡</button><button>✎</button><button data-p>+1</button></div><div class="fv">Available Editions</div>'+F.map(function(f){return '<div class="fr"><i style="background:'+f[2]+'">'+f[1]+'</i><b>'+f[0]+'</b>'+spark(f[4])+'<span>'+f[3]+'</span></div>'}).join(''))}
+}
+document.addEventListener('click',function(e){var t=e.target,x;
+ if(x=t.closest('.tile')){openScreen(x.textContent.trim());return}
+ if(t.closest('[data-x]')){sc.classList.remove('open');return}
+ if(x=t.closest('.ix li, .tl li')){x.classList.toggle('on');return}
+ if(t.closest('.ad')){var i=sc.querySelector('.add input'),v=i.value.trim();if(v){var li=document.createElement('li');li.innerHTML='<span>'+esc(v)+'</span><em>saved</em>';sc.querySelector('.ix').appendChild(li);i.value=''}return}
+ if(x=t.closest('[data-j]')){var ta=sc.querySelector('textarea');if(x.dataset.j==='c')ta.value='';try{localStorage.setItem('jr',ta.value)}catch(e){}if(x.dataset.j==='s'){x.textContent='Saved';setTimeout(function(){x.textContent='Save'},1200)}return}
+ if(t.closest('[data-p]')){copies+=1;document.getElementById('bal').innerHTML=fmt(copies)+'<small>copies reserved</small>'}
+});
+</script>
 </body>
 </html>
