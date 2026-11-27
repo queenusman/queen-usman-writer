@@ -158,6 +158,7 @@ html, body {
   height: 64px;
   padding: 0;
   border: 0;
+  outline: 0;
   background: none;
   color: var(--charcoal);
   font-family: var(--font-sans);
@@ -277,7 +278,7 @@ html, body {
 }
 
 /* ==========================================================================
-   TWIN SWIPEABLE PAGES (GOLD JUSTIFIED HEADINGS + LEFT-ALIGNED OPEN ROWS)
+   TWIN SWIPEABLE PAGES (SCROLLBAR-FREE TRANSFORM TRACK)
    ========================================================================== */
 .top-bar {
   display: flex;
@@ -298,30 +299,41 @@ html, body {
   color: var(--muted);
 }
 
-.pager {
+.pager-viewport {
   flex: 1;
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
+  width: 100%;
+  overflow: hidden;
   min-height: 0;
-  -webkit-overflow-scrolling: touch;
+  display: flex;
 }
 
-.pager::-webkit-scrollbar {
-  display: none;
+.pager {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  transition: transform 0.48s cubic-bezier(0.22, 0.82, 0.24, 1);
+}
+
+.pager.instant {
+  transition: none;
 }
 
 .page {
   position: relative;
   flex: 0 0 100%;
   width: 100%;
-  scroll-snap-align: start;
+  height: 100%;
   padding: 12px 42px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.page::-webkit-scrollbar {
+  display: none;
 }
 
 .nb-sheet {
@@ -712,45 +724,47 @@ html, body {
         <span class="top-meta" id="slideCounter">01 / 02</span>
       </div>
 
-      <div class="pager" id="pager">
-        <!-- Twin Slide 1: Before You Begin -->
-        <section class="page" aria-label="Before You Begin">
-          <button type="button" class="edge-arrow left" data-nav="home" aria-label="Back to home">‹</button>
+      <div class="pager-viewport" id="pagerViewport">
+        <div class="pager" id="pager">
+          <!-- Twin Slide 1: Before You Begin -->
+          <section class="page" aria-label="Before You Begin">
+            <button type="button" class="edge-arrow left" data-nav="home" aria-label="Back to home">‹</button>
 
-          <article class="nb-sheet">
-            <div class="nb-header">
-              <h2 class="nb-display">Before<br>You Begin</h2>
-              <p class="nb-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
-            </div>
+            <article class="nb-sheet">
+              <div class="nb-header">
+                <h2 class="nb-display">Before<br>You Begin</h2>
+                <p class="nb-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
+              </div>
 
-            <ul class="nb-links">
-              <li><button type="button" class="nb-text-link" data-open="Author Note">A Note From the Author</button></li>
-              <li><button type="button" class="nb-text-link" data-open="Premise">The Premise</button></li>
-              <li><button type="button" class="nb-text-link" data-open="Copyright Notice">Copyright &amp; Content Notice</button></li>
-            </ul>
-          </article>
+              <ul class="nb-links">
+                <li><button type="button" class="nb-text-link" data-open="Author Note">A Note From the Author</button></li>
+                <li><button type="button" class="nb-text-link" data-open="Premise">The Premise</button></li>
+                <li><button type="button" class="nb-text-link" data-open="Copyright Notice">Copyright &amp; Content Notice</button></li>
+              </ul>
+            </article>
 
-          <button type="button" class="edge-arrow right" data-nav="next" aria-label="Next page">›</button>
-        </section>
+            <button type="button" class="edge-arrow right" data-nav="next" aria-label="Next page">›</button>
+          </section>
 
-        <!-- Twin Slide 2: Story & World of Norwyn (Last Page: Backward Only) -->
-        <section class="page" aria-label="Story and World of Norwyn">
-          <button type="button" class="edge-arrow left" data-nav="prev" aria-label="Previous page">‹</button>
+          <!-- Twin Slide 2: Story & World of Norwyn (Last Page: Backward Only) -->
+          <section class="page" aria-label="Story and World of Norwyn">
+            <button type="button" class="edge-arrow left" data-nav="prev" aria-label="Previous page">‹</button>
 
-          <article class="nb-sheet">
-            <div class="nb-header">
-              <h2 class="nb-display">Story &amp;<br>World of<br>Norwyn</h2>
-              <p class="nb-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its characters, and the bound records in the archives.</p>
-            </div>
+            <article class="nb-sheet">
+              <div class="nb-header">
+                <h2 class="nb-display">Story &amp;<br>World of<br>Norwyn</h2>
+                <p class="nb-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its characters, and the bound records in the archives.</p>
+              </div>
 
-            <ul class="nb-links">
-              <li><button type="button" class="nb-text-link" data-open="Chapters">Read the Chapters</button></li>
-              <li><button type="button" class="nb-text-link" data-open="World of Norwyn">The World of Norwyn</button></li>
-              <li><button type="button" class="nb-text-link" data-open="Characters">The Characters</button></li>
-              <li><button type="button" class="nb-text-link" data-open="Norwyn Archives">The Norwyn Archives</button></li>
-            </ul>
-          </article>
-        </section>
+              <ul class="nb-links">
+                <li><button type="button" class="nb-text-link" data-open="Chapters">Read the Chapters</button></li>
+                <li><button type="button" class="nb-text-link" data-open="World of Norwyn">The World of Norwyn</button></li>
+                <li><button type="button" class="nb-text-link" data-open="Characters">The Characters</button></li>
+                <li><button type="button" class="nb-text-link" data-open="Norwyn Archives">The Norwyn Archives</button></li>
+              </ul>
+            </article>
+          </section>
+        </div>
       </div>
 
       <div class="dots" id="dots" aria-label="Page indicators">
@@ -770,17 +784,32 @@ var cube = document.getElementById('cube');
 var homeTrigger = document.getElementById('homeTrigger');
 var edgeEnter = document.getElementById('edgeEnter');
 var slideCounter = document.getElementById('slideCounter');
+var pagerViewport = document.getElementById('pagerViewport');
 var pager = document.getElementById('pager');
 var dots = document.querySelectorAll('#dots i');
+var currentSlide = 0;
 var turnTimer = null;
 var isTurning = false;
 var lastTouchTap = 0;
+
+function goSlide(index, instant){
+  var max = dots.length - 1;
+  currentSlide = Math.max(0, Math.min(max, index));
+  pager.classList.toggle('instant', !!instant);
+  pager.style.transform = 'translateX(' + (-currentSlide * 100) + '%)';
+  dots.forEach(function(d, i){ d.classList.toggle('on', i === currentSlide); });
+  if(slideCounter) slideCounter.textContent = '0' + (currentSlide + 1) + ' / 0' + dots.length;
+  if(instant){
+    void pager.offsetWidth;
+    pager.classList.remove('instant');
+  }
+}
 
 function turnToInner(){
   if(isTurning) return;
   isTurning = true;
   clearTimeout(turnTimer);
-  pager.scrollTo({left: 0, behavior: 'auto'});
+  goSlide(0, true);
   stage.classList.remove('flat');
   cube.classList.remove('settled', 'returning', 'turned');
   void cube.offsetWidth;
@@ -814,24 +843,32 @@ function turnToCover(){
   }, 850);
 }
 
-function goSlide(index){
-  var max = dots.length - 1;
-  var target = Math.max(0, Math.min(max, index));
-  pager.scrollTo({left: target * pager.clientWidth, behavior: 'smooth'});
-}
-
-pager.addEventListener('scroll', function(){
-  if(!pager.clientWidth) return;
-  var n = Math.round(pager.scrollLeft / pager.clientWidth);
-  dots.forEach(function(d, i){ d.classList.toggle('on', i === n); });
-  if(slideCounter) slideCounter.textContent = '0' + (n + 1) + ' / 0' + dots.length;
-});
-
 dots.forEach(function(d, i){
   d.addEventListener('click', function(){
     goSlide(i);
   });
 });
+
+var swipeStart = null;
+pagerViewport.addEventListener('touchstart', function(e){
+  if(e.touches.length === 1){
+    swipeStart = {x: e.touches[0].clientX, y: e.touches[0].clientY};
+  }
+}, {passive: true});
+
+pagerViewport.addEventListener('touchend', function(e){
+  if(!swipeStart || !e.changedTouches.length) return;
+  var dx = e.changedTouches[0].clientX - swipeStart.x;
+  var dy = e.changedTouches[0].clientY - swipeStart.y;
+  swipeStart = null;
+  if(Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.2){
+    if(dx < 0 && currentSlide < dots.length - 1){
+      goSlide(currentSlide + 1);
+    } else if(dx > 0 && currentSlide > 0){
+      goSlide(currentSlide - 1);
+    }
+  }
+}, {passive: true});
 
 var sc = document.getElementById('sc'), closeTimer = null;
 
@@ -936,13 +973,12 @@ function handleTap(target){
   var navBtn = target.closest('[data-nav]');
   if(navBtn){
     var dir = navBtn.dataset.nav;
-    var cur = pager.clientWidth ? Math.round(pager.scrollLeft / pager.clientWidth) : 0;
     if(dir === 'home'){
       turnToCover();
     } else if(dir === 'next'){
-      goSlide(cur + 1);
+      goSlide(currentSlide + 1);
     } else if(dir === 'prev'){
-      goSlide(cur - 1);
+      goSlide(currentSlide - 1);
     }
     return true;
   }
