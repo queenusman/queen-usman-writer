@@ -4,197 +4,670 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Novel</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --color-bg:#F8F7F5;
-  --color-bg-subtle:#F1ECE5;
-  --color-panel:#F8F7F5;
-  --color-panel-hover:#F1ECE5;
-  --color-border:#CCC4BC;
-  --color-border-subtle:#DCD6CF;
-  --color-text:#3E3D43;
-  --color-text-muted:#5A5760;
-  --color-text-faint:#7E7985;
-  --color-accent:#C79EAF;
-  --color-secondary:#C79EAF;
-  --color-callout-bg:rgba(199, 158, 175, 0.12);
-  --header-bg:rgba(248, 247, 245, 0.94);
-  --footer-bg:#F8F7F5;
-  --primary-btn-bg:#F8F7F5;
-  --primary-btn-text:#5A5760;
-  --primary-btn-border:#CCC4BC;
-  --selection-bg:#C79EAF;
-  --selection-text:#F8F7F5;
+  /* Ash Mode (Light) */
+  --bg:#ededed;
+  --bg-grad:linear-gradient(165deg,#f5f5f5,#e4e4e4);
+  --ink:#111111;
+  --tile:#f8f8f8;
+  --muted:#7d7d7d;
+  --dot:#c2c2c2;
+  --dotOn:#111111;
+  --panel:#f7f7f7;
+  --accent:#111111;
+  --accent-ink:#f5f5f5;
+  --line:rgba(17,17,17,.14);
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
-  :root:not(.theme-ivory){
-    --color-bg:#3E3D43;
-    --color-bg-subtle:#343338;
-    --color-panel:#49474E;
-    --color-panel-hover:#524E57;
-    --color-border:#625B64;
-    --color-border-subtle:#4D4750;
-    --color-text:#F8F7F5;
-    --color-text-muted:#C5BAC1;
-    --color-text-faint:#988F96;
-    --color-accent:#E2D0D4;
-    --color-secondary:#8E7D8A;
-    --color-callout-bg:rgba(81, 75, 84, 0.45);
-    --header-bg:rgba(62, 61, 67, 0.94);
-    --footer-bg:#343338;
-    --primary-btn-bg:#49474E;
-    --primary-btn-text:#C5BAC1;
-    --primary-btn-border:#625B64;
-    --selection-bg:#8E7D8A;
-    --selection-text:#F8F7F5;
+  :root:not([data-theme="light"]){
+    /* Pinkish / Warm Espresso-Sand Mode (Dark) */
+    --bg:#f4e9de;
+    --bg-grad:linear-gradient(165deg,#f6ece3,#e8d6c8);
+    --ink:#2b1710;
+    --tile:#fbf5ef;
+    --muted:#7b6556;
+    --dot:#cfb9aa;
+    --dotOn:#2b1710;
+    --panel:#fbf5ef;
+    --accent:#2b1710;
+    --accent-ink:#f4e9de;
+    --line:rgba(43,23,16,.15);
     color-scheme:dark;
   }
 }
-:root.theme-dark{
-  --color-bg:#3E3D43;
-  --color-bg-subtle:#343338;
-  --color-panel:#49474E;
-  --color-panel-hover:#524E57;
-  --color-border:#625B64;
-  --color-border-subtle:#4D4750;
-  --color-text:#F8F7F5;
-  --color-text-muted:#C5BAC1;
-  --color-text-faint:#988F96;
-  --color-accent:#E2D0D4;
-  --color-secondary:#8E7D8A;
-  --color-callout-bg:rgba(81, 75, 84, 0.45);
-  --header-bg:rgba(62, 61, 67, 0.94);
-  --footer-bg:#343338;
-  --primary-btn-bg:#49474E;
-  --primary-btn-text:#C5BAC1;
-  --primary-btn-border:#625B64;
-  --selection-bg:#8E7D8A;
-  --selection-text:#F8F7F5;
+:root[data-theme="dark"]{
+  --bg:#f4e9de;
+  --bg-grad:linear-gradient(165deg,#f6ece3,#e8d6c8);
+  --ink:#2b1710;
+  --tile:#fbf5ef;
+  --muted:#7b6556;
+  --dot:#cfb9aa;
+  --dotOn:#2b1710;
+  --panel:#fbf5ef;
+  --accent:#2b1710;
+  --accent-ink:#f4e9de;
+  --line:rgba(43,23,16,.15);
   color-scheme:dark;
 }
+
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-::selection{background:var(--selection-bg);color:var(--selection-text)}
-html,body{height:100%;margin:0;background:var(--color-bg);color:var(--color-text);font-family:Inter,-apple-system,"Helvetica Neue",Arial,sans-serif}
-body{display:flex;flex-direction:column;overflow:hidden}
-.pager{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;min-height:0}
+html,body{
+  height:100%;
+  margin:0;
+  background:#191615;
+  color:var(--ink);
+  font-family:Inter,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  overflow:hidden;
+}
+
+/* 3D Cube Stage */
+.stage{
+  position:relative;
+  width:100%;
+  height:100%;
+  perspective:1400px;
+  overflow:hidden;
+}
+.cube{
+  position:relative;
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  transition:transform .85s cubic-bezier(.22,.82,.24,1);
+  transform:translateZ(-50vw) rotateY(0deg);
+}
+.cube.turned{
+  transform:translateZ(-50vw) rotateY(-90deg);
+}
+.face{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  background:var(--bg-grad);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.face-front{
+  transform:rotateY(0deg) translateZ(50vw);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px 28px;
+}
+.face-right{
+  transform:rotateY(90deg) translateZ(50vw);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* Pure Typographic Cover */
+.cover-copy{
+  max-width:340px;
+  width:100%;
+  cursor:pointer;
+  user-select:none;
+  transition:opacity .25s ease, transform .25s ease;
+}
+.cover-copy:active{
+  opacity:.72;
+  transform:scale(.99);
+}
+.cover-copy p{
+  margin:0;
+  font-size:26px;
+  font-weight:500;
+  letter-spacing:-.025em;
+  line-height:1.38;
+  color:var(--ink);
+}
+.cover-copy p + p{
+  margin-top:14px;
+}
+
+/* Inner Novel Pages */
+.top-nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:calc(env(safe-area-inset-top,0px) + 14px) 22px 4px;
+}
+.back-cover{
+  background:none;
+  border:0;
+  color:var(--ink);
+  font-size:24px;
+  line-height:1;
+  padding:4px 0;
+  cursor:pointer;
+}
+.mode-dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  border:1.5px solid var(--ink);
+  background:var(--accent);
+  cursor:pointer;
+  padding:0;
+}
+
+.pager{
+  flex:1;
+  display:flex;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  min-height:0;
+}
 .pager::-webkit-scrollbar{display:none}
-.page{flex:0 0 100%;scroll-snap-align:start;padding:24px 22px;display:flex;flex-direction:column}
+.page{
+  flex:0 0 100%;
+  scroll-snap-align:start;
+  padding:16px 22px 24px;
+  display:flex;
+  flex-direction:column;
+}
 .p1{justify-content:center}
-.manifesto{background:var(--color-panel);border:1px solid var(--color-border-subtle);border-radius:22px;padding:28px 24px;transition:background .2s,border-color .2s}
-.manifesto p{font-size:24px;font-weight:500;letter-spacing:-.025em;line-height:1.38;margin:0 0 20px;color:var(--color-text)}
-.manifesto p:last-child{margin-bottom:0;font-weight:600;color:var(--color-accent)}
+.p1 a{
+  font-size:32px;
+  font-weight:500;
+  letter-spacing:-.02em;
+  line-height:1.55;
+  color:var(--ink);
+  text-decoration:none;
+  padding-left:10px;
+}
 .p2{justify-content:center}
-.list{background:var(--color-panel);border:1px solid var(--color-border-subtle);border-radius:22px;padding:18px 16px}
-.list button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--color-border-subtle);color:var(--color-text);font:500 18px/1.2 Inter,sans-serif;padding:13px 6px;cursor:pointer;transition:background .15s,color .15s}
-.list button:last-child{border-bottom:0}
-.list button:hover{background:var(--color-panel-hover);border-radius:10px}
-.list button.done{color:var(--color-text-faint);text-decoration:line-through}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
-.tile{background:var(--color-panel);border:1px solid var(--color-border-subtle);border-radius:22px;aspect-ratio:1/1;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:10px;color:var(--color-text);font:600 15px/1.2 Inter,sans-serif;text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
-.tile:hover{background:var(--color-panel-hover);border-color:var(--color-border)}
-.tile svg{width:24px;height:24px;fill:var(--color-accent)}
-.dots{display:flex;justify-content:center;gap:9px;padding:10px 0 16px}
-.dots i{width:7px;height:7px;border-radius:50%;background:var(--color-border);transition:background .2s;cursor:pointer}
-.dots i.on{background:var(--color-accent)}
-.dock{display:flex;justify-content:center;gap:16px;padding:12px 20px 14px;background:var(--footer-bg);border-top:1px solid var(--color-border-subtle)}
-.dock a{width:64px;height:64px;border-radius:18px;background:var(--primary-btn-bg);border:1px solid var(--primary-btn-border);display:grid;place-items:center;color:var(--primary-btn-text);text-decoration:none;transition:background .2s,color .2s,border-color .2s}
-.dock a:hover{background:var(--color-panel-hover);color:var(--color-text);border-color:var(--color-accent)}
-.dock svg{width:30px;height:30px}
-.sc{position:fixed;inset:0;z-index:20;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 18px) 24px calc(env(safe-area-inset-bottom,0px) + 24px);transform:translateY(100%);visibility:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),visibility .35s;color:var(--color-text);font-family:Inter,-apple-system,Arial,sans-serif}
+.list{
+  background:var(--panel);
+  border-radius:22px;
+  padding:18px 18px;
+}
+.list button{
+  display:block;
+  width:100%;
+  text-align:left;
+  background:none;
+  border:0;
+  color:var(--ink);
+  font:500 17px/1.25 Inter,sans-serif;
+  padding:13px 0;
+  cursor:pointer;
+}
+.list button.done{
+  color:var(--muted);
+  text-decoration:line-through;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:auto 0;
+}
+.tile{
+  background:var(--tile);
+  border:0;
+  border-radius:22px;
+  aspect-ratio:1/1;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:flex-start;
+  gap:10px;
+  color:var(--ink);
+  font:600 15px/1.2 Inter,sans-serif;
+  text-align:left;
+  cursor:pointer;
+}
+.tile svg{width:24px;height:24px;fill:currentColor}
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:9px;
+  padding:8px 0 calc(env(safe-area-inset-bottom,0px) + 18px);
+}
+.dots i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--dot);
+  transition:background .2s;
+  cursor:pointer;
+}
+.dots i.on{background:var(--dotOn)}
+
+/* Slide-up Sub-screens */
+.sc{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  overflow-y:auto;
+  padding:calc(env(safe-area-inset-top,0px) + 18px) 24px calc(env(safe-area-inset-bottom,0px) + 24px);
+  transform:translateY(100%);
+  visibility:hidden;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),visibility .35s;
+  color:var(--ink);
+  background:var(--bg-grad);
+  font-family:Inter,-apple-system,Arial,sans-serif;
+}
 .sc.open{transform:none;visibility:visible}
-.t-dune{background:var(--color-bg)}.t-list{background:var(--color-bg-subtle)}.t-tl{background:var(--color-bg)}
 .sc button{font-family:inherit;color:inherit;cursor:pointer}
-.bk{background:none;border:0;font-size:28px;line-height:1;padding:0;color:var(--color-text-muted)}
-.bk:hover{color:var(--color-text)}
-.sc h2{font-size:15px;font-weight:500;margin:22px 0 4px;letter-spacing:.02em;color:var(--color-text)}.sub{font-size:12px;color:var(--color-text-muted);margin-bottom:18px}
-.ix{list-style:none;margin:0;padding:0;border-top:1px solid var(--color-border)}.ix li{display:flex;justify-content:space-between;align-items:center;padding:17px 10px;border-bottom:1px solid var(--color-border-subtle);font-size:15px;cursor:pointer;transition:background .2s}.ix li:hover{background:var(--color-panel-hover)}.ix li em{font-style:normal;font-size:12px;color:var(--color-text-faint)}.ix li.on{background:var(--color-callout-bg);border-color:var(--color-accent)}.ix li.on em{color:var(--color-accent)}
-.add{display:flex;gap:10px;margin-top:22px}.add input{flex:1;background:none;border:0;border-bottom:1px solid var(--color-border);font:15px Inter,sans-serif;padding:8px 2px;outline:0;color:var(--color-text)}.add input::placeholder{color:var(--color-text-faint)}.add button{background:var(--primary-btn-bg);color:var(--primary-btn-text);border:1px solid var(--primary-btn-border);border-radius:8px;padding:0 18px;font-size:14px}.add button:hover{background:var(--color-panel-hover);color:var(--color-text)}
-.tl{list-style:none;margin:30px 0 0;padding:0 0 0 52px;position:relative}.tl:before{content:"";position:absolute;left:11px;top:14px;bottom:14px;width:1.5px;background:var(--color-border)}.tl li{position:relative;font-size:22px;font-weight:300;padding:15px 0;cursor:pointer;color:var(--color-text-muted);transition:color .2s}.tl li:before{content:"";position:absolute;left:-47px;top:50%;width:11px;height:11px;margin-top:-5.5px;border-radius:50%;background:var(--color-panel);border:1.5px solid var(--color-border);transition:box-shadow .25s,background .25s,border-color .25s}.tl li.on{font-weight:600;color:var(--color-text)}.tl li.on:before{background:var(--color-accent);border-color:var(--color-accent);box-shadow:0 0 0 6px var(--color-callout-bg)}
-.t-tl h2{font-size:13px;font-weight:400;margin:26px 0 0 52px;color:var(--color-text-faint)}
-.jt{font-size:34px;letter-spacing:.06em;text-align:center;margin-top:36px;color:var(--color-text)}.js{font-size:13px;font-weight:300;text-align:center;color:var(--color-text-muted);margin:6px 0 20px}
-.sc textarea{width:100%;height:46vh;background:var(--color-callout-bg);border:1px solid var(--color-border-subtle);border-radius:14px;padding:16px;font:300 18px/1.6 Inter,sans-serif;color:var(--color-text);outline:0;resize:none}
-.sc textarea::placeholder{color:var(--color-text-faint)}
-.jb{display:flex;gap:12px;margin-top:14px}.jb button{flex:1;background:var(--primary-btn-bg);color:var(--primary-btn-text);border:1px solid var(--primary-btn-border);border-radius:12px;padding:14px;font-size:15px;font-weight:400}.jb button:hover{background:var(--color-panel-hover);color:var(--color-text)}
-.top{display:flex;justify-content:space-between;align-items:center}.av{width:36px;height:36px;border-radius:50%;background:var(--color-panel);border:1px solid var(--color-border);color:var(--color-accent);display:grid;place-items:center;font-size:13px;font-weight:600}
-.tb{font-size:13px;color:var(--color-text-muted);margin-top:26px}.bal{font-size:46px;font-weight:500;letter-spacing:-.03em;margin:4px 0 0;color:var(--color-text)}.bal small{font-size:14px;font-weight:400;color:var(--color-text-muted);margin-left:6px}
-.acts{display:flex;gap:12px;margin:22px 0 26px}.acts button{flex:1;height:52px;border-radius:26px;border:1px solid var(--primary-btn-border);background:var(--primary-btn-bg);color:var(--primary-btn-text);font-size:18px}.acts button:hover{background:var(--color-panel-hover);color:var(--color-text)}.acts button:last-child{background:var(--color-accent);color:var(--color-bg);border-color:var(--color-accent);font-weight:600}
-.fv{font-size:15px;font-weight:500;margin-bottom:12px;color:var(--color-text)}.fr{display:flex;align-items:center;gap:12px;background:var(--color-panel);border:1px solid var(--color-border-subtle);border-radius:18px;padding:13px 14px;margin-bottom:10px}.fr:hover{background:var(--color-panel-hover)}.fr i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--color-secondary);color:var(--selection-text);font:600 15px Inter,sans-serif;font-style:normal}.fr b{flex:1;font-size:15px;font-weight:500;color:var(--color-text)}.fr span{font-size:14px;font-weight:500;color:var(--color-text-muted)}.fr svg{width:64px;height:22px;fill:none;stroke:var(--color-accent);stroke-width:1.6}
+.bk{background:none;border:0;font-size:28px;line-height:1;padding:0}
+.sc h2{font-size:15px;font-weight:500;margin:22px 0 4px;letter-spacing:.02em}
+.sub{font-size:12px;color:var(--muted);margin-bottom:18px}
+.ix{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.ix li{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:17px 6px;
+  border-bottom:1px solid var(--line);
+  font-size:15px;
+  cursor:pointer;
+  transition:background .2s;
+}
+.ix li em{font-style:normal;font-size:12px;color:var(--muted)}
+.ix li.on{background:var(--accent);color:var(--accent-ink)}
+.ix li.on em{color:var(--accent-ink);opacity:.8}
+.add{display:flex;gap:10px;margin-top:22px}
+.add input{
+  flex:1;
+  background:none;
+  border:0;
+  border-bottom:1px solid var(--ink);
+  font:15px Inter,sans-serif;
+  padding:8px 2px;
+  outline:0;
+  color:var(--ink);
+}
+.add button{
+  background:var(--accent);
+  color:var(--accent-ink);
+  border:0;
+  border-radius:6px;
+  padding:0 18px;
+  font-size:14px;
+}
+.tl{list-style:none;margin:30px 0 0;padding:0 0 0 52px;position:relative}
+.tl:before{
+  content:"";
+  position:absolute;
+  left:11px;
+  top:14px;
+  bottom:14px;
+  width:1.5px;
+  background:var(--ink);
+  opacity:.45;
+}
+.tl li{position:relative;font-size:21px;font-weight:300;padding:15px 0;cursor:pointer}
+.tl li:before{
+  content:"";
+  position:absolute;
+  left:-47px;
+  top:50%;
+  width:11px;
+  height:11px;
+  margin-top:-5.5px;
+  border-radius:50%;
+  background:var(--tile);
+  box-shadow:0 0 0 1px var(--line);
+  transition:box-shadow .25s;
+}
+.tl li.on{font-weight:600}
+.tl li.on:before{box-shadow:0 0 0 7px rgba(255,255,255,.5),0 2px 8px rgba(0,0,0,.18)}
+.t-tl h2{font-size:13px;font-weight:300;margin:26px 0 0 52px;color:var(--muted)}
+.jt{font-size:30px;letter-spacing:.06em;text-align:center;margin-top:30px}
+.js{font-size:13px;font-weight:300;text-align:center;color:var(--muted);margin:6px 0 20px}
+.sc textarea{
+  width:100%;
+  height:46vh;
+  background:transparent;
+  border:0;
+  border-top:1px solid var(--line);
+  padding:16px 2px;
+  font:300 18px/1.6 Inter,sans-serif;
+  color:var(--ink);
+  outline:0;
+  resize:none;
+}
+.jb{display:flex;border-top:1px solid var(--line)}
+.jb button{flex:1;background:none;border:0;padding:18px;font-size:15px;font-weight:300}
+.excerpt-body{
+  margin-top:18px;
+  font-size:17px;
+  font-weight:300;
+  line-height:1.75;
+  border-top:1px solid var(--line);
+  padding-top:20px;
+}
+.excerpt-body p{margin:0 0 18px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.av{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:var(--accent);
+  color:var(--accent-ink);
+  display:grid;
+  place-items:center;
+  font-size:13px;
+  font-weight:500;
+}
+.tb{font-size:13px;color:var(--muted);margin-top:26px}
+.bal{font-size:44px;font-weight:500;letter-spacing:-.03em;margin:4px 0 0}
+.bal small{font-size:14px;font-weight:400;color:var(--muted);margin-left:4px}
+.acts{display:flex;gap:12px;margin:22px 0 26px}
+.acts button{
+  flex:1;
+  height:52px;
+  border-radius:26px;
+  border:0;
+  background:var(--tile);
+  color:var(--ink);
+  font-size:18px;
+}
+.acts button:last-child{background:var(--accent);color:var(--accent-ink)}
+.fv{font-size:15px;font-weight:500;margin-bottom:12px}
+.fr{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:var(--tile);
+  border-radius:18px;
+  padding:13px 14px;
+  margin-bottom:10px;
+}
+.fr i{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--accent);
+  color:var(--accent-ink);
+  font:600 14px Inter,sans-serif;
+  font-style:normal;
+}
+.fr b{flex:1;font-size:15px;font-weight:500}
+.fr span{font-size:14px;font-weight:500}
+.fr svg{width:64px;height:22px;fill:none;stroke:var(--ink);stroke-width:1.6}
 </style>
 </head>
 <body>
-<div class="pager" id="pager">
-  <section class="page p1">
-    <div class="manifesto">
-      <p>I wrote a woman who finally chooses.</p>
-      <p>You may not like how much of you is in her, or how long you've been waiting to be her.</p>
-      <p>She's done waiting. You don't have to be.</p>
-    </div>
-  </section>
-  <section class="page p2">
-    <div class="list" id="list">
-      <button>Chapter 1 — The Ultimatum</button>
-      <button>Chapter 2 — Packed Bags</button>
-      <button>Chapter 3 — Unanswered Calls</button>
-      <button>Chapter 4 — First Morning Alone</button>
-      <button class="done">Prologue — Before the Choice</button>
-      <button class="done">Character Dossier</button>
-    </div>
-  </section>
-  <section class="page p3">
-    <div class="grid" style="margin-top:0">
-      <button class="tile"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
-      <button class="tile"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg>Characters</button>
-      <button class="tile"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
-      <button class="tile"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Notes</button>
-      <button class="tile"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>Key Scenes</button>
-      <button class="tile"><svg viewBox="0 0 24 24"><path d="M12 2L15 8l6 1-4.5 4.3L17.6 20 12 17l-5.6 3 1.1-6.7L3 9l6-1z"/></svg>Pre-Order</button>
-    </div>
-  </section>
+
+<div class="stage">
+  <div class="cube" id="cube">
+
+    <!-- FRONT FACE: Pure Homepage Text Only -->
+    <main class="face face-front" id="frontFace">
+      <div class="cover-copy" id="coverTrigger" role="button" tabindex="0" aria-label="Enter the novel">
+        <p>a woman who finally chooses.</p>
+        <p>You may not like how much of you is in her, or how long you’ve been waiting to be her.</p>
+        <p>She’s done waiting. You don’t have to be.</p>
+      </div>
+    </main>
+
+    <!-- RIGHT FACE: Rest of the Novel Pages -->
+    <section class="face face-right" aria-label="Novel Pages">
+      <div class="top-nav">
+        <button class="back-cover" id="toCover" aria-label="Back to cover">←</button>
+        <button class="mode-dot" id="themeToggle" aria-label="Switch color mode" title="Switch Ash / Warm Sand"></button>
+      </div>
+
+      <div class="pager" id="pager">
+        <!-- Page 1: Novel Navigation -->
+        <section class="page p1">
+          <a href="#" data-open="Excerpt">Excerpt</a>
+          <a href="#" data-open="Chapters">Chapters</a>
+          <a href="#" data-open="Characters">Characters</a>
+          <a href="#" data-open="Notes">Author Notes</a>
+          <a href="#" data-open="Order">Get the Book</a>
+        </section>
+
+        <!-- Page 2: Reader Check-in / Themes -->
+        <section class="page p2">
+          <div class="list" id="list">
+            <button>Chapter I — The Quiet Before</button>
+            <button>Chapter II — What She Kept</button>
+            <button>Chapter III — The Line Drawn</button>
+            <button>Chapter IV — Unapologetic</button>
+            <button class="done">Prologue — First Choice</button>
+          </div>
+        </section>
+
+        <!-- Page 3: Story World Tiles -->
+        <section class="page p3">
+          <div class="grid">
+            <button class="tile"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
+            <button class="tile"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
+            <button class="tile"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
+            <button class="tile"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
+            <button class="tile"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
+            <button class="tile"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+    </section>
+
+  </div>
 </div>
-<div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
-<nav class="dock">
-  <a href="#" data-open="Chapters" aria-label="Read Sample"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 6h18a3 3 0 0 1 3 3v21H10a3 3 0 0 0-3 3V6z"/><path d="M7 27h21"/></svg></a>
-  <a href="#" data-open="Story Arc" aria-label="Timeline"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="18" r="12"/><path d="M18 11v7l5 3"/></svg></a>
-  <a href="#" data-open="Reader Notes" aria-label="Notes"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 28l2-7L23 8l5 5-13 13z"/></svg></a>
-  <a href="#" data-open="Pre-Order" aria-label="Get the Book"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 13h18l-1.5 16h-15z"/><path d="M14 13V10a4 4 0 0 1 8 0v3"/></svg></a>
-</nav>
-<script>
-var pager=document.getElementById('pager'),dots=document.querySelectorAll('#dots i');
-pager.addEventListener('scroll',function(){var n=Math.round(pager.scrollLeft/pager.clientWidth);dots.forEach(function(d,i){d.classList.toggle('on',i===n)})});
-dots.forEach(function(d,i){d.addEventListener('click',function(){pager.scrollTo({left:i*pager.clientWidth,behavior:'smooth'})})});
-document.getElementById('list').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')e.target.classList.toggle('done')});
-document.querySelectorAll('a[href="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();if(a.dataset.open)openScreen(a.dataset.open)})});
-</script>
+
 <div class="sc" id="sc"></div>
+
 <script>
-var sc=document.getElementById('sc'),copies=1420;
-function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-var L={'Chapters':[['Prologue: Before the Choice','4 min read'],['Chapter 1: The Ultimatum','9 min read'],['Chapter 2: Packed Bags','11 min read'],['Chapter 3: Unanswered Calls','8 min read'],['Chapter 4: First Morning Alone','12 min read']],
-'Characters':[['Her','The woman who finally chooses'],['Him','Still waiting on the old version'],['The Friend','The one who knew first'],['The City','Where she starts over']]};
-var T={'Story Arc':['The Silence','The Breaking Point','The Decision','The Departure','The Reckoning','The Becoming'],'Key Scenes':['The kitchen table conversation','Leaving the keys on the counter','The 2:00 AM train','Blocking the number','First breath in the new apartment','Looking back once']};
-var F=[['Hardcover Edition','H','$28.00',[3,5,6,8,9,10]],['Signed First Print','S','$36.00',[4,6,8,9,10,10]],['Digital E-Book','E','$14.99',[2,4,5,7,8,9]],['Audiobook (Author Narrated)','A','$24.99',[3,4,6,7,9,10]]];
-function spark(a){return '<svg viewBox="0 0 64 22"><polyline points="'+a.map(function(v,i){return i*12.8+','+(21-v*2)}).join(' ')+'"/></svg>'}
-function show(cls,html){sc.className='sc t-'+cls;sc.innerHTML=html;void sc.offsetHeight;sc.classList.add('open')}
-function fmt(n){return n.toLocaleString('en-US')}
-function openScreen(n){
- if(L[n]){show('list','<button class="bk" data-x>←</button><h2>'+n+'</h2><div class="sub">'+L[n].length+' entries · tap to mark read</div><ul class="ix">'+L[n].map(function(r){return '<li><span>'+esc(r[0])+'</span><em>'+esc(r[1])+'</em></li>'}).join('')+'</ul><div class="add"><input placeholder="Add note or bookmark"><button class="ad">Add</button></div>')}
- else if(T[n]){show('tl','<button class="bk" data-x>×</button><h2>'+n+'</h2><ol class="tl">'+T[n].map(function(s,i){return '<li'+(i==0?' class="on"':'')+'>'+s+'</li>'}).join('')+'</ol>')}
- else if(n==='Reader Notes'){var v='';try{v=localStorage.getItem('jr')||''}catch(e){}
-  show('tl','<button class="bk" data-x>×</button><div class="jt">REFLECTIONS</div><div class="js">What resonated with you?</div><textarea placeholder="Write your thoughts on the story...">'+esc(v)+'</textarea><div class="jb"><button data-j="c">Clear</button><button data-j="s">Save</button></div>')}
- else if(n==='Pre-Order'){show('dune','<div class="top"><div class="av">1st</div><button class="bk" data-x>×</button></div><div class="tb">Early Readers</div><div class="bal" id="bal">'+fmt(copies)+'<small>copies reserved</small></div><div class="acts"><button>↗</button><button>♡</button><button>✎</button><button data-p>+1</button></div><div class="fv">Available Editions</div>'+F.map(function(f){return '<div class="fr"><i>'+f[1]+'</i><b>'+f[0]+'</b>'+spark(f[3])+'<span>'+f[2]+'</span></div>'}).join(''))}
+// Optional URL override (?theme=dark or ?theme=light)
+(function(){
+  var q = new URLSearchParams(location.search).get('theme');
+  if(q === 'dark' || q === 'light') document.documentElement.setAttribute('data-theme', q);
+})();
+
+var cube = document.getElementById('cube');
+var coverTrigger = document.getElementById('coverTrigger');
+var toCover = document.getElementById('toCover');
+var themeToggle = document.getElementById('themeToggle');
+
+// Turn cube on text click or Enter/Space
+coverTrigger.addEventListener('click', function(){
+  cube.classList.add('turned');
+});
+coverTrigger.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' || e.key === ' '){
+    e.preventDefault();
+    cube.classList.add('turned');
+  }
+});
+
+// Turn cube back to homepage cover
+toCover.addEventListener('click', function(){
+  cube.classList.remove('turned');
+});
+
+// Toggle between Ash (light) and Pinkish-Sand (dark)
+themeToggle.addEventListener('click', function(){
+  var root = document.documentElement;
+  var isDark = root.getAttribute('data-theme') === 'dark' ||
+    (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+});
+
+// Pager & Dots
+var pager = document.getElementById('pager'), dots = document.querySelectorAll('#dots i');
+pager.addEventListener('scroll', function(){
+  var n = Math.round(pager.scrollLeft / pager.clientWidth);
+  dots.forEach(function(d, i){ d.classList.toggle('on', i === n); });
+});
+dots.forEach(function(d, i){
+  d.addEventListener('click', function(){
+    pager.scrollTo({left: i * pager.clientWidth, behavior: 'smooth'});
+  });
+});
+document.getElementById('list').addEventListener('click', function(e){
+  if(e.target.tagName === 'BUTTON') e.target.classList.toggle('done');
+});
+
+// Sub-screens content
+var sc = document.getElementById('sc'), copies = 1240;
+function esc(s){
+  return s.replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+  });
 }
-document.addEventListener('click',function(e){var t=e.target,x;
- if(x=t.closest('.tile')){openScreen(x.textContent.trim());return}
- if(t.closest('[data-x]')){sc.classList.remove('open');return}
- if(x=t.closest('.ix li, .tl li')){x.classList.toggle('on');return}
- if(t.closest('.ad')){var i=sc.querySelector('.add input'),v=i.value.trim();if(v){var li=document.createElement('li');li.innerHTML='<span>'+esc(v)+'</span><em>saved</em>';sc.querySelector('.ix').appendChild(li);i.value=''}return}
- if(x=t.closest('[data-j]')){var ta=sc.querySelector('textarea');if(x.dataset.j==='c')ta.value='';try{localStorage.setItem('jr',ta.value)}catch(e){}if(x.dataset.j==='s'){x.textContent='Saved';setTimeout(function(){x.textContent='Save'},1200)}return}
- if(t.closest('[data-p]')){copies+=1;document.getElementById('bal').innerHTML=fmt(copies)+'<small>copies reserved</small>'}
+
+var L = {
+  'Chapters': [
+    ['Prologue: First Choice', '4 min read'],
+    ['Chapter I: The Quiet Before', '12 min read'],
+    ['Chapter II: What She Kept', '15 min read'],
+    ['Chapter III: The Line Drawn', '11 min read'],
+    ['Chapter IV: Unapologetic', '18 min read']
+  ],
+  'Characters': [
+    ['Her', 'The one who stopped apologizing'],
+    ['The Mirror', 'Everything she used to tolerate'],
+    ['The Catalyst', 'The moment that broke the pattern'],
+    ['The Aftermath', 'Who stays when she changes']
+  ]
+};
+
+var T = {
+  'Story Arc': [
+    'The Accommodation',
+    'The Quiet Fracture',
+    'The Refusal',
+    'The Reckoning',
+    'The Choice'
+  ]
+};
+
+var F = [
+  ['Hardcover Edition', 'H', '$28.00', [3,5,4,7,8,10]],
+  ['Paperback Edition', 'P', '$18.00', [2,4,6,6,8,9]],
+  ['Digital / E-Book', 'E', '$12.99', [4,5,7,8,9,10]],
+  ['Signed Collector Copy', 'S', '$45.00', [2,3,5,7,9,10]]
+];
+
+function spark(a){
+  return '<svg viewBox="0 0 64 22"><polyline points="' + a.map(function(v, i){
+    return (i * 12.8) + ',' + (21 - v * 2);
+  }).join(' ') + '"/></svg>';
+}
+
+function show(cls, html){
+  sc.className = 'sc t-' + cls;
+  sc.innerHTML = html;
+  void sc.offsetHeight;
+  sc.classList.add('open');
+}
+
+function fmt(n){ return n.toLocaleString('en-US'); }
+
+function openScreen(n){
+  if(L[n]){
+    show('list',
+      '<button class="bk" data-x>←</button>' +
+      '<h2>' + n + '</h2>' +
+      '<div class="sub">' + L[n].length + ' entries · tap to highlight</div>' +
+      '<ul class="ix">' + L[n].map(function(r){
+        return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
+      }).join('') + '</ul>' +
+      '<div class="add"><input placeholder="Add your note"><button class="ad">Add</button></div>'
+    );
+  } else if(T[n]){
+    show('tl',
+      '<button class="bk" data-x>×</button>' +
+      '<h2>' + n + '</h2>' +
+      '<ol class="tl">' + T[n].map(function(s, i){
+        return '<li' + (i === 0 ? ' class="on"' : '') + '>' + s + '</li>';
+      }).join('') + '</ol>'
+    );
+  } else if(n === 'Excerpt' || n === 'Notes'){
+    var title = n === 'Excerpt' ? 'Chapter I — Excerpt' : 'Author’s Note';
+    var body = n === 'Excerpt'
+      ? '<p>She did not slam the door when she left. Slams belong to people who still want to be heard on the way out.</p><p>She simply set the keys down on the table, smoothed the front of her coat, and walked into the street without looking back once to see who was watching.</p>'
+      : '<p>This book was written for every version of you that swallowed a “no” to keep the peace.</p><p>Read it slowly. Underline the parts that sting.</p>';
+    show('list',
+      '<button class="bk" data-x>←</button>' +
+      '<h2>' + title + '</h2>' +
+      '<div class="sub">Preview</div>' +
+      '<div class="excerpt-body">' + body + '</div>'
+    );
+  } else if(n === 'Reader Journal'){
+    var v = '';
+    try{ v = localStorage.getItem('novel_jr') || ''; }catch(e){}
+    show('tl',
+      '<button class="bk" data-x>×</button>' +
+      '<div class="jt">READER NOTES</div>' +
+      '<div class="js">' + new Date().toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) + '</div>' +
+      '<textarea placeholder="Write what stayed with you...">' + esc(v) + '</textarea>' +
+      '<div class="jb"><button data-j="c">Clear</button><button data-j="s">Save</button></div>'
+    );
+  } else if(n === 'Editions' || n === 'Order'){
+    show('dune',
+      '<div class="top"><div class="av">I</div><button class="bk" data-x>×</button></div>' +
+      '<div class="tb">First Print Run · Reserved</div>' +
+      '<div class="bal" id="bal">' + fmt(copies) + '<small>COPIES</small></div>' +
+      '<div class="acts"><button data-open="Excerpt">Read</button><button data-p>Reserve +1</button></div>' +
+      '<div class="fv">Available Formats</div>' +
+      F.map(function(f){
+        return '<div class="fr"><i>' + f[1] + '</i><b>' + f[0] + '</b>' + spark(f[3]) + '<span>' + f[2] + '</span></div>';
+      }).join('')
+    );
+  }
+}
+
+document.addEventListener('click', function(e){
+  var t = e.target, x;
+  if(x = t.closest('[data-open]')){
+    e.preventDefault();
+    openScreen(x.dataset.open);
+    return;
+  }
+  if(x = t.closest('.tile')){
+    openScreen(x.textContent.trim());
+    return;
+  }
+  if(t.closest('[data-x]')){
+    sc.classList.remove('open');
+    return;
+  }
+  if(x = t.closest('.ix li, .tl li')){
+    x.classList.toggle('on');
+    return;
+  }
+  if(t.closest('.ad')){
+    var i = sc.querySelector('.add input'), v = i.value.trim();
+    if(v){
+      var li = document.createElement('li');
+      li.innerHTML = '<span>' + esc(v) + '</span><em>note</em>';
+      sc.querySelector('.ix').appendChild(li);
+      i.value = '';
+    }
+    return;
+  }
+  if(x = t.closest('[data-j]')){
+    var ta = sc.querySelector('textarea');
+    if(x.dataset.j === 'c') ta.value = '';
+    try{ localStorage.setItem('novel_jr', ta.value); }catch(e){}
+    if(x.dataset.j === 's'){
+      x.textContent = 'Saved';
+      setTimeout(function(){ x.textContent = 'Save'; }, 1200);
+    }
+    return;
+  }
+  if(t.closest('[data-p]')){
+    copies += 1;
+    document.getElementById('bal').innerHTML = fmt(copies) + '<small>COPIES</small>';
+  }
 });
 </script>
 </body>
