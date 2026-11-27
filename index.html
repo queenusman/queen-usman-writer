@@ -273,7 +273,7 @@ html, body {
 }
 
 /* ==========================================================================
-   TWIN SWIPEABLE PAGES (FULL-WIDTH OPEN BOTTOM-BORDER ROWS + EDGE ARROWS)
+   TWIN SWIPEABLE PAGES (LEFT-ALIGNED OPEN BOTTOM-BORDER ROWS + EDGE ARROWS)
    ========================================================================== */
 .top-bar {
   display: flex;
@@ -384,13 +384,13 @@ html, body {
   border: 0;
   border-bottom: 1px solid var(--border);
   border-radius: 0;
-  padding: 15px 12px;
+  padding: 15px 0;
   font-family: var(--font-sans);
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
   color: var(--ink);
   display: block;
   cursor: pointer;
@@ -683,7 +683,8 @@ html, body {
   }
 
   .nb-text-link {
-    padding: 14px 12px;
+    padding: 14px 0;
+    text-align: left;
     font-size: 0.65rem;
     letter-spacing: 0.24em;
   }
