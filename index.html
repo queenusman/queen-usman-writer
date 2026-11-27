@@ -232,6 +232,7 @@ html, body {
   text-transform: uppercase;
   transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .ui-btn:hover {
@@ -347,16 +348,17 @@ html, body {
 
 .cube.turned .face-front {
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .cube.turned .face-right {
   pointer-events: auto;
-  z-index: 3;
+  z-index: 4;
 }
 
 .cube.settled .face-front {
   display: none;
+  visibility: hidden;
 }
 
 /* Front Face: Or So She Thought Home Screen */
@@ -370,6 +372,7 @@ html, body {
   text-align: center;
   cursor: pointer;
   user-select: none;
+  touch-action: manipulation;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
@@ -462,7 +465,7 @@ html, body {
   align-items: center;
   padding: calc(env(safe-area-inset-top, 0px) + 22px) 22px 8px;
   position: relative;
-  z-index: 5;
+  z-index: 6;
   flex-shrink: 0;
 }
 
@@ -473,13 +476,16 @@ html, body {
   font-family: var(--font-sans);
   font-size: 1.5rem;
   line-height: 1;
-  min-width: 40px;
-  min-height: 40px;
+  min-width: 44px;
+  min-height: 44px;
   display: grid;
   place-items: center;
   justify-content: start;
   padding: 0;
   cursor: pointer;
+  touch-action: manipulation;
+  position: relative;
+  z-index: 7;
 }
 
 .pager {
@@ -489,6 +495,7 @@ html, body {
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   min-height: 0;
+  touch-action: pan-x pan-y;
 }
 
 .pager::-webkit-scrollbar {
@@ -518,6 +525,7 @@ html, body {
   text-decoration: none;
   padding-left: 8px;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .p1 a:hover {
@@ -549,6 +557,7 @@ html, body {
   line-height: 1.35;
   padding: 13px 0;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .list button.done {
@@ -581,6 +590,7 @@ html, body {
   line-height: 1.25;
   text-align: left;
   cursor: pointer;
+  touch-action: manipulation;
   box-shadow: var(--card-shadow);
 }
 
@@ -604,12 +614,13 @@ html, body {
 }
 
 .dots i {
-  width: 7px;
-  height: 7px;
+  width: 9px;
+  height: 9px;
   border-radius: var(--radius-full);
   background: var(--color-border);
   transition: background 0.2s;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .dots i.on {
@@ -652,6 +663,7 @@ html, body {
   font-family: var(--font-sans);
   color: inherit;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .bk {
@@ -659,6 +671,11 @@ html, body {
   border: 0;
   font-size: 1.75rem;
   line-height: 1;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-grid;
+  place-items: center;
+  justify-content: start;
   padding: 0 10px 0 0;
 }
 
@@ -697,6 +714,7 @@ html, body {
   font-size: 1rem;
   line-height: 1.7;
   cursor: pointer;
+  touch-action: manipulation;
   transition: background 0.2s;
 }
 
@@ -760,6 +778,7 @@ html, body {
   line-height: 1.45;
   padding: 14px 0;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .tl li:before {
@@ -991,7 +1010,7 @@ html, body {
     <!-- RIGHT FACE: Rest of the Novel Pages -->
     <section class="face face-right" aria-label="Novel Pages">
       <div class="top-nav">
-        <button class="back-cover" id="toCover" aria-label="Back to home">←</button>
+        <button type="button" class="back-cover" id="toCover" aria-label="Back to home">←</button>
       </div>
 
       <div class="pager" id="pager">
@@ -1007,23 +1026,23 @@ html, body {
         <!-- Page 2: Reader Check-in / Themes -->
         <section class="page p2">
           <div class="list" id="list">
-            <button>Chapter I — The Quiet Before</button>
-            <button>Chapter II — What She Kept</button>
-            <button>Chapter III — The Line Drawn</button>
-            <button>Chapter IV — Unapologetic</button>
-            <button class="done">Prologue — First Choice</button>
+            <button type="button">Chapter I — The Quiet Before</button>
+            <button type="button">Chapter II — What She Kept</button>
+            <button type="button">Chapter III — The Line Drawn</button>
+            <button type="button">Chapter IV — Unapologetic</button>
+            <button type="button" class="done">Prologue — First Choice</button>
           </div>
         </section>
 
         <!-- Page 3: Story World Tiles -->
         <section class="page p3">
           <div class="grid">
-            <button class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
-            <button class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
-            <button class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
-            <button class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
-            <button class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
-            <button class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
+            <button type="button" class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
+            <button type="button" class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
+            <button type="button" class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
+            <button type="button" class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
+            <button type="button" class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
+            <button type="button" class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
           </div>
         </section>
       </div>
@@ -1140,17 +1159,17 @@ function fmt(n){ return n.toLocaleString('en-US'); }
 function openScreen(n){
   if(L[n]){
     show('list',
-      '<button class="bk" data-x>←</button>' +
+      '<button type="button" class="bk" data-x>←</button>' +
       '<h2>' + n + '</h2>' +
       '<div class="sub">' + L[n].length + ' entries · tap to highlight</div>' +
       '<ul class="ix">' + L[n].map(function(r){
         return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
       }).join('') + '</ul>' +
-      '<div class="add"><input placeholder="Add your note"><button class="ui-btn ad">Add</button></div>'
+      '<div class="add"><input placeholder="Add your note"><button type="button" class="ui-btn ad">Add</button></div>'
     );
   } else if(T[n]){
     show('tl',
-      '<button class="bk" data-x>×</button>' +
+      '<button type="button" class="bk" data-x>×</button>' +
       '<h2>' + n + '</h2>' +
       '<ol class="tl">' + T[n].map(function(s, i){
         return '<li' + (i === 0 ? ' class="on"' : '') + '>' + s + '</li>';
@@ -1162,7 +1181,7 @@ function openScreen(n){
       ? '<p class="chapter-paragraph">She did not slam the door when she left. Slams belong to people who still want to be heard on the way out.</p><p class="chapter-paragraph">She simply set the keys down on the table, smoothed the front of her coat, and walked into the street without looking back once to see who was watching.</p>'
       : '<p class="chapter-paragraph">This book was written for every version of you that swallowed a “no” to keep the peace.</p><p class="chapter-paragraph">Read it slowly. Underline the parts that sting.</p>';
     show('list',
-      '<button class="bk" data-x>←</button>' +
+      '<button type="button" class="bk" data-x>←</button>' +
       '<h2>' + title + '</h2>' +
       '<div class="sub">Preview</div>' +
       '<div class="excerpt-body prose-body-lg">' + body + '</div>'
@@ -1171,18 +1190,18 @@ function openScreen(n){
     var v = '';
     try{ v = localStorage.getItem('novel_jr') || ''; }catch(e){}
     show('tl',
-      '<button class="bk" data-x>×</button>' +
+      '<button type="button" class="bk" data-x>×</button>' +
       '<div class="jt">READER NOTES</div>' +
       '<div class="js">' + new Date().toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) + '</div>' +
       '<textarea class="prose-body-lg" placeholder="Write what stayed with you...">' + esc(v) + '</textarea>' +
-      '<div class="jb"><button class="ui-btn" data-j="c">Clear</button><button class="ui-btn" data-j="s">Save</button></div>'
+      '<div class="jb"><button type="button" class="ui-btn" data-j="c">Clear</button><button type="button" class="ui-btn" data-j="s">Save</button></div>'
     );
   } else if(n === 'Editions' || n === 'Order'){
     show('dune',
-      '<div class="top"><div class="av">I</div><button class="bk" data-x>×</button></div>' +
+      '<div class="top"><div class="av">I</div><button type="button" class="bk" data-x>×</button></div>' +
       '<div class="tb">First Print Run · Reserved</div>' +
       '<div class="bal" id="bal">' + fmt(copies) + '<small>COPIES</small></div>' +
-      '<div class="acts"><button class="ui-btn" data-open="Excerpt">Read</button><button class="ui-btn" data-p>Reserve +1</button></div>' +
+      '<div class="acts"><button type="button" class="ui-btn" data-open="Excerpt">Read</button><button type="button" class="ui-btn" data-p>Reserve +1</button></div>' +
       '<div class="fv">Available Formats</div>' +
       F.map(function(f){
         return '<div class="fr"><i>' + f[1] + '</i><b>' + f[0] + '</b>' + spark(f[3]) + '<span>' + f[2] + '</span></div>';
