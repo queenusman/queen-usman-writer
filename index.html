@@ -136,9 +136,23 @@ html, body {
   z-index: 4;
 }
 
+/* Once settled on the inner face, flatten 3D hit-testing so desktop clicks & taps are exact */
+.cube.settled {
+  transform: none;
+  transform-style: flat;
+}
+
 .cube.settled .face-front {
   display: none;
   visibility: hidden;
+}
+
+.cube.settled .face-right {
+  transform: none;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+  pointer-events: auto;
+  z-index: 4;
 }
 
 /* ==========================================================================
@@ -274,6 +288,10 @@ html, body {
   z-index: 7;
 }
 
+.back-home:hover {
+  color: var(--accent);
+}
+
 .pager {
   flex: 1;
   display: flex;
@@ -310,6 +328,7 @@ html, body {
   color: var(--ink);
   text-decoration: none;
   padding-left: 10px;
+  cursor: pointer;
   touch-action: manipulation;
   transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -982,6 +1001,7 @@ var turnTimer = null;
 function turnToInner(){
   clearTimeout(turnTimer);
   cube.classList.remove('settled');
+  void cube.offsetWidth;
   cube.classList.add('turned');
   turnTimer = setTimeout(function(){
     if(cube.classList.contains('turned')) cube.classList.add('settled');
@@ -992,6 +1012,7 @@ function turnToCover(){
   clearTimeout(turnTimer);
   sc.classList.remove('open');
   cube.classList.remove('settled');
+  cube.classList.add('turned');
   void cube.offsetWidth;
   cube.classList.remove('turned');
 }
@@ -1017,7 +1038,8 @@ dots.forEach(function(d, i){
   });
 });
 document.getElementById('list').addEventListener('click', function(e){
-  if(e.target.tagName === 'BUTTON') e.target.classList.toggle('done');
+  var btn = e.target.closest('button');
+  if(btn) btn.classList.toggle('done');
 });
 
 var sc = document.getElementById('sc'), copies = 1240;
