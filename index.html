@@ -277,7 +277,7 @@ html, body {
 }
 
 /* ==========================================================================
-   TWIN SWIPEABLE PAGES (GOLD JUSTIFIED HEADINGS + LEFT-ALIGNED OPEN ROWS)
+   TWIN SWIPEABLE PAGES (FULL-JUSTIFIED GOLD HEADINGS + LEFT-ALIGNED ROWS)
    ========================================================================== */
 .top-bar {
   display: flex;
@@ -350,15 +350,18 @@ html, body {
   color: var(--accent-deep);
   margin: 0 0 18px;
   text-align: justify;
+  text-align-last: justify;
+  text-justify: inter-word;
 }
 
 .nb-copy {
+  width: 100%;
   font-family: var(--font-body);
   font-size: 1.03rem;
   line-height: 1.68;
   color: var(--charcoal);
   margin: 0;
-  max-width: 28rem;
+  text-align: justify;
 }
 
 .nb-links {
@@ -640,7 +643,7 @@ html, body {
   .nb-copy {
     font-size: 0.96rem;
     line-height: 1.72;
-    max-width: 32rem;
+    max-width: 100%;
   }
 
   .nb-links {
