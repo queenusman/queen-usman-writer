@@ -6,103 +6,39 @@
 <title>Or So She Thought — Queen Usman</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
-/* ==========================================================================
-1. DESIGN TOKENS (COLORS, FONTS, SPACING & RADII)
-   ========================================================================== */
 :root {
-  /* --- Font Families --- */
   --font-display: 'Cinzel', Georgia, serif;
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Newsreader', Georgia, serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: ui-monospace, Menlo, Consolas, monospace;
 
-  /* --- Single Blush / Rose Palette --- */
-  --color-bg: #F6ECEF;
-  --color-bg-subtle: #EDE0E5;
-  --color-panel: #FFFDFD;
-  --color-panel-hover: #FAF2F5;
-  --color-border: #DFC8D0;
-  --color-border-subtle: #ECDCE2;
-  --color-text: #2B1D24;
-  --color-text-muted: #6E5260;
-  --color-text-faint: #8F6F7F;
-  --color-accent: #9E5672;
-  --color-secondary: #8C4863;
-  --color-callout-bg: rgba(158, 86, 114, 0.12);
-  --header-bg: rgba(246, 236, 239, 0.94);
-  --footer-bg: #EDE0E5;
-  --primary-btn-bg: #FFFDFD;
-  --primary-btn-text: #2B1D24;
-  --primary-btn-border: #D9BFC9;
-  --selection-bg: #E8B8C8;
-  --selection-text: #2B1D24;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
-  --card-shadow: 0 10px 28px -6px rgba(92, 42, 62, 0.12), 0 2px 8px rgba(92, 42, 62, 0.05);
-
-  /* --- Scriptorium Archive Tokens --- */
-  --room: #EDE0E5;
-  --room-hi: #FFFDFD;
-  --case-bg: #E5D3DA;
-  --case-hi: #F6ECEF;
-  --shelf-back: #D9C3CC;
-  --plank-top: #FFFDFD;
-  --plank-mid: #EDE0E5;
-  --plank-bot: #D9C3CC;
-  --gilt: #9E5672;
-  --gilt-dim: #B5738D;
-  --plate-bg-1: #FFFDFD;
-  --plate-bg-2: #F6ECEF;
-  --plate-text: #2B1D24;
-  --plate-border: #DFC8D0;
-  --ink: #2B1D24;
-  --ink-muted: #6E5260;
-  --vellum: #FFFDFD;
-  --vellum-edge: #ECDCE2;
-  --rubric: #8C4863;
-  --ui: #2B1D24;
-  --ui-dim: #6E5260;
-  --btn-bg: rgba(255, 253, 253, 0.92);
-  --btn-hover: rgba(250, 242, 245, 0.98);
-  --btn-border: #D9BFC9;
-  --btn-border-hover: #9E5672;
-  --foil-gradient: linear-gradient(100deg, #9E5672 0%, #D49BB0 35%, #8C4863 65%, #C789A1 100%);
-
-  /* --- Cinematic Intro Tokens --- */
-  --qu-bg: #F6ECEF;
-  --qu-charcoal: #EDE0E5;
-  --qu-panel: rgba(255, 253, 253, 0.9);
-  --qu-border: rgba(158, 86, 114, 0.28);
-  --qu-accent: #9E5672;
-  --qu-secondary: #8C4863;
-  --qu-text: #2B1D24;
-  --qu-text-muted: rgba(110, 82, 96, 0.85);
-  --qu-reveal: #F6ECEF;
-
-  /* --- Spacing, Radii & Layout Scale --- */
-  --u: 8px;
-  --radius-card: 2px;
-  --radius-case: 4px;
-  --radius-pill: 7px;
-  --radius-btn: 8px;
-  --radius-control: 10px;
-  --radius-full: 999px;
-  --container-prose: 48rem;
-  --container-gateway: 56rem;
-  --container-header: 64rem;
-  --container-archive: 72rem;
-
-  /* --- Viewport Card Frame --- */
   --outer-bg: #F2E4E9;
+  --bg: #F6ECEF;
+  --bg-subtle: #EDE0E5;
+  --panel: #FFFDFD;
+  --panel-hover: #FAF2F5;
+  --border: #DFC8D0;
+  --border-subtle: #ECDCE2;
+  --ink: #2B1D24;
+  --muted: #6E5260;
+  --accent: #9E5672;
+  --secondary: #8C4863;
+  --callout: rgba(158, 86, 114, 0.12);
+  --dot: #D9BFC9;
+  --dotOn: #9E5672;
+  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
+  --shadow: 0 10px 28px -6px rgba(92, 42, 62, 0.12), 0 2px 8px rgba(92, 42, 62, 0.05);
+
   --card-w: 100vw;
   --card-h: 100dvh;
   --card-r: 0px;
 
   box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   color-scheme: light;
 }
 
-/* Desktop View: Tall Vertical Portrait Rectangle with Curved Edges */
 @media (min-width: 600px) {
   :root {
     --card-w: min(390px, 88vw);
@@ -111,9 +47,6 @@
   }
 }
 
-/* ==========================================================================
-2. BASE & EDITORIAL TYPOGRAPHY SCALE
-   ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -124,261 +57,53 @@ html, body {
   min-height: 100dvh;
   margin: 0;
   padding: 0;
-  background-color: var(--outer-bg);
-  color: var(--color-text);
+  background: var(--outer-bg);
+  color: var(--ink);
   font-family: var(--font-body);
-  font-size: 1.08rem;
-  line-height: 1.76;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-::selection {
-  background-color: var(--selection-bg);
-  color: var(--selection-text);
-}
-
-/* Display & Editorial Headings */
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  line-height: 1.12;
-  text-transform: uppercase;
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 1.875rem);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.eyebrow-label {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-secondary);
-}
-
-/* Prose & Chapter Reading Body */
-.prose-body {
-  font-family: var(--font-body);
-  font-size: 1.08rem;
-  line-height: 1.76;
-}
-
-.prose-body-lg {
-  font-family: var(--font-body);
-  font-size: 1.125rem;
-  line-height: 1.78;
-}
-
-.character-bio {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.7;
-}
-
-.chapter-paragraph,
-.entry-paragraph {
-  text-align: justify;
-  text-justify: inter-word;
-  margin-bottom: 1.65rem;
-}
-
-.chapter-paragraph:first-of-type::first-letter,
-.entry-paragraph:first-of-type::first-letter {
-  font-family: var(--font-display);
-  font-size: 3.1rem;
-  float: left;
-  line-height: 0.82;
-  padding-top: 4px;
-  padding-right: 11px;
-  padding-bottom: 2px;
-  color: var(--color-accent);
-  font-weight: 400;
-}
-
-/* ==========================================================================
-3. UI COMPONENTS & SPACING
-   ========================================================================== */
-.book-card {
-  background-color: var(--color-panel);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  box-shadow: var(--card-shadow);
-  padding: 2rem;
-  position: relative;
-}
-
-.ui-btn {
-  background-color: var(--primary-btn-bg);
-  color: var(--primary-btn-text);
-  border: 1px solid var(--primary-btn-border);
-  border-radius: var(--radius-btn);
-  padding: 0.5rem 1rem;
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.ui-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
-/* ==========================================================================
-4. CINEMATIC INTRO & SCRIPTORIUM SCALE TOKENS
-   ========================================================================== */
-.qu-name {
-  font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 6.8vw, 4.5rem);
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  color: var(--qu-text);
-}
-
-.qu-tag {
-  font-family: var(--font-serif);
-  font-size: clamp(1.15rem, 2.5vw, 1.55rem);
-  font-style: italic;
-  letter-spacing: 0.08em;
-  color: var(--qu-text-muted);
-}
-
-.scriptorium-book {
-  font-size: 18px;
-}
-
-.scriptorium-book .tx {
-  font-size: 1em;
-  line-height: 1.5;
-}
-
-.scriptorium-book .tx p.first::first-letter {
-  font-family: var(--font-display);
-  font-size: 2.8em;
-  line-height: 0.82;
-  color: var(--rubric);
-}
-
-.scriptorium-book .rh {
-  font-family: var(--font-sans);
-  font-size: 0.58em;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--rubric);
-}
-
-.scriptorium-book .ft {
-  font-family: var(--font-serif);
-  font-size: 0.78em;
-  font-style: italic;
-  color: var(--ink-muted);
-}
-
-/* ==========================================================================
-5. 3D CUBE STAGE, HOME TITLE & INNER PAGES
-   ========================================================================== */
-.stage {
+.frame {
   position: relative;
   width: var(--card-w);
   height: var(--card-h);
-  perspective: 1400px;
+  border-radius: var(--card-r);
+  background: var(--bg);
+  background-image: var(--page-texture);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.cube {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  will-change: transform;
-  transition: transform 0.85s cubic-bezier(0.22, 0.82, 0.24, 1);
-  transform: translateZ(calc(var(--card-w) * -0.5)) rotateY(0deg);
-}
-
-.cube.turned {
-  transform: translateZ(calc(var(--card-w) * -0.5)) rotateY(-90deg);
-}
-
-.face {
+/* Opening Home Screen: Or So She Thought */
+.home-view {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-bg);
-  background-image: var(--page-texture);
-  border-radius: var(--card-r);
-  box-shadow: var(--card-shadow);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  overflow: hidden;
-}
-
-.face-front {
-  transform: rotateY(0deg) translateZ(calc(var(--card-w) * 0.5));
-  display: flex;
-  flex-direction: column;
-  padding: calc(env(safe-area-inset-top, 0px) + 28px) 24px calc(env(safe-area-inset-bottom, 0px) + 34px);
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.face-right {
-  transform: rotateY(90deg) translateZ(calc(var(--card-w) * 0.5));
-  display: flex;
-  flex-direction: column;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.cube.turned .face-front {
-  pointer-events: none;
-  z-index: 0;
-}
-
-.cube.turned .face-right {
-  pointer-events: auto;
-  z-index: 4;
-}
-
-.cube.settled .face-front {
-  display: none;
-  visibility: hidden;
-}
-
-/* Front Face: Or So She Thought Home Screen */
-.home-screen {
-  flex: 1;
-  width: 100%;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   text-align: center;
+  padding: 28px 24px 34px;
+  background: var(--bg);
+  background-image: var(--page-texture);
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.32s ease, transform 0.32s ease, visibility 0.32s;
 }
 
-.home-screen:active {
-  opacity: 0.82;
-  transform: scale(0.992);
+.home-view.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .title-top {
@@ -389,18 +114,20 @@ html, body {
   padding-top: 8px;
 }
 
-.title-top .eyebrow-label {
+.eyebrow {
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 500;
   letter-spacing: 0.28em;
-  color: var(--color-text-muted);
+  text-transform: uppercase;
+  color: var(--muted);
   margin: 0;
 }
 
-.title-top .title-rule {
+.title-rule {
   width: 36px;
   height: 1px;
-  background-color: var(--color-border);
+  background: var(--border);
   margin-top: 8px;
 }
 
@@ -413,14 +140,14 @@ html, body {
   padding: 16px 0;
 }
 
-.novel-main-title {
+.novel-title {
   font-family: var(--font-display);
-  font-size: clamp(2.75rem, 11vw, 3.65rem);
+  font-size: clamp(2.4rem, 7.5vw, 2.75rem);
   font-weight: 400;
   letter-spacing: 0.14em;
-  line-height: 1.16;
+  line-height: 1.18;
   text-transform: uppercase;
-  color: var(--color-text);
+  color: var(--ink);
   margin: 0;
 }
 
@@ -432,47 +159,38 @@ html, body {
   padding-bottom: 6px;
 }
 
-.novel-byline {
+.byline {
   font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--muted);
   margin: 0;
 }
 
-.enter-hint {
+.enter-label {
   font-family: var(--font-sans);
   font-size: 0.5625rem;
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-accent);
-  opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  color: var(--accent);
 }
 
-.home-screen:hover .enter-hint {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
-/* Inner Novel Pages */
-.top-nav {
+/* Inner Novel Pager */
+.top-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: calc(env(safe-area-inset-top, 0px) + 22px) 22px 8px;
-  position: relative;
-  z-index: 6;
+  justify-content: space-between;
+  padding: 16px 20px 4px;
   flex-shrink: 0;
 }
 
-.back-cover {
+.back-home {
   background: none;
   border: 0;
-  color: var(--color-text);
+  color: var(--ink);
   font-family: var(--font-sans);
   font-size: 1.5rem;
   line-height: 1;
@@ -484,8 +202,6 @@ html, body {
   padding: 0;
   cursor: pointer;
   touch-action: manipulation;
-  position: relative;
-  z-index: 7;
 }
 
 .pager {
@@ -505,7 +221,7 @@ html, body {
 .page {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  padding: 14px 22px 20px;
+  padding: 16px 22px 20px;
   display: flex;
   flex-direction: column;
 }
@@ -515,21 +231,19 @@ html, body {
 }
 
 .p1 a {
-  display: block;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-size: clamp(1.55rem, 6vw, 1.95rem);
   font-weight: 500;
   letter-spacing: 0.04em;
   line-height: 1.65;
-  color: var(--color-text);
+  color: var(--ink);
   text-decoration: none;
-  padding-left: 8px;
-  cursor: pointer;
+  padding-left: 10px;
   touch-action: manipulation;
 }
 
 .p1 a:hover {
-  color: var(--color-accent);
+  color: var(--accent);
 }
 
 .p2 {
@@ -537,11 +251,11 @@ html, body {
 }
 
 .list {
-  background: var(--color-panel);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-control);
-  padding: 18px;
-  box-shadow: var(--card-shadow);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px 16px;
+  box-shadow: var(--shadow);
 }
 
 .list button {
@@ -550,7 +264,7 @@ html, body {
   text-align: left;
   background: none;
   border: 0;
-  color: var(--color-text);
+  color: var(--ink);
   font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 500;
@@ -561,7 +275,7 @@ html, body {
 }
 
 .list button.done {
-  color: var(--color-text-muted);
+  color: var(--muted);
   text-decoration: line-through;
 }
 
@@ -573,9 +287,9 @@ html, body {
 }
 
 .tile {
-  background: var(--color-panel);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-control);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
   aspect-ratio: 1 / 1;
   padding: 16px;
   display: flex;
@@ -583,7 +297,7 @@ html, body {
   justify-content: flex-end;
   align-items: flex-start;
   gap: 10px;
-  color: var(--color-text);
+  color: var(--ink);
   font-family: var(--font-sans);
   font-size: 0.9rem;
   font-weight: 600;
@@ -591,12 +305,12 @@ html, body {
   text-align: left;
   cursor: pointer;
   touch-action: manipulation;
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--shadow);
 }
 
 .tile:hover {
-  background: var(--color-panel-hover);
-  border-color: var(--color-accent);
+  background: var(--panel-hover);
+  border-color: var(--accent);
 }
 
 .tile svg {
@@ -609,54 +323,43 @@ html, body {
   display: flex;
   justify-content: center;
   gap: 9px;
-  padding: 8px 0 calc(env(safe-area-inset-bottom, 0px) + 20px);
+  padding: 8px 0 22px;
   flex-shrink: 0;
 }
 
 .dots i {
-  width: 9px;
-  height: 9px;
-  border-radius: var(--radius-full);
-  background: var(--color-border);
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--dot);
   transition: background 0.2s;
   cursor: pointer;
   touch-action: manipulation;
 }
 
 .dots i.on {
-  background: var(--color-accent);
+  background: var(--dotOn);
 }
 
-/* ==========================================================================
-6. SLIDE-UP SUB-SCREENS
-   ========================================================================== */
+/* Slide-Up Sub-Screens */
 .sc {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: var(--card-w);
-  height: var(--card-h);
-  border-radius: var(--card-r);
-  z-index: 50;
+  position: absolute;
+  inset: 0;
+  z-index: 25;
   overflow-y: auto;
-  padding: calc(env(safe-area-inset-top, 0px) + 22px) 24px calc(env(safe-area-inset-bottom, 0px) + 24px);
-  transform: translate(-50%, 65%);
-  opacity: 0;
+  padding: 18px 24px 24px;
+  transform: translateY(100%);
   visibility: hidden;
-  pointer-events: none;
-  transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, visibility 0.38s;
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.35s;
+  background: var(--bg);
   background-image: var(--page-texture);
-  box-shadow: var(--card-shadow);
+  color: var(--ink);
   font-family: var(--font-body);
 }
 
 .sc.open {
-  transform: translate(-50%, -50%);
-  opacity: 1;
+  transform: none;
   visibility: visible;
-  pointer-events: auto;
 }
 
 .sc button {
@@ -681,10 +384,10 @@ html, body {
 
 .sc h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  margin: 20px 0 4px;
+  margin: 16px 0 4px;
 }
 
 .sub {
@@ -693,7 +396,7 @@ html, body {
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-secondary);
+  color: var(--secondary);
   margin-bottom: 18px;
 }
 
@@ -701,7 +404,7 @@ html, body {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--border);
 }
 
 .ix li {
@@ -709,10 +412,10 @@ html, body {
   justify-content: space-between;
   align-items: center;
   padding: 16px 6px;
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
   font-family: var(--font-body);
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.5;
   cursor: pointer;
   touch-action: manipulation;
   transition: background 0.2s;
@@ -722,16 +425,16 @@ html, body {
   font-style: normal;
   font-family: var(--font-sans);
   font-size: 0.75rem;
-  color: var(--color-text-muted);
+  color: var(--muted);
 }
 
 .ix li.on {
-  background: var(--color-accent);
-  color: var(--color-panel);
+  background: var(--accent);
+  color: var(--panel);
 }
 
 .ix li.on em {
-  color: var(--color-panel);
+  color: var(--panel);
   opacity: 0.85;
 }
 
@@ -745,12 +448,26 @@ html, body {
   flex: 1;
   background: none;
   border: 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--border);
   font-family: var(--font-body);
   font-size: 1rem;
   padding: 8px 2px;
   outline: 0;
-  color: var(--color-text);
+  color: var(--ink);
+}
+
+.add button,
+.ui-btn {
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 16px;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .tl {
@@ -767,7 +484,7 @@ html, body {
   top: 14px;
   bottom: 14px;
   width: 1px;
-  background: var(--color-border);
+  background: var(--border);
 }
 
 .tl li {
@@ -789,30 +506,30 @@ html, body {
   width: 9px;
   height: 9px;
   margin-top: -4.5px;
-  border-radius: var(--radius-full);
-  background: var(--color-panel);
-  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--accent);
   transition: box-shadow 0.25s, background 0.25s;
 }
 
 .tl li.on {
   font-weight: 600;
   font-style: italic;
-  color: var(--color-accent);
+  color: var(--accent);
 }
 
 .tl li.on:before {
-  background: var(--color-accent);
-  box-shadow: 0 0 0 5px var(--color-callout-bg);
+  background: var(--accent);
+  box-shadow: 0 0 0 5px var(--callout);
 }
 
 .jt {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-size: 1.65rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-align: center;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .js {
@@ -822,7 +539,7 @@ html, body {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   text-align: center;
-  color: var(--color-secondary);
+  color: var(--secondary);
   margin: 8px 0 20px;
 }
 
@@ -831,12 +548,12 @@ html, body {
   height: 40vh;
   background: transparent;
   border: 0;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--border);
   padding: 16px 2px;
   font-family: var(--font-body);
-  font-size: 1.125rem;
-  line-height: 1.78;
-  color: var(--color-text);
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--ink);
   outline: 0;
   resize: none;
 }
@@ -844,25 +561,37 @@ html, body {
 .jb {
   display: flex;
   gap: 10px;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--border);
   padding-top: 16px;
 }
 
 .jb button {
   flex: 1;
+  height: 42px;
 }
 
 .excerpt-body {
   margin-top: 18px;
-  font-family: var(--font-body);
-  font-size: 1.125rem;
-  line-height: 1.78;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--border);
   padding-top: 20px;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.78;
 }
 
-.excerpt-body p.chapter-paragraph:last-child {
-  margin-bottom: 0;
+.excerpt-body p {
+  text-align: justify;
+  margin: 0 0 1.5rem;
+}
+
+.excerpt-body p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  float: left;
+  line-height: 0.82;
+  padding-top: 4px;
+  padding-right: 11px;
+  color: var(--accent);
 }
 
 .top {
@@ -874,10 +603,10 @@ html, body {
 .av {
   width: 36px;
   height: 36px;
-  border-radius: var(--radius-full);
-  background: var(--color-panel);
-  border: 1px solid var(--color-border);
-  color: var(--color-accent);
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--accent);
   display: grid;
   place-items: center;
   font-family: var(--font-display);
@@ -891,13 +620,13 @@ html, body {
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-secondary);
+  color: var(--secondary);
   margin-top: 24px;
 }
 
 .bal {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-size: 2.5rem;
   font-weight: 400;
   letter-spacing: 0.08em;
   line-height: 1.12;
@@ -909,7 +638,7 @@ html, body {
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.3em;
-  color: var(--color-text-muted);
+  color: var(--muted);
   margin-left: 6px;
 }
 
@@ -930,7 +659,7 @@ html, body {
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-secondary);
+  color: var(--secondary);
   margin-bottom: 12px;
 }
 
@@ -938,9 +667,9 @@ html, body {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: var(--color-panel);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-control);
+  background: var(--panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
   padding: 13px 14px;
   margin-bottom: 10px;
 }
@@ -948,12 +677,12 @@ html, body {
 .fr i {
   width: 36px;
   height: 36px;
-  border-radius: var(--radius-full);
+  border-radius: 999px;
   display: grid;
   place-items: center;
-  background: var(--color-bg-subtle);
-  border: 1px solid var(--color-border);
-  color: var(--color-accent);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--accent);
   font-family: var(--font-display);
   font-size: 0.85rem;
   font-weight: 600;
@@ -971,121 +700,98 @@ html, body {
   font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--color-text-muted);
+  color: var(--muted);
 }
 
 .fr svg {
   width: 64px;
   height: 22px;
   fill: none;
-  stroke: var(--color-accent);
+  stroke: var(--accent);
   stroke-width: 1.6;
 }
 </style>
 </head>
 <body>
 
-<div class="stage">
-  <div class="cube" id="cube">
+<div class="frame">
+  <!-- Home Screen: Or So She Thought -->
+  <main class="home-view" id="homeView" role="button" tabindex="0" aria-label="Enter Or So She Thought">
+    <div class="title-top">
+      <p class="eyebrow">A Royal Psychological Novel</p>
+      <span class="title-rule" aria-hidden="true"></span>
+    </div>
 
-    <!-- FRONT FACE: Or So She Thought Home Screen -->
-    <main class="face face-front" id="frontFace">
-      <div class="home-screen" id="homeTrigger" role="button" tabindex="0" aria-label="Enter Or So She Thought">
-        <div class="title-top">
-          <p class="eyebrow-label">A Royal Psychological Novel</p>
-          <span class="title-rule" aria-hidden="true"></span>
-        </div>
+    <div class="title-center">
+      <h1 class="novel-title">OR SO<br>SHE<br>THOUGHT</h1>
+    </div>
 
-        <div class="title-center">
-          <h1 class="novel-main-title">OR SO<br>SHE<br>THOUGHT</h1>
-        </div>
+    <div class="title-bottom">
+      <p class="byline">By Queen Usman</p>
+      <span class="enter-label">Enter</span>
+    </div>
+  </main>
 
-        <div class="title-bottom">
-          <p class="novel-byline">By Queen Usman</p>
-          <span class="enter-hint">Enter</span>
-        </div>
-      </div>
-    </main>
+  <div class="top-bar">
+    <button type="button" class="back-home" id="backHome" aria-label="Back to title">←</button>
+  </div>
 
-    <!-- RIGHT FACE: Rest of the Novel Pages -->
-    <section class="face face-right" aria-label="Novel Pages">
-      <div class="top-nav">
-        <button type="button" class="back-cover" id="toCover" aria-label="Back to home">←</button>
-      </div>
-
-      <div class="pager" id="pager">
-        <!-- Page 1: Novel Navigation -->
-        <section class="page p1">
-          <a href="#" data-open="Excerpt">Excerpt</a>
-          <a href="#" data-open="Chapters">Chapters</a>
-          <a href="#" data-open="Characters">Characters</a>
-          <a href="#" data-open="Notes">Author Notes</a>
-          <a href="#" data-open="Order">Get the Book</a>
-        </section>
-
-        <!-- Page 2: Reader Check-in / Themes -->
-        <section class="page p2">
-          <div class="list" id="list">
-            <button type="button">Chapter I — The Quiet Before</button>
-            <button type="button">Chapter II — What She Kept</button>
-            <button type="button">Chapter III — The Line Drawn</button>
-            <button type="button">Chapter IV — Unapologetic</button>
-            <button type="button" class="done">Prologue — First Choice</button>
-          </div>
-        </section>
-
-        <!-- Page 3: Story World Tiles -->
-        <section class="page p3">
-          <div class="grid">
-            <button type="button" class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
-            <button type="button" class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
-            <button type="button" class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
-            <button type="button" class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
-            <button type="button" class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
-            <button type="button" class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
-          </div>
-        </section>
-      </div>
-
-      <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+  <div class="pager" id="pager">
+    <section class="page p1">
+      <a href="#" data-open="Excerpt">Excerpt</a>
+      <a href="#" data-open="Chapters">Chapters</a>
+      <a href="#" data-open="Characters">Characters</a>
+      <a href="#" data-open="Notes">Author Notes</a>
+      <a href="#" data-open="Order">Get the Book</a>
     </section>
 
+    <section class="page p2">
+      <div class="list" id="list">
+        <button type="button">Chapter I — The Quiet Before</button>
+        <button type="button">Chapter II — What She Kept</button>
+        <button type="button">Chapter III — The Line Drawn</button>
+        <button type="button">Chapter IV — Unapologetic</button>
+        <button type="button" class="done">Prologue — First Choice</button>
+      </div>
+    </section>
+
+    <section class="page p3">
+      <div class="grid">
+        <button type="button" class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
+        <button type="button" class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
+        <button type="button" class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
+        <button type="button" class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
+        <button type="button" class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
+        <button type="button" class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
+      </div>
+    </section>
   </div>
+
+  <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+  <div class="sc" id="sc"></div>
 </div>
 
-<div class="sc" id="sc"></div>
-
 <script>
-var cube = document.getElementById('cube');
-var homeTrigger = document.getElementById('homeTrigger');
-var toCover = document.getElementById('toCover');
-var turnTimer = null;
+var homeView = document.getElementById('homeView');
+var backHome = document.getElementById('backHome');
 
-function turnToInner(){
-  clearTimeout(turnTimer);
-  cube.classList.remove('settled');
-  cube.classList.add('turned');
-  turnTimer = setTimeout(function(){
-    if(cube.classList.contains('turned')) cube.classList.add('settled');
-  }, 850);
+function openPages(){
+  homeView.classList.add('hidden');
 }
 
-function turnToCover(){
-  clearTimeout(turnTimer);
-  cube.classList.remove('settled');
-  void cube.offsetWidth;
-  cube.classList.remove('turned');
+function openHome(){
+  sc.classList.remove('open');
+  homeView.classList.remove('hidden');
 }
 
-homeTrigger.addEventListener('click', turnToInner);
-homeTrigger.addEventListener('keydown', function(e){
+homeView.addEventListener('click', openPages);
+homeView.addEventListener('keydown', function(e){
   if(e.key === 'Enter' || e.key === ' '){
     e.preventDefault();
-    turnToInner();
+    openPages();
   }
 });
-
-toCover.addEventListener('click', turnToCover);
+backHome.addEventListener('click', openHome);
 
 var pager = document.getElementById('pager'), dots = document.querySelectorAll('#dots i');
 pager.addEventListener('scroll', function(){
@@ -1165,7 +871,7 @@ function openScreen(n){
       '<ul class="ix">' + L[n].map(function(r){
         return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
       }).join('') + '</ul>' +
-      '<div class="add"><input placeholder="Add your note"><button type="button" class="ui-btn ad">Add</button></div>'
+      '<div class="add"><input placeholder="Add your note"><button type="button" class="ad">Add</button></div>'
     );
   } else if(T[n]){
     show('tl',
@@ -1178,13 +884,13 @@ function openScreen(n){
   } else if(n === 'Excerpt' || n === 'Notes'){
     var title = n === 'Excerpt' ? 'Chapter I — Excerpt' : 'Author’s Note';
     var body = n === 'Excerpt'
-      ? '<p class="chapter-paragraph">She did not slam the door when she left. Slams belong to people who still want to be heard on the way out.</p><p class="chapter-paragraph">She simply set the keys down on the table, smoothed the front of her coat, and walked into the street without looking back once to see who was watching.</p>'
-      : '<p class="chapter-paragraph">This book was written for every version of you that swallowed a “no” to keep the peace.</p><p class="chapter-paragraph">Read it slowly. Underline the parts that sting.</p>';
+      ? '<p>She did not slam the door when she left. Slams belong to people who still want to be heard on the way out.</p><p>She simply set the keys down on the table, smoothed the front of her coat, and walked into the street without looking back once to see who was watching.</p>'
+      : '<p>This book was written for every version of you that swallowed a “no” to keep the peace.</p><p>Read it slowly. Underline the parts that sting.</p>';
     show('list',
       '<button type="button" class="bk" data-x>←</button>' +
       '<h2>' + title + '</h2>' +
       '<div class="sub">Preview</div>' +
-      '<div class="excerpt-body prose-body-lg">' + body + '</div>'
+      '<div class="excerpt-body">' + body + '</div>'
     );
   } else if(n === 'Reader Journal'){
     var v = '';
@@ -1193,12 +899,12 @@ function openScreen(n){
       '<button type="button" class="bk" data-x>×</button>' +
       '<div class="jt">READER NOTES</div>' +
       '<div class="js">' + new Date().toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) + '</div>' +
-      '<textarea class="prose-body-lg" placeholder="Write what stayed with you...">' + esc(v) + '</textarea>' +
+      '<textarea placeholder="Write what stayed with you...">' + esc(v) + '</textarea>' +
       '<div class="jb"><button type="button" class="ui-btn" data-j="c">Clear</button><button type="button" class="ui-btn" data-j="s">Save</button></div>'
     );
   } else if(n === 'Editions' || n === 'Order'){
     show('dune',
-      '<div class="top"><div class="av">I</div><button type="button" class="bk" data-x>×</button></div>' +
+      '<div class="top"><div class="av">Q</div><button type="button" class="bk" data-x>×</button></div>' +
       '<div class="tb">First Print Run · Reserved</div>' +
       '<div class="bal" id="bal">' + fmt(copies) + '<small>COPIES</small></div>' +
       '<div class="acts"><button type="button" class="ui-btn" data-open="Excerpt">Read</button><button type="button" class="ui-btn" data-p>Reserve +1</button></div>' +
