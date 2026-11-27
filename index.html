@@ -37,7 +37,6 @@
   color-scheme: light;
 }
 
-/* Desktop View: ~2x Wider Editorial Container */
 @media (min-width: 680px) {
   :root {
     --card-w: min(760px, 90vw);
@@ -81,6 +80,10 @@ html, body {
   perspective: 1800px;
 }
 
+.stage.flat {
+  perspective: none;
+}
+
 .cube {
   position: relative;
   width: 100%;
@@ -115,7 +118,6 @@ html, body {
   flex-direction: column;
   padding: calc(env(safe-area-inset-top, 0px) + 32px) 28px calc(env(safe-area-inset-bottom, 0px) + 36px);
   z-index: 2;
-  pointer-events: auto;
 }
 
 .face-right {
@@ -123,7 +125,6 @@ html, body {
   display: flex;
   flex-direction: column;
   z-index: 1;
-  pointer-events: none;
 }
 
 .cube.turned .face-front {
@@ -132,26 +133,26 @@ html, body {
 }
 
 .cube.turned .face-right {
-  pointer-events: auto;
   z-index: 4;
 }
 
-/* Once settled on the inner face, flatten 3D hit-testing so desktop clicks & taps are exact */
+/* Completely flatten 3D context once settled so all pages & buttons hit-test in pure 2D */
 .cube.settled {
   transform: none;
   transform-style: flat;
+  will-change: auto;
+  transition: none;
 }
 
 .cube.settled .face-front {
   display: none;
-  visibility: hidden;
 }
 
 .cube.settled .face-right {
+  position: relative;
   transform: none;
   backface-visibility: visible;
   -webkit-backface-visibility: visible;
-  pointer-events: auto;
   z-index: 4;
 }
 
@@ -276,16 +277,14 @@ html, body {
   font-family: var(--font-sans);
   font-size: 1.5rem;
   line-height: 1;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 48px;
+  min-height: 48px;
   display: grid;
   place-items: center;
   justify-content: start;
   padding: 0;
   cursor: pointer;
   touch-action: manipulation;
-  position: relative;
-  z-index: 7;
 }
 
 .back-home:hover {
@@ -299,7 +298,7 @@ html, body {
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   min-height: 0;
-  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pager::-webkit-scrollbar {
@@ -308,6 +307,7 @@ html, body {
 
 .page {
   flex: 0 0 100%;
+  width: 100%;
   scroll-snap-align: start;
   padding: 16px 28px 22px;
   display: flex;
@@ -327,7 +327,7 @@ html, body {
   line-height: 1.72;
   color: var(--ink);
   text-decoration: none;
-  padding-left: 10px;
+  padding: 4px 10px;
   cursor: pointer;
   touch-action: manipulation;
   transition: color 0.2s ease, transform 0.2s ease;
@@ -418,6 +418,7 @@ html, body {
   width: 24px;
   height: 24px;
   fill: currentColor;
+  pointer-events: none;
 }
 
 .dots {
@@ -429,8 +430,8 @@ html, body {
 }
 
 .dots i {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
   background: var(--dot);
   transition: background 0.2s;
@@ -457,9 +458,8 @@ html, body {
   padding: calc(env(safe-area-inset-top, 0px) + 22px) 28px calc(env(safe-area-inset-bottom, 0px) + 28px);
   transform: translate(-50%, 65%);
   opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, visibility 0.38s;
+  display: none;
+  transition: transform 0.36s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.28s ease;
   background: var(--bg);
   background-image: var(--page-texture);
   box-shadow: var(--shadow);
@@ -467,11 +467,13 @@ html, body {
   font-family: var(--font-body);
 }
 
+.sc.mounted {
+  display: block;
+}
+
 .sc.open {
   transform: translate(-50%, -50%);
   opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
 }
 
 .sc-inner {
@@ -492,8 +494,8 @@ html, body {
   border: 0;
   font-size: 1.75rem;
   line-height: 1;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 48px;
+  min-height: 48px;
   display: inline-grid;
   place-items: center;
   justify-content: start;
@@ -581,7 +583,7 @@ html, body {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0 18px;
-  height: 40px;
+  height: 42px;
   font-family: var(--font-sans);
   font-size: 0.65rem;
   font-weight: 600;
@@ -835,11 +837,9 @@ html, body {
   fill: none;
   stroke: var(--accent);
   stroke-width: 1.6;
+  pointer-events: none;
 }
 
-/* ==========================================================================
-   DESKTOP EDITORIAL PROPORTIONS (~2X WIDER CONTAINER)
-   ========================================================================== */
 @media (min-width: 680px) {
   .face-front {
     padding: 44px 48px 46px;
@@ -922,7 +922,7 @@ html, body {
 </head>
 <body>
 
-<div class="stage">
+<div class="stage" id="stage">
   <div class="cube" id="cube">
 
     <!-- FRONT FACE: Or So She Thought Home Screen -->
@@ -993,6 +993,7 @@ html, body {
 <div class="sc" id="sc"></div>
 
 <script>
+var stage = document.getElementById('stage');
 var cube = document.getElementById('cube');
 var homeTrigger = document.getElementById('homeTrigger');
 var toCover = document.getElementById('toCover');
@@ -1000,17 +1001,22 @@ var turnTimer = null;
 
 function turnToInner(){
   clearTimeout(turnTimer);
+  stage.classList.remove('flat');
   cube.classList.remove('settled');
   void cube.offsetWidth;
   cube.classList.add('turned');
   turnTimer = setTimeout(function(){
-    if(cube.classList.contains('turned')) cube.classList.add('settled');
+    if(cube.classList.contains('turned')){
+      cube.classList.add('settled');
+      stage.classList.add('flat');
+    }
   }, 850);
 }
 
 function turnToCover(){
   clearTimeout(turnTimer);
-  sc.classList.remove('open');
+  closeScreen();
+  stage.classList.remove('flat');
   cube.classList.remove('settled');
   cube.classList.add('turned');
   void cube.offsetWidth;
@@ -1037,12 +1043,8 @@ dots.forEach(function(d, i){
     pager.scrollTo({left: i * pager.clientWidth, behavior: 'smooth'});
   });
 });
-document.getElementById('list').addEventListener('click', function(e){
-  var btn = e.target.closest('button');
-  if(btn) btn.classList.toggle('done');
-});
 
-var sc = document.getElementById('sc'), copies = 1240;
+var sc = document.getElementById('sc'), copies = 1240, closeTimer = null;
 function esc(s){
   return s.replace(/[&<>"]/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
@@ -1089,10 +1091,19 @@ function spark(a){
 }
 
 function show(cls, html){
-  sc.className = 'sc t-' + cls;
+  clearTimeout(closeTimer);
+  sc.className = 'sc mounted t-' + cls;
   sc.innerHTML = '<div class="sc-inner">' + html + '</div>';
   void sc.offsetHeight;
   sc.classList.add('open');
+}
+
+function closeScreen(){
+  sc.classList.remove('open');
+  clearTimeout(closeTimer);
+  closeTimer = setTimeout(function(){
+    if(!sc.classList.contains('open')) sc.classList.remove('mounted');
+  }, 360);
 }
 
 function fmt(n){ return n.toLocaleString('en-US'); }
@@ -1151,26 +1162,29 @@ function openScreen(n){
   }
 }
 
-document.addEventListener('click', function(e){
-  var t = e.target, x;
-  if(x = t.closest('[data-open]')){
-    e.preventDefault();
+function handleTap(target){
+  var x;
+  if(x = target.closest('[data-open]')){
     openScreen(x.dataset.open);
-    return;
+    return true;
   }
-  if(x = t.closest('.tile')){
+  if(x = target.closest('.tile')){
     openScreen(x.textContent.trim());
-    return;
+    return true;
   }
-  if(t.closest('[data-x]')){
-    sc.classList.remove('open');
-    return;
+  if(x = target.closest('#list button')){
+    x.classList.toggle('done');
+    return true;
   }
-  if(x = t.closest('.ix li, .tl li')){
+  if(target.closest('[data-x]')){
+    closeScreen();
+    return true;
+  }
+  if(x = target.closest('.ix li, .tl li')){
     x.classList.toggle('on');
-    return;
+    return true;
   }
-  if(t.closest('.ad')){
+  if(target.closest('.ad')){
     var i = sc.querySelector('.add input'), v = i.value.trim();
     if(v){
       var li = document.createElement('li');
@@ -1178,9 +1192,9 @@ document.addEventListener('click', function(e){
       sc.querySelector('.ix').appendChild(li);
       i.value = '';
     }
-    return;
+    return true;
   }
-  if(x = t.closest('[data-j]')){
+  if(x = target.closest('[data-j]')){
     var ta = sc.querySelector('textarea');
     if(x.dataset.j === 'c') ta.value = '';
     try{ localStorage.setItem('novel_jr', ta.value); }catch(e){}
@@ -1188,12 +1202,51 @@ document.addEventListener('click', function(e){
       x.textContent = 'Saved';
       setTimeout(function(){ x.textContent = 'Save'; }, 1200);
     }
-    return;
+    return true;
   }
-  if(t.closest('[data-p]')){
+  if(target.closest('[data-p]')){
     copies += 1;
     document.getElementById('bal').innerHTML = fmt(copies) + '<small>COPIES</small>';
+    return true;
   }
+  return false;
+}
+
+/* Guarantee immediate tap response inside horizontal scroll-snap on touch devices */
+var tapStart = null, lastTouchTap = 0;
+document.addEventListener('touchstart', function(e){
+  if(e.touches.length === 1){
+    tapStart = {x: e.touches[0].clientX, y: e.touches[0].clientY, target: e.target};
+  }
+}, {passive: true});
+
+document.addEventListener('touchend', function(e){
+  if(!tapStart || !e.changedTouches.length) return;
+  var dx = Math.abs(e.changedTouches[0].clientX - tapStart.x);
+  var dy = Math.abs(e.changedTouches[0].clientY - tapStart.y);
+  var target = tapStart.target;
+  tapStart = null;
+  if(dx < 10 && dy < 10){
+    if(target.closest('#homeTrigger')){
+      lastTouchTap = Date.now();
+      turnToInner();
+      return;
+    }
+    if(target.closest('#toCover')){
+      lastTouchTap = Date.now();
+      turnToCover();
+      return;
+    }
+    if(handleTap(target)){
+      lastTouchTap = Date.now();
+    }
+  }
+}, {passive: true});
+
+document.addEventListener('click', function(e){
+  if(e.target.closest('[data-open]')) e.preventDefault();
+  if(Date.now() - lastTouchTap < 450) return;
+  handleTap(e.target);
 });
 </script>
 </body>
