@@ -4,47 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Or So She Thought — Queen Usman</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --font-display: 'Cinzel', Georgia, serif;
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Newsreader', Georgia, serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --outer-bg: #F6ECEF;
-  --bg: #F6ECEF;
-  --bg-subtle: #EDE0E5;
-  --panel: #FFFDFD;
-  --panel-hover: #FAF2F5;
-  --border: #DFC8D0;
-  --border-subtle: #ECDCE2;
-  --ink: #2B1D24;
-  --muted: #6E5260;
-  --accent: #9E5672;
-  --secondary: #8C4863;
-  --callout: rgba(158, 86, 114, 0.12);
-  --dot: #D9BFC9;
-  --dotOn: #9E5672;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
-  --shadow: 0 14px 36px -8px rgba(92, 42, 62, 0.14), 0 3px 10px rgba(92, 42, 62, 0.05);
+  --bg: #F5F1EA;
+  --panel: #FAF7F2;
+  --panel-hover: #EFE9DF;
+  --border: #DED5C7;
+  --border-subtle: #E8E0D4;
+  --ink: #111111;
+  --charcoal: #242424;
+  --muted: #5C5650;
+  --accent: #B9A88F;
+  --accent-deep: #8A765B;
+  --callout: rgba(185, 168, 143, 0.22);
+  --dot: #D5CBB9;
+  --dotOn: #111111;
+  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 250, 0.75) 0%, rgba(245, 241, 234, 0) 72%);
 
   --card-w: 100vw;
   --card-h: 100dvh;
-  --card-r: 0px;
 
   box-sizing: border-box;
   color-scheme: light;
-}
-
-/* Desktop: Full-bleed viewport without container frame, keeping desktop content width & layout */
-@media (min-width: 680px) {
-  :root {
-    --card-w: 100vw;
-    --card-h: 100dvh;
-    --card-r: 0px;
-    --shadow: none;
-  }
 }
 
 *, *::before, *::after {
@@ -69,7 +55,7 @@ html, body {
 }
 
 ::selection {
-  background: #E8B8C8;
+  background: var(--callout);
   color: var(--ink);
 }
 
@@ -108,8 +94,6 @@ html, body {
   height: 100%;
   background: var(--bg);
   background-image: var(--page-texture);
-  border-radius: var(--card-r);
-  box-shadow: var(--shadow);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
@@ -176,8 +160,8 @@ html, body {
 }
 
 .home-screen:active {
-  opacity: 0.82;
-  transform: scale(0.994);
+  opacity: 0.84;
+  transform: scale(0.995);
 }
 
 .title-top {
@@ -190,7 +174,7 @@ html, body {
 
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -199,9 +183,9 @@ html, body {
 }
 
 .title-rule {
-  width: 40px;
+  width: 44px;
   height: 1px;
-  background: var(--border);
+  background: var(--accent);
   margin-top: 8px;
 }
 
@@ -215,11 +199,11 @@ html, body {
 }
 
 .novel-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5vw, 3.35rem);
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5.2vw, 3.65rem);
   font-weight: 400;
-  letter-spacing: 0.16em;
-  line-height: 1.2;
+  letter-spacing: 0.14em;
+  line-height: 1.15;
   text-transform: uppercase;
   color: var(--ink);
   margin: 0;
@@ -235,7 +219,7 @@ html, body {
 
 .byline {
   font-family: var(--font-sans);
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -245,28 +229,29 @@ html, body {
 
 .enter-label {
   font-family: var(--font-sans);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  color: var(--charcoal);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 3px;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .home-screen:hover .enter-label {
-  opacity: 1;
-  transform: translateY(-1px);
+  color: var(--accent-deep);
+  border-color: var(--ink);
 }
 
 /* ==========================================================================
-   INNER NOVEL PAGES
+   SPLIT-FLOW SWIPEABLE PAGES
    ========================================================================== */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: calc(env(safe-area-inset-top, 0px) + 20px) 26px 4px;
+  padding: calc(env(safe-area-inset-top, 0px) + 18px) 24px 6px;
   position: relative;
   z-index: 6;
   flex-shrink: 0;
@@ -277,7 +262,7 @@ html, body {
   border: 0;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   line-height: 1;
   min-width: 48px;
   min-height: 48px;
@@ -287,10 +272,11 @@ html, body {
   padding: 0;
   cursor: pointer;
   touch-action: manipulation;
+  transition: color 0.2s ease;
 }
 
 .back-home:hover {
-  color: var(--accent);
+  color: var(--accent-deep);
 }
 
 .pager {
@@ -311,116 +297,88 @@ html, body {
   flex: 0 0 100%;
   width: 100%;
   scroll-snap-align: start;
-  padding: 16px 28px 22px;
+  padding: 12px 24px 20px;
   display: flex;
-  flex-direction: column;
-}
-
-.p1 {
+  align-items: center;
   justify-content: center;
+  overflow-y: auto;
 }
 
-.p1 a {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(1.65rem, 3vw, 2.25rem);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  line-height: 1.72;
-  color: var(--ink);
-  text-decoration: none;
-  padding: 4px 10px;
-  cursor: pointer;
-  touch-action: manipulation;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.p1 a:hover {
-  color: var(--accent);
-  transform: translateX(4px);
-}
-
-.p2 {
-  justify-content: center;
-}
-
-.list {
+.sheet {
+  width: 100%;
+  max-width: 27rem;
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 20px 22px;
-  box-shadow: var(--shadow);
-  width: 100%;
-  max-width: 34rem;
-  margin: 0 auto;
+  padding: 26px 22px;
 }
 
-.list button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: none;
-  border: 0;
-  color: var(--ink);
+.sheet-kicker {
   font-family: var(--font-sans);
-  font-size: 0.98rem;
-  font-weight: 500;
-  line-height: 1.4;
-  padding: 14px 0;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.list button + button {
-  border-top: 1px solid var(--border-subtle);
-}
-
-.list button.done {
-  color: var(--muted);
-  text-decoration: line-through;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin: auto 0;
-  width: 100%;
-}
-
-.tile {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  aspect-ratio: 1 / 1;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 10px;
-  color: var(--ink);
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
+  font-size: 0.625rem;
   font-weight: 600;
-  line-height: 1.25;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin: 0 0 10px;
+}
+
+.sheet-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.65rem, 4.5vw, 2.15rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.18;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+
+.sheet-copy {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.68;
+  color: var(--muted);
+  margin: 0 0 22px;
+}
+
+.sheet-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sheet-btn {
+  width: 100%;
   text-align: left;
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 13px 16px;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--charcoal);
   cursor: pointer;
   touch-action: manipulation;
-  box-shadow: var(--shadow);
-  transition: background 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.tile:hover {
+.sheet-btn:hover {
   background: var(--panel-hover);
-  border-color: var(--accent);
+  border-color: var(--ink);
+  color: var(--ink);
 }
 
-.tile svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
-  pointer-events: none;
+.sheet-btn::after {
+  content: "→";
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  color: var(--accent-deep);
 }
 
 .dots {
@@ -432,39 +390,37 @@ html, body {
 }
 
 .dots i {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   background: var(--dot);
-  transition: background 0.2s;
+  transition: background 0.2s ease, transform 0.2s ease;
   cursor: pointer;
   touch-action: manipulation;
 }
 
 .dots i.on {
   background: var(--dotOn);
+  transform: scale(1.15);
 }
 
 /* ==========================================================================
-   SLIDE-UP SUB-SCREENS
+   SLIDE-UP READING & ARCHIVE SHEETS
    ========================================================================== */
 .sc {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  width: var(--card-w);
-  height: var(--card-h);
-  border-radius: var(--card-r);
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
   z-index: 50;
   overflow-y: auto;
-  padding: calc(env(safe-area-inset-top, 0px) + 22px) 28px calc(env(safe-area-inset-bottom, 0px) + 28px);
-  transform: translate(-50%, 65%);
+  padding: calc(env(safe-area-inset-top, 0px) + 22px) 28px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  transform: translateY(100%);
   opacity: 0;
   display: none;
   transition: transform 0.36s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.28s ease;
   background: var(--bg);
   background-image: var(--page-texture);
-  box-shadow: var(--shadow);
   color: var(--ink);
   font-family: var(--font-body);
 }
@@ -474,13 +430,13 @@ html, body {
 }
 
 .sc.open {
-  transform: translate(-50%, -50%);
+  transform: none;
   opacity: 1;
 }
 
 .sc-inner {
   width: 100%;
-  max-width: 36rem;
+  max-width: 44rem;
   margin: 0 auto;
 }
 
@@ -494,7 +450,7 @@ html, body {
 .bk {
   background: none;
   border: 0;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   line-height: 1;
   min-width: 48px;
   min-height: 48px;
@@ -504,22 +460,51 @@ html, body {
   padding: 0 10px 0 0;
 }
 
+.bk:hover {
+  color: var(--accent-deep);
+}
+
 .sc h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  margin: 16px 0 6px;
+  font-family: var(--font-serif);
+  font-size: clamp(1.85rem, 4vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 14px 0 6px;
 }
 
 .sub {
   font-family: var(--font-sans);
   font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
+  font-weight: 600;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--secondary);
-  margin-bottom: 20px;
+  color: var(--accent-deep);
+  margin-bottom: 22px;
+}
+
+.prose-sheet {
+  border-top: 1px solid var(--border);
+  padding-top: 22px;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.82;
+  color: var(--charcoal);
+}
+
+.prose-sheet p {
+  text-align: justify;
+  margin: 0 0 1.55rem;
+}
+
+.prose-sheet p:first-of-type::first-letter {
+  font-family: var(--font-serif);
+  font-size: 3.25rem;
+  line-height: 0.82;
+  float: left;
+  padding-top: 4px;
+  padding-right: 12px;
+  color: var(--ink);
 }
 
 .ix {
@@ -532,7 +517,8 @@ html, body {
 .ix li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
+  gap: 16px;
   padding: 16px 8px;
   border-bottom: 1px solid var(--border-subtle);
   font-family: var(--font-body);
@@ -540,29 +526,30 @@ html, body {
   line-height: 1.55;
   cursor: pointer;
   touch-action: manipulation;
-  transition: background 0.2s;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .ix li em {
   font-style: normal;
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   color: var(--muted);
+  text-align: right;
 }
 
 .ix li.on {
-  background: var(--accent);
-  color: var(--panel);
+  background: var(--charcoal);
+  color: var(--bg);
 }
 
 .ix li.on em {
-  color: var(--panel);
-  opacity: 0.85;
+  color: var(--accent);
 }
 
 .add {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   margin-top: 22px;
 }
 
@@ -578,99 +565,28 @@ html, body {
   color: var(--ink);
 }
 
-.add button,
+.add input:focus {
+  border-bottom-color: var(--ink);
+}
+
 .ui-btn {
   background: var(--panel);
-  color: var(--ink);
+  color: var(--charcoal);
   border: 1px solid var(--border);
-  border-radius: 8px;
   padding: 0 18px;
   height: 42px;
   font-family: var(--font-sans);
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
-.add button:hover,
 .ui-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.tl {
-  list-style: none;
-  margin: 26px 0 0;
-  padding: 0 0 0 44px;
-  position: relative;
-}
-
-.tl:before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: 14px;
-  bottom: 14px;
-  width: 1px;
-  background: var(--border);
-}
-
-.tl li {
-  position: relative;
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  font-weight: 400;
-  line-height: 1.45;
-  padding: 14px 0;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.tl li:before {
-  content: "";
-  position: absolute;
-  left: -39px;
-  top: 50%;
-  width: 9px;
-  height: 9px;
-  margin-top: -4.5px;
-  border-radius: 999px;
-  background: var(--panel);
-  border: 1px solid var(--accent);
-  transition: box-shadow 0.25s, background 0.25s;
-}
-
-.tl li.on {
-  font-weight: 600;
-  font-style: italic;
-  color: var(--accent);
-}
-
-.tl li.on:before {
-  background: var(--accent);
-  box-shadow: 0 0 0 5px var(--callout);
-}
-
-.jt {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 2.8vw, 2rem);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.js {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--secondary);
-  margin: 8px 0 20px;
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--panel-hover);
 }
 
 .sc textarea {
@@ -681,7 +597,7 @@ html, body {
   border-top: 1px solid var(--border);
   padding: 18px 2px;
   font-family: var(--font-body);
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   line-height: 1.8;
   color: var(--ink);
   outline: 0;
@@ -697,229 +613,44 @@ html, body {
 
 .jb button {
   flex: 1;
-  height: 44px;
 }
 
-.excerpt-body {
-  margin-top: 18px;
-  border-top: 1px solid var(--border);
-  padding-top: 22px;
-  font-family: var(--font-body);
-  font-size: 1.15rem;
-  line-height: 1.82;
-}
-
-.excerpt-body p {
-  text-align: justify;
-  margin: 0 0 1.6rem;
-}
-
-.excerpt-body p:first-of-type::first-letter {
-  font-family: var(--font-display);
-  font-size: 3.15rem;
-  float: left;
-  line-height: 0.82;
-  padding-top: 4px;
-  padding-right: 12px;
-  color: var(--accent);
-}
-
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.av {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.tb {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--secondary);
-  margin-top: 24px;
-}
-
-.bal {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 4vw, 3.1rem);
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  line-height: 1.12;
-  margin: 6px 0 0;
-}
-
-.bal small {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  color: var(--muted);
-  margin-left: 8px;
-}
-
-.acts {
-  display: flex;
-  gap: 12px;
-  margin: 22px 0 26px;
-}
-
-.acts button {
-  flex: 1;
-  height: 44px;
-}
-
-.fv {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--secondary);
-  margin-bottom: 12px;
-}
-
-.fr {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--panel);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-}
-
-.fr i {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  font-family: var(--font-display);
-  font-size: 0.88rem;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.fr b {
-  flex: 1;
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  font-weight: 500;
-}
-
-.fr span {
-  font-family: var(--font-sans);
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--muted);
-}
-
-.fr svg {
-  width: 68px;
-  height: 22px;
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.6;
-  pointer-events: none;
-}
-
-/* Desktop Content Positioning (No Container Frame) */
-@media (min-width: 680px) {
+/* ==========================================================================
+   DESKTOP SPLIT-FLOW SPREAD (NO OUTER CONTAINER FRAME)
+   ========================================================================== */
+@media (min-width: 760px) {
   .face-front {
-    padding: 44px 48px 46px;
-  }
-
-  .eyebrow {
-    font-size: 0.6875rem;
-    letter-spacing: 0.34em;
+    padding: 44px 56px 46px;
   }
 
   .title-rule {
-    width: 52px;
-    margin-top: 10px;
-  }
-
-  .novel-title {
-    letter-spacing: 0.18em;
-    line-height: 1.22;
-  }
-
-  .byline {
-    font-size: 0.6875rem;
-    letter-spacing: 0.34em;
-  }
-
-  .enter-label {
-    font-size: 0.625rem;
-    letter-spacing: 0.32em;
+    width: 56px;
   }
 
   .top-bar {
-    padding: 24px 36px 6px;
+    padding: 24px 48px 8px;
   }
 
   .page {
-    padding: 20px 48px 26px;
+    padding: 20px 56px 28px;
+  }
+
+  .sheet {
+    max-width: 52rem;
+    padding: 38px 42px;
+  }
+
+  .sheet-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 36px;
     align-items: center;
   }
 
-  .p1 {
-    align-items: center;
-    text-align: center;
-  }
-
-  .p1 a {
-    padding-left: 0;
-    letter-spacing: 0.08em;
-    line-height: 1.85;
-  }
-
-  .p1 a:hover {
-    transform: translateY(-2px);
-  }
-
-  .list {
-    padding: 26px 32px;
-  }
-
-  .list button {
-    font-size: 1.05rem;
-    padding: 16px 0;
-  }
-
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    max-width: 38rem;
-    margin: auto;
-  }
-
-  .tile {
-    padding: 20px;
-    font-size: 0.95rem;
-  }
-
-  .sc {
-    padding: 28px 44px 36px;
+  .sheet-copy {
+    margin-bottom: 0;
+    font-size: 1.06rem;
+    line-height: 1.76;
   }
 }
 </style>
@@ -933,7 +664,7 @@ html, body {
     <main class="face face-front" id="frontFace">
       <div class="home-screen" id="homeTrigger" role="button" tabindex="0" aria-label="Enter Or So She Thought">
         <div class="title-top">
-          <p class="eyebrow">A Royal Psychological Novel</p>
+          <p class="eyebrow">A Novel of Norwyn · 1990s</p>
           <span class="title-rule" aria-hidden="true"></span>
         </div>
 
@@ -948,53 +679,61 @@ html, body {
       </div>
     </main>
 
-    <!-- RIGHT FACE: Rest of the Novel Pages -->
+    <!-- RIGHT FACE: Swipeable Split-Flow Pages -->
     <section class="face face-right" aria-label="Novel Pages">
       <div class="top-bar">
         <button type="button" class="back-home" id="toCover" aria-label="Back to home">←</button>
       </div>
 
       <div class="pager" id="pager">
-        <!-- Page 1: Novel Navigation -->
-        <section class="page p1">
-          <a href="#" data-open="Excerpt">Excerpt</a>
-          <a href="#" data-open="Chapters">Chapters</a>
-          <a href="#" data-open="Characters">Characters</a>
-          <a href="#" data-open="Notes">Author Notes</a>
-          <a href="#" data-open="Order">Get the Book</a>
+        <!-- Page 1: Before You Begin -->
+        <section class="page" aria-label="Before You Begin">
+          <article class="sheet">
+            <div class="sheet-grid">
+              <div>
+                <p class="sheet-kicker">Opening Threshold</p>
+                <h2 class="sheet-heading">Before You Begin</h2>
+                <p class="sheet-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
+              </div>
+              <div class="sheet-actions">
+                <button type="button" class="sheet-btn" data-open="Author Note">A Note From the Author</button>
+                <button type="button" class="sheet-btn" data-open="Premise">The Premise</button>
+                <button type="button" class="sheet-btn" data-open="Copyright Notice">Copyright &amp; Content Notice</button>
+              </div>
+            </div>
+          </article>
         </section>
 
-        <!-- Page 2: Reader Check-in / Chapters -->
-        <section class="page p2">
-          <div class="list" id="list">
-            <button type="button">Chapter I — The Quiet Before</button>
-            <button type="button">Chapter II — What She Kept</button>
-            <button type="button">Chapter III — The Line Drawn</button>
-            <button type="button">Chapter IV — Unapologetic</button>
-            <button type="button" class="done">Prologue — First Choice</button>
-          </div>
-        </section>
-
-        <!-- Page 3: Story World Tiles -->
-        <section class="page p3">
-          <div class="grid">
-            <button type="button" class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
-            <button type="button" class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
-            <button type="button" class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
-            <button type="button" class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
-            <button type="button" class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
-            <button type="button" class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
-          </div>
+        <!-- Page 2: Story & World of Norwyn -->
+        <section class="page" aria-label="Story and World of Norwyn">
+          <article class="sheet">
+            <div class="sheet-grid">
+              <div>
+                <p class="sheet-kicker">Or So She Thought</p>
+                <h2 class="sheet-heading">Story &amp; World of Norwyn</h2>
+                <p class="sheet-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its cast, and the bound records in the archives.</p>
+              </div>
+              <div class="sheet-actions">
+                <button type="button" class="sheet-btn" data-open="Chapters">Read the Chapters</button>
+                <button type="button" class="sheet-btn" data-open="World of Norwyn">The World of Norwyn</button>
+                <button type="button" class="sheet-btn" data-open="Characters">The Characters</button>
+                <button type="button" class="sheet-btn" data-open="Norwyn Archives">The Norwyn Archives</button>
+              </div>
+            </div>
+          </article>
         </section>
       </div>
 
-      <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+      <div class="dots" id="dots" aria-label="Page indicators">
+        <i class="on" aria-label="Page 1"></i>
+        <i aria-label="Page 2"></i>
+      </div>
     </section>
 
   </div>
 </div>
 
-<div class="sc" id="sc"></div>
+<div class="sc" id="sc" role="dialog" aria-modal="true"></div>
 
 <script>
 var stage = document.getElementById('stage');
@@ -1037,67 +776,88 @@ homeTrigger.addEventListener('keydown', function(e){
 
 toCover.addEventListener('click', turnToCover);
 
-var pager = document.getElementById('pager'), dots = document.querySelectorAll('#dots i');
+var pager = document.getElementById('pager');
+var dots = document.querySelectorAll('#dots i');
+
 pager.addEventListener('scroll', function(){
+  if(!pager.clientWidth) return;
   var n = Math.round(pager.scrollLeft / pager.clientWidth);
   dots.forEach(function(d, i){ d.classList.toggle('on', i === n); });
 });
+
 dots.forEach(function(d, i){
   d.addEventListener('click', function(){
     pager.scrollTo({left: i * pager.clientWidth, behavior: 'smooth'});
   });
 });
 
-var sc = document.getElementById('sc'), copies = 1240, closeTimer = null;
+var sc = document.getElementById('sc'), closeTimer = null;
+
 function esc(s){
-  return s.replace(/[&<>"]/g, function(c){
+  return String(s).replace(/[&<>"]/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
   });
 }
 
-var L = {
+var LISTS = {
   'Chapters': [
-    ['Prologue: First Choice', '4 min read'],
-    ['Chapter I: The Quiet Before', '12 min read'],
-    ['Chapter II: What She Kept', '15 min read'],
-    ['Chapter III: The Line Drawn', '11 min read'],
-    ['Chapter IV: Unapologetic', '18 min read']
+    ['Prologue — The Coast at Dusk', 'Opening'],
+    ['Chapter I — A Crown of Quiet Duty', 'Part I'],
+    ['Chapter II — Letters Kept in Cedar', 'Part I'],
+    ['Chapter III — The Council Table', 'Part II'],
+    ['Chapter IV — What She Chose', 'Part II']
+  ],
+  'World of Norwyn': [
+    ['The Island Kingdom (1990s)', 'Sovereign coastal state'],
+    ['The Harbour Capital', 'Mist, stone & late ferries'],
+    ['Royal Protocol & Press', 'Public grace vs. private weight'],
+    ['The Southern Cliffs', 'Where Elisabeta walks alone']
   ],
   'Characters': [
-    ['Her', 'The one who stopped apologizing'],
-    ['The Mirror', 'Everything she used to tolerate'],
-    ['The Catalyst', 'The moment that broke the pattern'],
-    ['The Aftermath', 'Who stays when she changes']
+    ['Princess Elisabeta', 'Learning to choose her own path'],
+    ['Queen Ecaterina', 'Guardian of crown and order'],
+    ['Ileana', 'Close confidante & quiet witness'],
+    ['Alexandru', 'Court counsel & old loyalties'],
+    ['Victoria', 'Sharp observer of shifting tides'],
+    ['Madeleine', 'Presence that tests old assumptions']
+  ],
+  'Norwyn Archives': [
+    ['Royal Gazettes & Dispatches', '1991–1996'],
+    ['Cartographic Plates', 'Coastal & inland surveys'],
+    ['Private Correspondence', 'Unpublished notes'],
+    ['Reader Reading Notes', 'Personal reflections']
   ]
 };
 
-var T = {
-  'Story Arc': [
-    'The Accommodation',
-    'The Quiet Fracture',
-    'The Refusal',
-    'The Reckoning',
-    'The Choice'
-  ]
+var PROSE = {
+  'Author Note': {
+    sub: 'A Note From the Author',
+    paragraphs: [
+      'I wrote Or So She Thought for women learning the difference between loving where they come from and surrendering who they are becoming.',
+      'Set in the 1990s island kingdom of Norwyn, this story follows Princess Elisabeta as expectations tighten around her—and as she discovers how quiet a real choice can be.'
+    ]
+  },
+  'Premise': {
+    sub: 'The Premise',
+    paragraphs: [
+      'In 1990s Norwyn, duty is inherited long before a title is claimed. Princess Elisabeta has spent her life reading the room, keeping the peace, and fulfilling what others assume she wants.',
+      'When an unexpected shift inside the court and her own inner life forces a reckoning, the story she believed about her future begins to unravel—one honest decision at a time.'
+    ]
+  },
+  'Copyright Notice': {
+    sub: 'Copyright & Content Notice',
+    paragraphs: [
+      '© Queen Usman. All rights reserved. Norwyn, Or So She Thought, and all characters, places, and archival materials are original works of fiction.',
+      'This preview space explores themes of family obligation, emotional restraint, identity, and personal autonomy.'
+    ]
+  }
 };
 
-var F = [
-  ['Hardcover Edition', 'H', '$28.00', [3,5,4,7,8,10]],
-  ['Paperback Edition', 'P', '$18.00', [2,4,6,6,8,9]],
-  ['Digital / E-Book', 'E', '$12.99', [4,5,7,8,9,10]],
-  ['Signed Collector Copy', 'S', '$45.00', [2,3,5,7,9,10]]
-];
-
-function spark(a){
-  return '<svg viewBox="0 0 64 22"><polyline points="' + a.map(function(v, i){
-    return (i * 12.8) + ',' + (21 - v * 2);
-  }).join(' ') + '"/></svg>';
-}
-
-function show(cls, html){
+function showScreen(html){
   clearTimeout(closeTimer);
-  sc.className = 'sc mounted t-' + cls;
-  sc.innerHTML = '<div class="sc-inner">' + html + '</div>';
+  sc.className = 'sc mounted';
+  sc.innerHTML = '<div class="sc-inner"><button type="button" class="bk" data-x aria-label="Close">←</button>' + html + '</div>';
+  sc.scrollTop = 0;
   void sc.offsetHeight;
   sc.classList.add('open');
 }
@@ -1110,58 +870,29 @@ function closeScreen(){
   }, 360);
 }
 
-function fmt(n){ return n.toLocaleString('en-US'); }
+function openScreen(name){
+  if(PROSE[name]){
+    var p = PROSE[name];
+    showScreen(
+      '<h2>' + esc(name) + '</h2>' +
+      '<div class="sub">' + esc(p.sub) + '</div>' +
+      '<div class="prose-sheet">' + p.paragraphs.map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('') + '</div>'
+    );
+    return;
+  }
 
-function openScreen(n){
-  if(L[n]){
-    show('list',
-      '<button type="button" class="bk" data-x>←</button>' +
-      '<h2>' + n + '</h2>' +
-      '<div class="sub">' + L[n].length + ' entries · tap to highlight</div>' +
-      '<ul class="ix">' + L[n].map(function(r){
+  if(LISTS[name]){
+    var items = LISTS[name];
+    var extra = name === 'Norwyn Archives'
+      ? '<div class="add"><input placeholder="Add a personal note to the archive"><button type="button" class="ui-btn ad">Add</button></div>'
+      : '';
+    showScreen(
+      '<h2>' + esc(name) + '</h2>' +
+      '<div class="sub">' + items.length + ' entries · tap to mark</div>' +
+      '<ul class="ix">' + items.map(function(r){
         return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
       }).join('') + '</ul>' +
-      '<div class="add"><input placeholder="Add your note"><button type="button" class="ad">Add</button></div>'
-    );
-  } else if(T[n]){
-    show('tl',
-      '<button type="button" class="bk" data-x>×</button>' +
-      '<h2>' + n + '</h2>' +
-      '<ol class="tl">' + T[n].map(function(s, i){
-        return '<li' + (i === 0 ? ' class="on"' : '') + '>' + s + '</li>';
-      }).join('') + '</ol>'
-    );
-  } else if(n === 'Excerpt' || n === 'Notes'){
-    var title = n === 'Excerpt' ? 'Chapter I — Excerpt' : 'Author’s Note';
-    var body = n === 'Excerpt'
-      ? '<p>She did not slam the door when she left. Slams belong to people who still want to be heard on the way out.</p><p>She simply set the keys down on the table, smoothed the front of her coat, and walked into the street without looking back once to see who was watching.</p>'
-      : '<p>This book was written for every version of you that swallowed a “no” to keep the peace.</p><p>Read it slowly. Underline the parts that sting.</p>';
-    show('list',
-      '<button type="button" class="bk" data-x>←</button>' +
-      '<h2>' + title + '</h2>' +
-      '<div class="sub">Preview</div>' +
-      '<div class="excerpt-body">' + body + '</div>'
-    );
-  } else if(n === 'Reader Journal'){
-    var v = '';
-    try{ v = localStorage.getItem('novel_jr') || ''; }catch(e){}
-    show('tl',
-      '<button type="button" class="bk" data-x>×</button>' +
-      '<div class="jt">READER NOTES</div>' +
-      '<div class="js">' + new Date().toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) + '</div>' +
-      '<textarea placeholder="Write what stayed with you...">' + esc(v) + '</textarea>' +
-      '<div class="jb"><button type="button" class="ui-btn" data-j="c">Clear</button><button type="button" class="ui-btn" data-j="s">Save</button></div>'
-    );
-  } else if(n === 'Editions' || n === 'Order'){
-    show('dune',
-      '<div class="top"><div class="av">Q</div><button type="button" class="bk" data-x>×</button></div>' +
-      '<div class="tb">First Print Run · Reserved</div>' +
-      '<div class="bal" id="bal">' + fmt(copies) + '<small>COPIES</small></div>' +
-      '<div class="acts"><button type="button" class="ui-btn" data-open="Excerpt">Read</button><button type="button" class="ui-btn" data-p>Reserve +1</button></div>' +
-      '<div class="fv">Available Formats</div>' +
-      F.map(function(f){
-        return '<div class="fr"><i>' + f[1] + '</i><b>' + f[0] + '</b>' + spark(f[3]) + '<span>' + f[2] + '</span></div>';
-      }).join('')
+      extra
     );
   }
 }
@@ -1172,45 +903,23 @@ function handleTap(target){
     openScreen(x.dataset.open);
     return true;
   }
-  if(x = target.closest('.tile')){
-    openScreen(x.textContent.trim());
-    return true;
-  }
-  if(x = target.closest('#list button')){
-    x.classList.toggle('done');
-    return true;
-  }
   if(target.closest('[data-x]')){
     closeScreen();
     return true;
   }
-  if(x = target.closest('.ix li, .tl li')){
+  if(x = target.closest('.ix li')){
     x.classList.toggle('on');
     return true;
   }
   if(target.closest('.ad')){
-    var i = sc.querySelector('.add input'), v = i.value.trim();
-    if(v){
+    var input = sc.querySelector('.add input');
+    var val = input && input.value.trim();
+    if(val){
       var li = document.createElement('li');
-      li.innerHTML = '<span>' + esc(v) + '</span><em>note</em>';
+      li.innerHTML = '<span>' + esc(val) + '</span><em>note</em>';
       sc.querySelector('.ix').appendChild(li);
-      i.value = '';
+      input.value = '';
     }
-    return true;
-  }
-  if(x = target.closest('[data-j]')){
-    var ta = sc.querySelector('textarea');
-    if(x.dataset.j === 'c') ta.value = '';
-    try{ localStorage.setItem('novel_jr', ta.value); }catch(e){}
-    if(x.dataset.j === 's'){
-      x.textContent = 'Saved';
-      setTimeout(function(){ x.textContent = 'Save'; }, 1200);
-    }
-    return true;
-  }
-  if(target.closest('[data-p]')){
-    copies += 1;
-    document.getElementById('bal').innerHTML = fmt(copies) + '<small>COPIES</small>';
     return true;
   }
   return false;
@@ -1247,7 +956,6 @@ document.addEventListener('touchend', function(e){
 }, {passive: true});
 
 document.addEventListener('click', function(e){
-  if(e.target.closest('[data-open]')) e.preventDefault();
   if(Date.now() - lastTouchTap < 450) return;
   handleTap(e.target);
 });
