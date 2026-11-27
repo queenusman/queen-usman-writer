@@ -291,7 +291,7 @@ html, body {
 }
 
 /* ==========================================================================
-5. 3D CUBE STAGE, COVER, TITLE LANDING & INNER PAGES
+5. 3D CUBE STAGE, HOME TITLE & INNER PAGES
    ========================================================================== */
 .stage {
   position: relative;
@@ -331,9 +331,8 @@ html, body {
 .face-front {
   transform: rotateY(0deg) translateZ(calc(var(--card-w) * 0.5));
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: calc(env(safe-area-inset-top, 0px) + 32px) 30px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + 28px) 24px calc(env(safe-area-inset-bottom, 0px) + 34px);
   z-index: 2;
   pointer-events: auto;
 }
@@ -360,41 +359,110 @@ html, body {
   display: none;
 }
 
-/* Pure Typographic Cover */
-.cover-copy {
+/* Front Face: Or So She Thought Home Screen */
+.home-screen {
+  flex: 1;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
   cursor: pointer;
   user-select: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.cover-copy:active {
-  opacity: 0.72;
-  transform: scale(0.99);
+.home-screen:active {
+  opacity: 0.82;
+  transform: scale(0.992);
 }
 
-.cover-copy p {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: 1.75rem;
+.title-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+}
+
+.title-top .eyebrow-label {
+  font-size: 0.625rem;
   font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.35;
+  letter-spacing: 0.28em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.title-top .title-rule {
+  width: 36px;
+  height: 1px;
+  background-color: var(--color-border);
+  margin-top: 8px;
+}
+
+.title-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 0;
+}
+
+.novel-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 11vw, 3.65rem);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  line-height: 1.16;
+  text-transform: uppercase;
   color: var(--color-text);
+  margin: 0;
 }
 
-.cover-copy p + p {
-  margin-top: 1rem;
+.title-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 6px;
 }
 
-/* Top Nav */
+.novel-byline {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.enter-hint {
+  font-family: var(--font-sans);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.home-screen:hover .enter-hint {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* Inner Novel Pages */
 .top-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: calc(env(safe-area-inset-top, 0px) + 22px) 22px 8px;
   position: relative;
-  z-index: 6;
+  z-index: 5;
   flex-shrink: 0;
 }
 
@@ -412,125 +480,6 @@ html, body {
   justify-content: start;
   padding: 0;
   cursor: pointer;
-}
-
-/* Stage 2: Or So She Thought Dedication Title Landing */
-.title-landing {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 12px 26px calc(env(safe-area-inset-bottom, 0px) + 38px);
-  cursor: pointer;
-  user-select: none;
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-.title-landing.hidden {
-  display: none;
-}
-
-.title-landing.leaving {
-  opacity: 0;
-  transform: translateY(-6px);
-}
-
-.title-landing .eyebrow-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.34em;
-  color: var(--color-secondary);
-  margin: 0 0 18px;
-}
-
-.novel-main-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.15rem, 8.5vw, 2.75rem);
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  line-height: 1.18;
-  text-transform: uppercase;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.novel-byline {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin: 20px 0 0;
-}
-
-.ornament-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  width: 148px;
-  margin: 26px auto;
-}
-
-.ornament-divider span {
-  flex: 1;
-  height: 1px;
-  background-color: var(--color-border);
-}
-
-.ornament-divider svg {
-  width: 10px;
-  height: 10px;
-  fill: var(--color-accent);
-  flex-shrink: 0;
-}
-
-.dedication-quote {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.52;
-  color: var(--color-text);
-  max-width: 19rem;
-  margin: 0;
-}
-
-.enter-hint {
-  margin-top: 34px;
-  font-family: var(--font-sans);
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.title-landing:hover .enter-hint {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
-/* Stage 3: Inner Novel Pager & Dots */
-.inner-shell {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  opacity: 1;
-  transition: opacity 0.35s ease;
-}
-
-.inner-shell.hidden {
-  display: none;
-}
-
-.inner-shell.entering {
-  opacity: 0;
 }
 
 .pager {
@@ -1020,73 +969,66 @@ html, body {
 <div class="stage">
   <div class="cube" id="cube">
 
-    <!-- FRONT FACE: Pure Homepage Text Only -->
+    <!-- FRONT FACE: Or So She Thought Home Screen -->
     <main class="face face-front" id="frontFace">
-      <div class="cover-copy" id="coverTrigger" role="button" tabindex="0" aria-label="Enter the novel">
-        <p>I wrote a novel about woman who finally chooses.</p>
-        <p>You may not like how much of you is in her, or how long you've been waiting to be her.</p>
-        <p>She's done waiting. You don't have to be.</p>
+      <div class="home-screen" id="homeTrigger" role="button" tabindex="0" aria-label="Enter Or So She Thought">
+        <div class="title-top">
+          <p class="eyebrow-label">A Royal Psychological Novel</p>
+          <span class="title-rule" aria-hidden="true"></span>
+        </div>
+
+        <div class="title-center">
+          <h1 class="novel-main-title">OR SO<br>SHE<br>THOUGHT</h1>
+        </div>
+
+        <div class="title-bottom">
+          <p class="novel-byline">By Queen Usman</p>
+          <span class="enter-hint">Enter</span>
+        </div>
       </div>
     </main>
 
-    <!-- RIGHT FACE: Title Landing -> Inner Novel Pages -->
-    <section class="face face-right" aria-label="Or So She Thought">
+    <!-- RIGHT FACE: Rest of the Novel Pages -->
+    <section class="face face-right" aria-label="Novel Pages">
       <div class="top-nav">
-        <button class="back-cover" id="stepBack" aria-label="Back">←</button>
+        <button class="back-cover" id="toCover" aria-label="Back to home">←</button>
       </div>
 
-      <!-- Stage 2: Dedication Title Card -->
-      <div class="title-landing" id="titleLanding" role="button" tabindex="0" aria-label="Enter Or So She Thought">
-        <p class="eyebrow-label">A Royal Psychological Novel</p>
-        <h1 class="novel-main-title">OR SO SHE<br>THOUGHT</h1>
-        <p class="novel-byline">By Queen Usman</p>
-        <div class="ornament-divider" aria-hidden="true">
-          <span></span>
-          <svg viewBox="0 0 16 16"><path d="M8 0 L10 6 L16 8 L10 10 L8 16 L6 10 L0 8 L6 6 Z"/></svg>
-          <span></span>
-        </div>
-        <p class="dedication-quote">For the woman discovering that she can love where she comes from and still choose where she goes.</p>
-        <span class="enter-hint">Enter</span>
+      <div class="pager" id="pager">
+        <!-- Page 1: Novel Navigation -->
+        <section class="page p1">
+          <a href="#" data-open="Excerpt">Excerpt</a>
+          <a href="#" data-open="Chapters">Chapters</a>
+          <a href="#" data-open="Characters">Characters</a>
+          <a href="#" data-open="Notes">Author Notes</a>
+          <a href="#" data-open="Order">Get the Book</a>
+        </section>
+
+        <!-- Page 2: Reader Check-in / Themes -->
+        <section class="page p2">
+          <div class="list" id="list">
+            <button>Chapter I — The Quiet Before</button>
+            <button>Chapter II — What She Kept</button>
+            <button>Chapter III — The Line Drawn</button>
+            <button>Chapter IV — Unapologetic</button>
+            <button class="done">Prologue — First Choice</button>
+          </div>
+        </section>
+
+        <!-- Page 3: Story World Tiles -->
+        <section class="page p3">
+          <div class="grid">
+            <button class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
+            <button class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
+            <button class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
+            <button class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
+            <button class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
+            <button class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
+          </div>
+        </section>
       </div>
 
-      <!-- Stage 3: Rest of the Novel Pages -->
-      <div class="inner-shell hidden" id="innerShell">
-        <div class="pager" id="pager">
-          <!-- Page 1: Novel Navigation -->
-          <section class="page p1">
-            <a href="#" data-open="Excerpt">Excerpt</a>
-            <a href="#" data-open="Chapters">Chapters</a>
-            <a href="#" data-open="Characters">Characters</a>
-            <a href="#" data-open="Notes">Author Notes</a>
-            <a href="#" data-open="Order">Get the Book</a>
-          </section>
-
-          <!-- Page 2: Reader Check-in / Themes -->
-          <section class="page p2">
-            <div class="list" id="list">
-              <button>Chapter I — The Quiet Before</button>
-              <button>Chapter II — What She Kept</button>
-              <button>Chapter III — The Line Drawn</button>
-              <button>Chapter IV — Unapologetic</button>
-              <button class="done">Prologue — First Choice</button>
-            </div>
-          </section>
-
-          <!-- Page 3: Story World Tiles -->
-          <section class="page p3">
-            <div class="grid">
-              <button class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
-              <button class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
-              <button class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
-              <button class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
-              <button class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
-              <button class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
-            </div>
-          </section>
-        </div>
-
-        <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
-      </div>
+      <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
     </section>
 
   </div>
@@ -1096,37 +1038,12 @@ html, body {
 
 <script>
 var cube = document.getElementById('cube');
-var coverTrigger = document.getElementById('coverTrigger');
-var titleLanding = document.getElementById('titleLanding');
-var innerShell = document.getElementById('innerShell');
-var stepBack = document.getElementById('stepBack');
+var homeTrigger = document.getElementById('homeTrigger');
+var toCover = document.getElementById('toCover');
 var turnTimer = null;
-var stageState = 'cover';
 
-function showTitleLanding(){
-  stageState = 'title';
-  titleLanding.classList.remove('hidden', 'leaving');
-  innerShell.classList.add('hidden');
-  innerShell.classList.remove('entering');
-}
-
-function showInnerPages(){
-  if(stageState === 'inner') return;
-  stageState = 'inner';
-  titleLanding.classList.add('leaving');
-  setTimeout(function(){
-    titleLanding.classList.add('hidden');
-    titleLanding.classList.remove('leaving');
-    innerShell.classList.remove('hidden');
-    innerShell.classList.add('entering');
-    void innerShell.offsetWidth;
-    innerShell.classList.remove('entering');
-  }, 260);
-}
-
-function turnToTitle(){
+function turnToInner(){
   clearTimeout(turnTimer);
-  showTitleLanding();
   cube.classList.remove('settled');
   cube.classList.add('turned');
   turnTimer = setTimeout(function(){
@@ -1136,35 +1053,20 @@ function turnToTitle(){
 
 function turnToCover(){
   clearTimeout(turnTimer);
-  stageState = 'cover';
   cube.classList.remove('settled');
   void cube.offsetWidth;
   cube.classList.remove('turned');
 }
 
-coverTrigger.addEventListener('click', turnToTitle);
-coverTrigger.addEventListener('keydown', function(e){
+homeTrigger.addEventListener('click', turnToInner);
+homeTrigger.addEventListener('keydown', function(e){
   if(e.key === 'Enter' || e.key === ' '){
     e.preventDefault();
-    turnToTitle();
+    turnToInner();
   }
 });
 
-titleLanding.addEventListener('click', showInnerPages);
-titleLanding.addEventListener('keydown', function(e){
-  if(e.key === 'Enter' || e.key === ' '){
-    e.preventDefault();
-    showInnerPages();
-  }
-});
-
-stepBack.addEventListener('click', function(){
-  if(stageState === 'inner'){
-    showTitleLanding();
-  } else {
-    turnToCover();
-  }
-});
+toCover.addEventListener('click', turnToCover);
 
 var pager = document.getElementById('pager'), dots = document.querySelectorAll('#dots i');
 pager.addEventListener('scroll', function(){
