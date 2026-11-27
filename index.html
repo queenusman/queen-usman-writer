@@ -277,7 +277,7 @@ html, body {
 }
 
 /* ==========================================================================
-   TWIN SWIPEABLE PAGES (JUSTIFIED HEADINGS + LEFT-ALIGNED OPEN ROWS)
+   TWIN SWIPEABLE PAGES (GOLD JUSTIFIED HEADINGS + LEFT-ALIGNED OPEN ROWS)
    ========================================================================== */
 .top-bar {
   display: flex;
@@ -340,17 +340,6 @@ html, body {
   align-items: stretch;
 }
 
-.nb-kicker {
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent-deep);
-  margin: 0 0 12px;
-  text-align: justify;
-}
-
 .nb-display {
   width: 100%;
   font-family: var(--font-serif);
@@ -358,7 +347,7 @@ html, body {
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1.04;
-  color: var(--ink);
+  color: var(--accent-deep);
   margin: 0 0 18px;
   text-align: justify;
 }
@@ -436,7 +425,7 @@ html, body {
 }
 
 /* ==========================================================================
-   SLIDE-UP READING & ARCHIVE SHEETS
+   SLIDE-UP READING & ARCHIVE SHEETS (NO HEADING + EDGE CHEVRON)
    ========================================================================== */
 .sc {
   position: fixed;
@@ -445,7 +434,7 @@ html, body {
   height: 100dvh;
   z-index: 50;
   overflow-y: auto;
-  padding: calc(env(safe-area-inset-top, 0px) + 22px) 28px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  padding: calc(env(safe-area-inset-top, 0px) + 44px) 44px calc(env(safe-area-inset-bottom, 0px) + 40px);
   transform: translateY(100%);
   opacity: 0;
   display: none;
@@ -457,7 +446,8 @@ html, body {
 }
 
 .sc.mounted {
-  display: block;
+  display: flex;
+  align-items: center;
 }
 
 .sc.open {
@@ -468,47 +458,25 @@ html, body {
 .sc-inner {
   width: 100%;
   max-width: 42rem;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .sc button {
   font-family: var(--font-sans);
-  color: inherit;
   cursor: pointer;
   touch-action: manipulation;
 }
 
-.bk {
-  background: none;
-  border: 0;
-  font-size: 1.5rem;
-  line-height: 1;
-  min-width: 48px;
-  min-height: 48px;
-  display: inline-grid;
-  place-items: center;
-  justify-content: start;
-  padding: 0 10px 0 0;
-}
-
-.bk:hover {
-  color: var(--accent-deep);
-}
-
-.sc h2 {
-  width: 100%;
-  font-family: var(--font-serif);
-  font-size: clamp(1.85rem, 4vw, 2.5rem);
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  color: var(--accent-deep);
-  text-align: justify;
-  margin: 14px 0 22px;
+.sc .edge-arrow.left {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
 }
 
 .prose-sheet {
-  border-top: 1px solid var(--border);
-  padding-top: 22px;
+  padding-top: 4px;
   font-family: var(--font-body);
   font-size: 1.1rem;
   line-height: 1.82;
@@ -664,10 +632,6 @@ html, body {
     gap: 26px;
   }
 
-  .nb-kicker {
-    font-size: 0.5625rem;
-  }
-
   .nb-display {
     font-size: clamp(2.5rem, 3.8vw, 3.35rem);
     margin-bottom: 16px;
@@ -690,8 +654,8 @@ html, body {
     letter-spacing: 0.24em;
   }
 
-  .sc h2 {
-    font-size: clamp(1.65rem, 3.2vw, 2.1rem);
+  .sc {
+    padding: 48px 80px;
   }
 
   .prose-sheet {
@@ -751,7 +715,6 @@ html, body {
 
           <article class="nb-sheet">
             <div class="nb-header">
-              <p class="nb-kicker">Opening Threshold</p>
               <h2 class="nb-display">Before<br>You Begin</h2>
               <p class="nb-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
             </div>
@@ -772,7 +735,6 @@ html, body {
 
           <article class="nb-sheet">
             <div class="nb-header">
-              <p class="nb-kicker">Or So She Thought</p>
               <h2 class="nb-display">Story &amp;<br>World of<br>Norwyn</h2>
               <p class="nb-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its characters, and the bound records in the archives.</p>
             </div>
@@ -929,7 +891,7 @@ var PROSE = {
 function showScreen(html){
   clearTimeout(closeTimer);
   sc.className = 'sc mounted';
-  sc.innerHTML = '<div class="sc-inner"><button type="button" class="bk" data-x aria-label="Close">←</button>' + html + '</div>';
+  sc.innerHTML = '<button type="button" class="edge-arrow left" data-x aria-label="Close">‹</button><div class="sc-inner">' + html + '</div>';
   sc.scrollTop = 0;
   void sc.offsetHeight;
   sc.classList.add('open');
@@ -947,7 +909,6 @@ function openScreen(name){
   if(PROSE[name]){
     var p = PROSE[name];
     showScreen(
-      '<h2>' + esc(name) + '</h2>' +
       '<div class="prose-sheet">' + p.paragraphs.map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('') + '</div>'
     );
     return;
@@ -959,7 +920,6 @@ function openScreen(name){
       ? '<div class="add"><input placeholder="Add a personal note to the archive"><button type="button" class="ui-btn ad">Add</button></div>'
       : '';
     showScreen(
-      '<h2>' + esc(name) + '</h2>' +
       '<ul class="ix">' + items.map(function(r){
         return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
       }).join('') + '</ul>' +
