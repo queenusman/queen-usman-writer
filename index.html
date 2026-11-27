@@ -21,6 +21,7 @@
   --muted: #5C5650;
   --accent: #B9A88F;
   --accent-deep: #8A765B;
+  --slide-heading: #5E4E3A;
   --callout: rgba(185, 168, 143, 0.22);
   --dot: #D5CBB9;
   --dotOn: #111111;
@@ -277,7 +278,7 @@ html, body {
 }
 
 /* ==========================================================================
-   TWIN SWIPEABLE PAGES (FULL-JUSTIFIED GOLD HEADINGS + LEFT-ALIGNED ROWS)
+   TWIN SWIPEABLE PAGES (SINGLE-LINE WHEN SPACE ALLOWS + DARKER BRONZE HEADINGS)
    ========================================================================== */
 .top-bar {
   display: flex;
@@ -326,7 +327,7 @@ html, body {
 
 .nb-sheet {
   width: 100%;
-  max-width: 31rem;
+  max-width: 36rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -337,21 +338,20 @@ html, body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .nb-display {
   width: 100%;
   font-family: var(--font-serif);
-  font-size: clamp(2.35rem, 7.6vw, 3.5rem);
+  font-size: clamp(2.15rem, 5.2vw, 3.1rem);
   font-weight: 400;
   letter-spacing: 0.02em;
-  line-height: 1.04;
-  color: var(--accent-deep);
+  line-height: 1.12;
+  color: var(--slide-heading);
   margin: 0 0 18px;
-  text-align: justify;
-  text-align-last: justify;
-  text-justify: inter-word;
+  text-align: left;
+  overflow-wrap: break-word;
 }
 
 .nb-copy {
@@ -399,7 +399,7 @@ html, body {
 }
 
 .nb-text-link:hover {
-  color: var(--accent-deep);
+  color: var(--slide-heading);
   border-bottom-color: var(--ink);
   background-color: rgba(185, 168, 143, 0.08);
 }
@@ -631,12 +631,12 @@ html, body {
   }
 
   .nb-sheet {
-    max-width: 34rem;
+    max-width: 38rem;
     gap: 26px;
   }
 
   .nb-display {
-    font-size: clamp(2.5rem, 3.8vw, 3.35rem);
+    font-size: clamp(2.25rem, 3.4vw, 3rem);
     margin-bottom: 16px;
   }
 
@@ -718,7 +718,7 @@ html, body {
 
           <article class="nb-sheet">
             <div class="nb-header">
-              <h2 class="nb-display">Before<br>You Begin</h2>
+              <h2 class="nb-display">Before You Begin</h2>
               <p class="nb-copy">Begin with the author’s welcome, the premise of Princess Elisabeta’s world, and the copyright and content notice before stepping into the chapters or the wider kingdom.</p>
             </div>
 
@@ -738,7 +738,7 @@ html, body {
 
           <article class="nb-sheet">
             <div class="nb-header">
-              <h2 class="nb-display">Story &amp;<br>World of<br>Norwyn</h2>
+              <h2 class="nb-display">Story &amp; World of Norwyn</h2>
               <p class="nb-copy">Follow Elisabeta’s story chapter by chapter, and whenever curiosity leads you, explore the island kingdom of Norwyn, its characters, and the bound records in the archives.</p>
             </div>
 
