@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Novel</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
 :root{
   /* Ash Mode (Light) */
@@ -24,6 +24,13 @@
   --card-h:100vh;
   --card-r:0px;
   --card-shadow:none;
+
+  /* Font Stacks */
+  --font-display:"Cinzel","Cormorant Garamond",Georgia,serif;
+  --font-cover:"Cormorant Garamond",Georgia,serif;
+  --font-read:"Newsreader",Georgia,serif;
+  --font-ui:"Inter",-apple-system,"Helvetica Neue",Arial,sans-serif;
+
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
@@ -79,7 +86,7 @@ html,body{
   margin:0;
   background:var(--outer-bg);
   color:var(--ink);
-  font-family:Inter,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-family:var(--font-ui);
   overflow:hidden;
   display:flex;
   align-items:center;
@@ -123,11 +130,37 @@ html,body{
   align-items:center;
   justify-content:center;
   padding:36px 30px;
+  z-index:2;
+  pointer-events:auto;
 }
 .face-right{
   transform:rotateY(90deg) translateZ(calc(var(--card-w) * 0.5));
   display:flex;
   flex-direction:column;
+  z-index:1;
+  pointer-events:none;
+}
+
+/* Fix hit-testing when cube turns */
+.cube.turned .face-front{
+  pointer-events:none;
+  z-index:1;
+}
+.cube.turned .face-right{
+  pointer-events:auto;
+  z-index:3;
+}
+
+/* Flatten 3D context once turn settles so nested scroll/clicks never glitch */
+.cube.settled{
+  transform:none;
+  transform-style:flat;
+}
+.cube.settled .face-front{
+  display:none;
+}
+.cube.settled .face-right{
+  transform:none;
 }
 
 /* Pure Typographic Cover */
@@ -143,14 +176,15 @@ html,body{
 }
 .cover-copy p{
   margin:0;
-  font-size:25px;
+  font-family:var(--font-cover);
+  font-size:29px;
   font-weight:500;
-  letter-spacing:-.025em;
-  line-height:1.38;
+  letter-spacing:-.015em;
+  line-height:1.32;
   color:var(--ink);
 }
 .cover-copy p + p{
-  margin-top:14px;
+  margin-top:16px;
 }
 
 /* Inner Novel Pages */
@@ -159,19 +193,22 @@ html,body{
   justify-content:space-between;
   align-items:center;
   padding:calc(env(safe-area-inset-top,0px) + 18px) 22px 4px;
+  position:relative;
+  z-index:5;
 }
 .back-cover{
   background:none;
   border:0;
   color:var(--ink);
+  font-family:var(--font-ui);
   font-size:24px;
   line-height:1;
-  padding:4px 0;
+  padding:4px 8px 4px 0;
   cursor:pointer;
 }
 .mode-dot{
-  width:14px;
-  height:14px;
+  width:16px;
+  height:16px;
   border-radius:50%;
   border:1.5px solid var(--ink);
   background:var(--accent);
@@ -197,14 +234,18 @@ html,body{
 }
 .p1{justify-content:center}
 .p1 a{
-  font-size:32px;
+  display:block;
+  font-family:var(--font-cover);
+  font-size:36px;
   font-weight:500;
-  letter-spacing:-.02em;
-  line-height:1.55;
+  letter-spacing:-.015em;
+  line-height:1.48;
   color:var(--ink);
   text-decoration:none;
   padding-left:10px;
+  cursor:pointer;
 }
+.p1 a:active{opacity:.6}
 .p2{justify-content:center}
 .list{
   background:var(--panel);
@@ -218,7 +259,7 @@ html,body{
   background:none;
   border:0;
   color:var(--ink);
-  font:500 17px/1.25 Inter,sans-serif;
+  font:500 17px/1.25 var(--font-ui);
   padding:13px 0;
   cursor:pointer;
 }
@@ -244,10 +285,11 @@ html,body{
   align-items:flex-start;
   gap:10px;
   color:var(--ink);
-  font:600 15px/1.2 Inter,sans-serif;
+  font:600 15px/1.2 var(--font-ui);
   text-align:left;
   cursor:pointer;
 }
+.tile:active{opacity:.75}
 .tile svg{width:24px;height:24px;fill:currentColor}
 .dots{
   display:flex;
@@ -273,26 +315,34 @@ html,body{
   width:var(--card-w);
   height:var(--card-h);
   border-radius:var(--card-r);
-  z-index:20;
+  z-index:50;
   overflow-y:auto;
   padding:calc(env(safe-area-inset-top,0px) + 22px) 24px calc(env(safe-area-inset-bottom,0px) + 24px);
   transform:translate(-50%, 65%);
   opacity:0;
   visibility:hidden;
+  pointer-events:none;
   transition:transform .38s cubic-bezier(.2,.8,.2,1), opacity .3s ease, visibility .38s;
   color:var(--ink);
   background:var(--bg-grad);
   box-shadow:var(--card-shadow);
-  font-family:Inter,-apple-system,Arial,sans-serif;
+  font-family:var(--font-ui);
 }
 .sc.open{
   transform:translate(-50%, -50%);
   opacity:1;
   visibility:visible;
+  pointer-events:auto;
 }
-.sc button{font-family:inherit;color:inherit;cursor:pointer}
-.bk{background:none;border:0;font-size:28px;line-height:1;padding:0}
-.sc h2{font-size:15px;font-weight:500;margin:22px 0 4px;letter-spacing:.02em}
+.sc button{font-family:var(--font-ui);color:inherit;cursor:pointer}
+.bk{background:none;border:0;font-size:28px;line-height:1;padding:0 10px 0 0}
+.sc h2{
+  font-family:var(--font-display);
+  font-size:17px;
+  font-weight:500;
+  margin:22px 0 4px;
+  letter-spacing:.06em;
+}
 .sub{font-size:12px;color:var(--muted);margin-bottom:18px}
 .ix{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .ix li{
@@ -314,7 +364,7 @@ html,body{
   background:none;
   border:0;
   border-bottom:1px solid var(--ink);
-  font:15px Inter,sans-serif;
+  font:15px var(--font-ui);
   padding:8px 2px;
   outline:0;
   color:var(--ink);
@@ -338,7 +388,14 @@ html,body{
   background:var(--ink);
   opacity:.45;
 }
-.tl li{position:relative;font-size:21px;font-weight:300;padding:15px 0;cursor:pointer}
+.tl li{
+  position:relative;
+  font-family:var(--font-cover);
+  font-size:24px;
+  font-weight:400;
+  padding:14px 0;
+  cursor:pointer;
+}
 .tl li:before{
   content:"";
   position:absolute;
@@ -352,11 +409,17 @@ html,body{
   box-shadow:0 0 0 1px var(--line);
   transition:box-shadow .25s;
 }
-.tl li.on{font-weight:600}
+.tl li.on{font-weight:600;font-style:italic}
 .tl li.on:before{box-shadow:0 0 0 7px rgba(255,255,255,.5),0 2px 8px rgba(0,0,0,.18)}
-.t-tl h2{font-size:13px;font-weight:300;margin:26px 0 0 52px;color:var(--muted)}
-.jt{font-size:30px;letter-spacing:.06em;text-align:center;margin-top:30px}
-.js{font-size:13px;font-weight:300;text-align:center;color:var(--muted);margin:6px 0 20px}
+.t-tl h2{font-family:var(--font-display);font-size:14px;font-weight:500;margin:26px 0 0 52px;color:var(--muted)}
+.jt{
+  font-family:var(--font-display);
+  font-size:26px;
+  letter-spacing:.1em;
+  text-align:center;
+  margin-top:30px;
+}
+.js{font-size:13px;font-weight:400;text-align:center;color:var(--muted);margin:6px 0 20px}
 .sc textarea{
   width:100%;
   height:42vh;
@@ -364,17 +427,18 @@ html,body{
   border:0;
   border-top:1px solid var(--line);
   padding:16px 2px;
-  font:300 18px/1.6 Inter,sans-serif;
+  font:400 19px/1.7 var(--font-read);
   color:var(--ink);
   outline:0;
   resize:none;
 }
 .jb{display:flex;border-top:1px solid var(--line)}
-.jb button{flex:1;background:none;border:0;padding:18px;font-size:15px;font-weight:300}
+.jb button{flex:1;background:none;border:0;padding:18px;font-size:15px;font-weight:400}
 .excerpt-body{
   margin-top:18px;
-  font-size:17px;
-  font-weight:300;
+  font-family:var(--font-read);
+  font-size:19px;
+  font-weight:400;
   line-height:1.75;
   border-top:1px solid var(--line);
   padding-top:20px;
@@ -389,8 +453,9 @@ html,body{
   color:var(--accent-ink);
   display:grid;
   place-items:center;
+  font-family:var(--font-display);
   font-size:13px;
-  font-weight:500;
+  font-weight:600;
 }
 .tb{font-size:13px;color:var(--muted);margin-top:26px}
 .bal{font-size:44px;font-weight:500;letter-spacing:-.03em;margin:4px 0 0}
@@ -403,7 +468,8 @@ html,body{
   border:0;
   background:var(--tile);
   color:var(--ink);
-  font-size:18px;
+  font-size:16px;
+  font-weight:500;
 }
 .acts button:last-child{background:var(--accent);color:var(--accent-ink)}
 .fv{font-size:15px;font-weight:500;margin-bottom:12px}
@@ -424,7 +490,7 @@ html,body{
   place-items:center;
   background:var(--accent);
   color:var(--accent-ink);
-  font:600 14px Inter,sans-serif;
+  font:600 14px var(--font-display);
   font-style:normal;
 }
 .fr b{flex:1;font-size:15px;font-weight:500}
@@ -477,12 +543,12 @@ html,body{
         <!-- Page 3: Story World Tiles -->
         <section class="page p3">
           <div class="grid">
-            <button class="tile"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
-            <button class="tile"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
-            <button class="tile"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
-            <button class="tile"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
-            <button class="tile"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
-            <button class="tile"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
+            <button class="tile" data-open="Chapters"><svg viewBox="0 0 24 24"><path d="M7 2h12a1 1 0 0 1 1 1v15H8a1 1 0 0 0 0 2h12v2H8a3 3 0 0 1-3-3V4a2 2 0 0 1 2-2z"/></svg>Chapters</button>
+            <button class="tile" data-open="Characters"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>Characters</button>
+            <button class="tile" data-open="Story Arc"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 12.5L17 8l-1.4-1.4-6.1 6.1-2.1-2.1L6 12.1z" fill-rule="evenodd"/></svg>Story Arc</button>
+            <button class="tile" data-open="Reader Journal"><svg viewBox="0 0 24 24"><path d="M3 21l1-5L16 4l4 4L8 20zM17.5 2.5l2-.5 2 2-.5 2z"/></svg>Reader Journal</button>
+            <button class="tile" data-open="Excerpt"><svg viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>Excerpt</button>
+            <button class="tile" data-open="Editions"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm2 9v2h3v-2zm5 0v2h2v-2z"/></svg>Editions</button>
           </div>
         </section>
       </div>
@@ -506,22 +572,35 @@ var cube = document.getElementById('cube');
 var coverTrigger = document.getElementById('coverTrigger');
 var toCover = document.getElementById('toCover');
 var themeToggle = document.getElementById('themeToggle');
+var turnTimer = null;
+
+function turnToInner(){
+  clearTimeout(turnTimer);
+  cube.classList.remove('settled');
+  cube.classList.add('turned');
+  turnTimer = setTimeout(function(){
+    if(cube.classList.contains('turned')) cube.classList.add('settled');
+  }, 860);
+}
+
+function turnToCover(){
+  clearTimeout(turnTimer);
+  cube.classList.remove('settled');
+  void cube.offsetWidth;
+  cube.classList.remove('turned');
+}
 
 // Turn cube on text click or Enter/Space
-coverTrigger.addEventListener('click', function(){
-  cube.classList.add('turned');
-});
+coverTrigger.addEventListener('click', turnToInner);
 coverTrigger.addEventListener('keydown', function(e){
   if(e.key === 'Enter' || e.key === ' '){
     e.preventDefault();
-    cube.classList.add('turned');
+    turnToInner();
   }
 });
 
 // Turn cube back to homepage cover
-toCover.addEventListener('click', function(){
-  cube.classList.remove('turned');
-});
+toCover.addEventListener('click', turnToCover);
 
 // Toggle between Ash (light) and Pinkish-Sand (dark)
 themeToggle.addEventListener('click', function(){
