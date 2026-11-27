@@ -6,8 +6,7 @@
 <title>Novel</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
-:root,
-.theme-dark {
+:root {
   /* --- Font Families --- */
   --font-display: 'Cinzel', Georgia, serif;
   --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -15,67 +14,28 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: ui-monospace, Menlo, Consolas, monospace;
 
-  /* --- Global Colors: Light Airy Purplish Mode (True Violet / Lilac) --- */
-  --color-bg: #F6F1FB;
-  --color-bg-subtle: #EFE7F8;
-  --color-panel: #FCF9FF;
-  --color-panel-hover: #F2E9FC;
-  --color-border: #D8C5EB;
-  --color-border-subtle: #E6D8F4;
-  --color-text: #2C1B3D;
-  --color-text-muted: #695382;
-  --color-text-faint: #8F7AA8;
-  --color-accent: #8E44EC;
-  --color-secondary: #9B5DE5;
-  --color-callout-bg: rgba(155, 93, 229, 0.12);
-  --header-bg: rgba(246, 241, 251, 0.94);
-  --footer-bg: #EFE7F8;
-  --primary-btn-bg: #FCF9FF;
-  --primary-btn-text: #2C1B3D;
-  --primary-btn-border: #D2BCE8;
-  --selection-bg: #B57EDC;
-  --selection-text: #241333;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(177, 117, 232, 0.22) 0%, rgba(246, 241, 251, 0) 72%);
-  --card-shadow: 0 8px 28px -6px rgba(102, 51, 153, 0.12), 0 2px 8px rgba(102, 51, 153, 0.06);
-
-  /* --- Scriptorium Archive Tokens (Light Purplish) --- */
-  --room: #F6F1FB;
-  --room-hi: #EFE7F8;
-  --case-bg: #ECE1F7;
-  --case-hi: #F5EEFC;
-  --shelf-back: #E0D0F0;
-  --plank-top: #FCF9FF;
-  --plank-mid: #EFE7F8;
-  --plank-bot: #DFCEF0;
-  --gilt: #8E44EC;
-  --gilt-dim: #A66EE8;
-  --plate-bg-1: #FCF9FF;
-  --plate-bg-2: #F2E8FC;
-  --plate-text: #2C1B3D;
-  --plate-border: #D8C5EB;
-  --ink: #2C1B3D;
-  --ink-muted: #695382;
-  --vellum: #FCF9FF;
-  --vellum-edge: #EAE0F5;
-  --rubric: #8E44EC;
-  --ui: #2C1B3D;
-  --ui-dim: #695382;
-  --btn-bg: rgba(252, 249, 255, 0.92);
-  --btn-hover: rgba(242, 233, 252, 0.98);
-  --btn-border: #D2BCE8;
-  --btn-border-hover: #8E44EC;
-  --foil-gradient: linear-gradient(100deg, #9B5DE5 0%, #C77DFF 35%, #8E44EC 65%, #B57EDC 100%);
-
-  /* --- Cinematic Intro Tokens --- */
-  --qu-bg: #F6F1FB;
-  --qu-charcoal: #EFE7F8;
-  --qu-panel: rgba(252, 249, 255, 0.92);
-  --qu-border: rgba(142, 68, 236, 0.25);
-  --qu-accent: #8E44EC;
-  --qu-secondary: #9B5DE5;
-  --qu-text: #2C1B3D;
-  --qu-text-muted: rgba(105, 83, 130, 0.85);
-  --qu-reveal: #F6F1FB;
+  /* --- Default Mode: Ash + Crisp White --- */
+  --color-bg: #ECEAE4;
+  --color-bg-subtle: #E3E0D8;
+  --color-panel: #FFFFFF;
+  --color-panel-hover: #F7F6F3;
+  --color-border: #D2CEC4;
+  --color-border-subtle: #E1DDD3;
+  --color-text: #18181B;
+  --color-text-muted: #52525B;
+  --color-text-faint: #71717A;
+  --color-accent: #18181B;
+  --color-secondary: #52525B;
+  --color-callout-bg: rgba(24, 24, 27, 0.06);
+  --header-bg: rgba(236, 234, 228, 0.94);
+  --footer-bg: #E3E0D8;
+  --primary-btn-bg: #FFFFFF;
+  --primary-btn-text: #18181B;
+  --primary-btn-border: #C8C3B8;
+  --selection-bg: #18181B;
+  --selection-text: #FFFFFF;
+  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.65) 0%, rgba(236, 234, 228, 0) 72%);
+  --card-shadow: 0 8px 24px -6px rgba(24, 24, 27, 0.08), 0 2px 6px rgba(24, 24, 27, 0.04);
 
   /* --- Spacing, Radii & Layout Scale --- */
   --u: 8px;
@@ -85,135 +45,100 @@
   --radius-btn: 8px;
   --radius-control: 10px;
   --radius-full: 999px;
-  --container-prose: 48rem;
-  --container-gateway: 56rem;
-  --container-header: 64rem;
-  --container-archive: 72rem;
 
   /* --- Viewport Card Frame --- */
-  --outer-bg: #E7DAF5;
+  --outer-bg: #E2DFD7;
   --card-w: 100vw;
   --card-h: 100dvh;
   --card-r: 0px;
-  --card-shadow: none;
 
   box-sizing: border-box;
   color-scheme: light;
 }
 
+/* --- Pinkish Mode (data-theme="dark") --- */
+:root[data-theme="dark"],
+.theme-dark {
+  --color-bg: #F6ECEF;
+  --color-bg-subtle: #EDE0E5;
+  --color-panel: #FFFDFD;
+  --color-panel-hover: #FAF2F5;
+  --color-border: #DFC8D0;
+  --color-border-subtle: #ECDCE2;
+  --color-text: #2B1D24;
+  --color-text-muted: #6E5260;
+  --color-text-faint: #8F6F7F;
+  --color-accent: #9E5672;
+  --color-secondary: #8C4863;
+  --color-callout-bg: rgba(158, 86, 114, 0.12);
+  --header-bg: rgba(246, 236, 239, 0.94);
+  --footer-bg: #EDE0E5;
+  --primary-btn-bg: #FFFDFD;
+  --primary-btn-text: #2B1D24;
+  --primary-btn-border: #D9BFC9;
+  --selection-bg: #E8B8C8;
+  --selection-text: #2B1D24;
+  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
+  --card-shadow: 0 10px 28px -6px rgba(92, 42, 62, 0.12), 0 2px 8px rgba(92, 42, 62, 0.05);
+
+  --outer-bg: #EBDCE1;
+  color-scheme: light;
+}
+
+/* --- Ash + Crisp White Mode (data-theme="light") --- */
+:root[data-theme="light"],
 .theme-ivory {
-  --color-bg: #F8F7F5;
-  --color-bg-subtle: #F1ECE5;
-  --color-panel: #F8F7F5;
-  --color-panel-hover: #F1ECE5;
-  --color-border: #CCC4BC;
-  --color-border-subtle: #DCD6CF;
-  --color-text: #3E3D43;
-  --color-text-muted: #5A5760;
-  --color-text-faint: #7E7985;
-  --color-accent: #C79EAF;
-  --color-secondary: #C79EAF;
-  --color-callout-bg: rgba(199, 158, 175, 0.12);
-  --header-bg: rgba(248, 247, 245, 0.94);
-  --footer-bg: #F8F7F5;
-  --primary-btn-bg: #F8F7F5;
-  --primary-btn-text: #5A5760;
-  --primary-btn-border: #CCC4BC;
-  --selection-bg: #C79EAF;
-  --selection-text: #F8F7F5;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(199, 158, 175, 0.1) 0%, rgba(248, 247, 245, 0) 70%);
-  --card-shadow: 0 2px 12px -2px rgba(62, 61, 67, 0.05), 0 1px 3px rgba(62, 61, 67, 0.03);
+  --color-bg: #ECEAE4;
+  --color-bg-subtle: #E3E0D8;
+  --color-panel: #FFFFFF;
+  --color-panel-hover: #F7F6F3;
+  --color-border: #D2CEC4;
+  --color-border-subtle: #E1DDD3;
+  --color-text: #18181B;
+  --color-text-muted: #52525B;
+  --color-text-faint: #71717A;
+  --color-accent: #18181B;
+  --color-secondary: #52525B;
+  --color-callout-bg: rgba(24, 24, 27, 0.06);
+  --header-bg: rgba(236, 234, 228, 0.94);
+  --footer-bg: #E3E0D8;
+  --primary-btn-bg: #FFFFFF;
+  --primary-btn-text: #18181B;
+  --primary-btn-border: #C8C3B8;
+  --selection-bg: #18181B;
+  --selection-text: #FFFFFF;
+  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.65) 0%, rgba(236, 234, 228, 0) 72%);
+  --card-shadow: 0 8px 24px -6px rgba(24, 24, 27, 0.08), 0 2px 6px rgba(24, 24, 27, 0.04);
 
-  /* --- Scriptorium Archive Tokens (Ivory) --- */
-  --room: #F8F7F5;
-  --room-hi: #EFE9E1;
-  --case-bg: #E6DFD6;
-  --case-hi: #F1ECE5;
-  --shelf-back: #D8CFC4;
-  --plank-top: #F8F7F5;
-  --plank-mid: #E5DDD3;
-  --plank-bot: #CFC5B9;
-  --gilt: #F4E6E9;
-  --gilt-dim: #C79EAF;
-  --plate-bg-1: #F8F7F5;
-  --plate-bg-2: #EFE9E1;
-  --plate-text: #3E3D43;
-  --plate-border: #CCC4BC;
-  --ink: #3E3D43;
-  --ink-muted: #5A5760;
-  --vellum: #F8F7F5;
-  --vellum-edge: #EDE7DF;
-  --rubric: #9A667A;
-  --ui: #3E3D43;
-  --ui-dim: #5A5760;
-  --btn-bg: rgba(248, 247, 245, 0.92);
-  --btn-hover: rgba(241, 236, 229, 0.98);
-  --btn-border: #CCC4BC;
-  --btn-border-hover: #C79EAF;
-  --qu-reveal: #F5F1EA;
-
-  --outer-bg: #EAE4DC;
+  --outer-bg: #E2DFD7;
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]):not([data-theme="light"]) {
-    --color-bg: #F8F7F5;
-    --color-bg-subtle: #F1ECE5;
-    --color-panel: #F8F7F5;
-    --color-panel-hover: #F1ECE5;
-    --color-border: #CCC4BC;
-    --color-border-subtle: #DCD6CF;
-    --color-text: #3E3D43;
-    --color-text-muted: #5A5760;
-    --color-text-faint: #7E7985;
-    --color-accent: #C79EAF;
-    --color-secondary: #C79EAF;
-    --color-callout-bg: rgba(199, 158, 175, 0.12);
-    --header-bg: rgba(248, 247, 245, 0.94);
-    --footer-bg: #F8F7F5;
-    --primary-btn-bg: #F8F7F5;
-    --primary-btn-text: #5A5760;
-    --primary-btn-border: #CCC4BC;
-    --selection-bg: #C79EAF;
-    --selection-text: #F8F7F5;
-    --page-texture: radial-gradient(circle at 50% 0%, rgba(199, 158, 175, 0.1) 0%, rgba(248, 247, 245, 0) 70%);
-    --card-shadow: 0 2px 12px -2px rgba(62, 61, 67, 0.05), 0 1px 3px rgba(62, 61, 67, 0.03);
-    --ink: #3E3D43;
-    --ink-muted: #5A5760;
-    --rubric: #9A667A;
-    --outer-bg: #EAE4DC;
-    color-scheme: light;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --color-bg: #F6ECEF;
+    --color-bg-subtle: #EDE0E5;
+    --color-panel: #FFFDFD;
+    --color-panel-hover: #FAF2F5;
+    --color-border: #DFC8D0;
+    --color-border-subtle: #ECDCE2;
+    --color-text: #2B1D24;
+    --color-text-muted: #6E5260;
+    --color-text-faint: #8F6F7F;
+    --color-accent: #9E5672;
+    --color-secondary: #8C4863;
+    --color-callout-bg: rgba(158, 86, 114, 0.12);
+    --header-bg: rgba(246, 236, 239, 0.94);
+    --footer-bg: #EDE0E5;
+    --primary-btn-bg: #FFFDFD;
+    --primary-btn-text: #2B1D24;
+    --primary-btn-border: #D9BFC9;
+    --selection-bg: #E8B8C8;
+    --selection-text: #2B1D24;
+    --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 253, 0.72) 0%, rgba(246, 236, 239, 0) 72%);
+    --card-shadow: 0 10px 28px -6px rgba(92, 42, 62, 0.12), 0 2px 8px rgba(92, 42, 62, 0.05);
+    --outer-bg: #EBDCE1;
   }
-}
-
-:root[data-theme="light"] {
-  --color-bg: #F8F7F5;
-  --color-bg-subtle: #F1ECE5;
-  --color-panel: #F8F7F5;
-  --color-panel-hover: #F1ECE5;
-  --color-border: #CCC4BC;
-  --color-border-subtle: #DCD6CF;
-  --color-text: #3E3D43;
-  --color-text-muted: #5A5760;
-  --color-text-faint: #7E7985;
-  --color-accent: #C79EAF;
-  --color-secondary: #C79EAF;
-  --color-callout-bg: rgba(199, 158, 175, 0.12);
-  --header-bg: rgba(248, 247, 245, 0.94);
-  --footer-bg: #F8F7F5;
-  --primary-btn-bg: #F8F7F5;
-  --primary-btn-text: #5A5760;
-  --primary-btn-border: #CCC4BC;
-  --selection-bg: #C79EAF;
-  --selection-text: #F8F7F5;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(199, 158, 175, 0.1) 0%, rgba(248, 247, 245, 0) 70%);
-  --card-shadow: 0 2px 12px -2px rgba(62, 61, 67, 0.05), 0 1px 3px rgba(62, 61, 67, 0.03);
-  --ink: #3E3D43;
-  --ink-muted: #5A5760;
-  --rubric: #9A667A;
-  --outer-bg: #EAE4DC;
-  color-scheme: light;
 }
 
 /* Desktop View: Tall Vertical Portrait Rectangle with Curved Edges */
@@ -222,7 +147,6 @@
     --card-w: min(390px, 88vw);
     --card-h: min(780px, 90vh);
     --card-r: 38px;
-    --card-shadow: 0 28px 70px rgba(76, 36, 128, 0.16);
   }
 }
 
@@ -714,11 +638,11 @@ html, body {
 
 .ix li.on {
   background: var(--color-accent);
-  color: #FCF9FF;
+  color: var(--color-panel);
 }
 
 .ix li.on em {
-  color: #FCF9FF;
+  color: var(--color-panel);
   opacity: 0.85;
 }
 
@@ -865,7 +789,7 @@ html, body {
   border: 1px solid var(--color-border);
   color: var(--color-accent);
   display: grid;
-  place-items:center;
+  place-items: center;
   font-family: var(--font-display);
   font-size: 0.875rem;
   font-weight: 600;
@@ -987,7 +911,7 @@ html, body {
     <section class="face face-right" aria-label="Novel Pages">
       <div class="top-nav">
         <button class="back-cover" id="toCover" aria-label="Back to cover">←</button>
-        <button class="mode-dot" id="themeToggle" aria-label="Switch color mode" title="Switch Ash / Lilac Violet"></button>
+        <button class="mode-dot" id="themeToggle" aria-label="Switch color mode" title="Switch Ash / Pinkish"></button>
       </div>
 
       <div class="pager" id="pager">
@@ -1072,9 +996,9 @@ toCover.addEventListener('click', turnToCover);
 
 themeToggle.addEventListener('click', function(){
   var root = document.documentElement;
-  var isLight = root.getAttribute('data-theme') === 'light' ||
-    (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: light)').matches);
-  root.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  var isPink = root.getAttribute('data-theme') === 'dark' ||
+    (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  root.setAttribute('data-theme', isPink ? 'light' : 'dark');
 });
 
 var pager = document.getElementById('pager'), dots = document.querySelectorAll('#dots i');
