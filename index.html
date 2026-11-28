@@ -537,7 +537,7 @@ html, body {
 .ix li {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 16px;
   padding: 16px 8px;
   border-bottom: 1px solid var(--border-subtle);
@@ -561,19 +561,20 @@ html, body {
   flex-shrink: 0;
 }
 
-.ix li .chapter-star {
-  font-style: normal;
-  font-family: var(--font-sans);
-  font-size: 1.05rem;
-  line-height: 1;
-  color: var(--muted);
-  text-align: right;
+.ix li .chapter-signet {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1.35px solid var(--muted);
+  background-color: transparent;
+  display: inline-block;
   flex-shrink: 0;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.28s ease, border-color 0.28s ease, transform 0.28s ease;
 }
 
-.ix li.is-read .chapter-star {
-  color: var(--accent-deep);
+.ix li.is-read .chapter-signet {
+  border-color: var(--accent-deep);
+  background-color: var(--accent-deep);
 }
 
 .ix li.on {
@@ -581,9 +582,17 @@ html, body {
   color: var(--bg);
 }
 
-.ix li.on em,
-.ix li.on .chapter-star {
+.ix li.on em {
   color: var(--accent);
+}
+
+.ix li.on .chapter-signet {
+  border-color: var(--accent);
+}
+
+.ix li.on.is-read .chapter-signet {
+  border-color: var(--accent);
+  background-color: var(--accent);
 }
 
 .add {
@@ -829,7 +838,7 @@ var activeEra = 'elisabeta';
 var activeChapterIndex = 0;
 var readerModeActive = false;
 
-var THIRTY_MINUTES_MS = 30 * 60 * 1000;
+var THIRTY_SECONDS_MS = 30 * 1000;
 var chapterReadTimer = null;
 var READ_STORAGE_KEY = 'or_so_she_thought_read_chapters_v1';
 
@@ -1021,21 +1030,31 @@ function isChapterRead(chapterId){
   return getReadChapters().indexOf(chapterId) !== -1;
 }
 
+function syncSignetDomForChapter(chapterId){
+  var li = sc.querySelector('.ix li[data-chapter-id="' + chapterId.replace(/"/g, '&quot;') + '"]');
+  if(li){
+    li.classList.add('is-read');
+    var signet = li.querySelector('.chapter-signet');
+    if(signet) signet.setAttribute('aria-label', 'Read');
+  }
+}
+
 function markChapterAsRead(chapterId){
   var list = getReadChapters();
   if(list.indexOf(chapterId) === -1){
     list.push(chapterId);
     setReadChapters(list);
   }
+  syncSignetDomForChapter(chapterId);
 }
 
-function startThirtyMinuteReadTimer(chapterId){
+function startThirtySecondReadTimer(chapterId){
   clearTimeout(chapterReadTimer);
   chapterReadTimer = null;
   if(!chapterId || isChapterRead(chapterId)) return;
   chapterReadTimer = setTimeout(function(){
     markChapterAsRead(chapterId);
-  }, THIRTY_MINUTES_MS);
+  }, THIRTY_SECONDS_MS);
 }
 
 function showScreen(html){
@@ -1073,7 +1092,7 @@ function renderOpenedChapter(era, idx){
   }).join('');
 
   showScreen('<div class="prose-sheet">' + bodyHtml + '</div>');
-  startThirtyMinuteReadTimer(chapterId);
+  startThirtySecondReadTimer(chapterId);
 }
 
 function openScreen(name){
@@ -1096,9 +1115,9 @@ function openScreen(name){
         var chapterId = activeEra + ':' + ch.number;
         var isRead = isChapterRead(chapterId);
         return (
-          '<li class="' + (isRead ? 'is-read' : '') + '" data-chapter-index="' + idx + '">' +
+          '<li class="' + (isRead ? 'is-read' : '') + '" data-chapter-index="' + idx + '" data-chapter-id="' + esc(chapterId) + '">' +
             '<span>' + esc(ch.number) + '</span>' +
-            '<span class="chapter-star" aria-label="' + (isRead ? 'Read' : 'Unread') + '">' + (isRead ? '★' : '☆') + '</span>' +
+            '<span class="chapter-signet" role="img" aria-label="' + (isRead ? 'Read' : 'Unread') + '"></span>' +
           '</li>'
         );
       }).join('') + '</ul>'
