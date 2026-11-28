@@ -4,27 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Or So She Thought — Queen Usman</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@200;300;400&family=Barlow+Condensed:wght@200;300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Newsreader', Georgia, serif;
+  --font-serif: 'Antonio', 'Barlow Condensed', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --bg: #F5F1EA;
-  --sheet: #FAF7F2;
-  --sheet-hover: #F1EBE0;
-  --border: #DED5C7;
-  --border-subtle: #EAE2D6;
-  --ink: #111111;
-  --charcoal: #242424;
-  --muted: #5C5650;
-  --accent: #B9A88F;
-  --accent-deep: #8A765B;
-  --callout: rgba(185, 168, 143, 0.22);
-  --dot: #D5CBB9;
-  --dotOn: #111111;
-  --page-texture: radial-gradient(circle at 50% 0%, rgba(255, 253, 250, 0.82) 0%, rgba(245, 241, 234, 0) 72%);
+  --bg: #D5C4B1;
+  --sheet: #DECFC0;
+  --sheet-hover: #D0BFAF;
+  --border: #B6A189;
+  --border-subtle: #C5B29B;
+  --ink: #141312;
+  --charcoal: #24211E;
+  --muted: #5A5147;
+  --accent: #A58E74;
+  --accent-deep: #7A6349;
+  --callout: rgba(122, 99, 73, 0.18);
+  --dot: #BA9F82;
+  --dotOn: #141312;
+  --page-texture: radial-gradient(circle at 50% 0%, rgba(235, 223, 209, 0.55) 0%, rgba(213, 196, 177, 0) 72%);
 
   --card-w: 100vw;
   --card-h: 100dvh;
@@ -226,8 +226,8 @@ html, body {
 .eyebrow {
   font-family: var(--font-sans);
   font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
+  font-weight: 400;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--muted);
   margin: 0;
@@ -251,10 +251,10 @@ html, body {
 
 .novel-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 5.2vw, 3.65rem);
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  line-height: 1.15;
+  font-size: clamp(3.4rem, 7.5vw, 5.4rem);
+  font-weight: 200;
+  letter-spacing: 0.08em;
+  line-height: 1.02;
   text-transform: uppercase;
   color: var(--ink);
   margin: 0;
@@ -270,8 +270,8 @@ html, body {
 .byline {
   font-family: var(--font-sans);
   font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.32em;
+  font-weight: 400;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--muted);
   margin: 0;
@@ -294,7 +294,7 @@ html, body {
   font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -355,10 +355,11 @@ html, body {
 .nb-display {
   width: 100%;
   font-family: var(--font-serif);
-  font-size: clamp(1.85rem, 5.2vw, 2.75rem);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.12;
+  font-size: clamp(2.35rem, 6.2vw, 3.5rem);
+  font-weight: 200;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  text-transform: uppercase;
   color: var(--accent-deep);
   margin: 0 0 18px;
   text-align: left;
@@ -375,7 +376,8 @@ html, body {
   width: 100%;
   max-width: none;
   font-family: var(--font-body);
-  font-size: 1.03rem;
+  font-size: 0.96rem;
+  font-weight: 300;
   line-height: 1.68;
   color: var(--charcoal);
   margin: 0;
@@ -405,8 +407,8 @@ html, body {
   padding: 15px 0;
   font-family: var(--font-sans);
   font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
+  font-weight: 400;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   text-align: left;
   color: var(--ink);
@@ -423,7 +425,7 @@ html, body {
 .nb-text-link:hover {
   color: var(--accent-deep);
   border-bottom-color: var(--ink);
-  background-color: rgba(185, 168, 143, 0.08);
+  background-color: rgba(122, 99, 73, 0.08);
 }
 
 .dots {
@@ -503,7 +505,8 @@ html, body {
 .prose-sheet {
   padding-top: 4px;
   font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-size: 1.02rem;
+  font-weight: 300;
   line-height: 1.82;
   color: var(--charcoal);
 }
@@ -515,7 +518,8 @@ html, body {
 
 .prose-sheet p:first-of-type::first-letter {
   font-family: var(--font-serif);
-  font-size: 3.25rem;
+  font-size: 3.4rem;
+  font-weight: 200;
   line-height: 0.82;
   float: left;
   padding-top: 4px;
@@ -538,7 +542,8 @@ html, body {
   padding: 16px 8px;
   border-bottom: 1px solid var(--border-subtle);
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1rem;
+  font-weight: 300;
   line-height: 1.55;
   cursor: pointer;
   touch-action: manipulation;
@@ -549,6 +554,7 @@ html, body {
   font-style: normal;
   font-family: var(--font-sans);
   font-size: 0.72rem;
+  font-weight: 400;
   letter-spacing: 0.08em;
   color: var(--muted);
   text-align: right;
@@ -575,7 +581,8 @@ html, body {
   border: 0;
   border-bottom: 1px solid var(--border);
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1rem;
+  font-weight: 300;
   padding: 8px 2px;
   outline: 0;
   color: var(--ink);
@@ -593,7 +600,7 @@ html, body {
   height: 42px;
   font-family: var(--font-sans);
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
@@ -623,7 +630,7 @@ html, body {
   }
 
   .novel-title {
-    font-size: clamp(2.15rem, 4.2vw, 3.05rem);
+    font-size: clamp(2.9rem, 5.2vw, 4.3rem);
   }
 
   .edge-arrow {
@@ -658,12 +665,12 @@ html, body {
   }
 
   .nb-display {
-    font-size: clamp(2.1rem, 3.1vw, 2.75rem);
+    font-size: clamp(2.4rem, 3.6vw, 3.2rem);
     margin-bottom: 16px;
   }
 
   .nb-copy {
-    font-size: 0.96rem;
+    font-size: 0.92rem;
     line-height: 1.72;
     max-width: none;
   }
@@ -676,7 +683,7 @@ html, body {
     padding: 14px 0;
     text-align: left;
     font-size: 0.65rem;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.22em;
   }
 
   .sc {
@@ -684,16 +691,16 @@ html, body {
   }
 
   .prose-sheet {
-    font-size: 0.98rem;
+    font-size: 0.94rem;
     line-height: 1.78;
   }
 
   .prose-sheet p:first-of-type::first-letter {
-    font-size: 2.85rem;
+    font-size: 3rem;
   }
 
   .ix li {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
   }
 
   .ix li em {
