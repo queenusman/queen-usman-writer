@@ -502,16 +502,6 @@ html, body {
   z-index: 60;
 }
 
-.reader-chapter-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 4.5vw, 2.85rem);
-  font-weight: 200;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin: 0 0 22px;
-}
-
 .prose-sheet {
   padding-top: 4px;
   font-family: var(--font-body);
@@ -933,7 +923,6 @@ var ERA_CHAPTERS = {
   elisabeta: [
     {
       number: 'Chapter One',
-      title: 'The Coast at Dusk',
       paragraphs: [
         'Along the western seawall of Norwyn, dusk arrived before the lanterns were lit—gray salt mist gathering against pale limestone while the harbor bells stayed silent.',
         'Princess Elisabeta stood where the wind off the sound met the courtyard wall, noticing how every gesture she made had already been rehearsed for her long before she stepped into the room.'
@@ -941,7 +930,6 @@ var ERA_CHAPTERS = {
     },
     {
       number: 'Chapter Two',
-      title: 'A Crown of Quiet Duty',
       paragraphs: [
         'In Norwyn, expectation rarely raised its voice; it simply waited until you agreed with it.',
         'Elisabeta knew the exact pause required before answering a minister’s question, and the exact stillness expected when a decision had already been made in her name.'
@@ -949,14 +937,12 @@ var ERA_CHAPTERS = {
     },
     {
       number: 'Chapter Three',
-      title: 'Letters Kept in Cedar',
       paragraphs: [
         'Beneath the cedar drawer in her upper study lay pages written without seal or date—sentences she had drafted to test whether her own thoughts sounded real outside her head.'
       ]
     },
     {
       number: 'Chapter Four',
-      title: 'The Council Table',
       paragraphs: [
         'Around the long oak table, voices spoke of continuity and poise as if the two were inseparable.',
         'Elisabeta watched Queen Ecaterina and Alexandru weigh every implication, feeling the quiet boundary shifting between obedience and clarity.'
@@ -964,7 +950,6 @@ var ERA_CHAPTERS = {
     },
     {
       number: 'Chapter Five',
-      title: 'What She Chose',
       paragraphs: [
         'When the room finally emptied and only the harbor tide answered below the terrace, Elisabeta realized a choice did not need a spectacle to be irreversible.'
       ]
@@ -1087,11 +1072,7 @@ function renderOpenedChapter(era, idx){
     return '<p>' + esc(p) + '</p>';
   }).join('');
 
-  showScreen(
-    '<h3 class="reader-chapter-heading">' + esc(ch.number) + '</h3>' +
-    '<div class="prose-sheet">' + bodyHtml + '</div>'
-  );
-
+  showScreen('<div class="prose-sheet">' + bodyHtml + '</div>');
   startThirtyMinuteReadTimer(chapterId);
 }
 
