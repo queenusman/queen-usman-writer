@@ -502,6 +502,53 @@ html, body {
   z-index: 60;
 }
 
+/* Invisible 3-band chapter stage: text only in the middle band, vanishing above & below */
+.chapter-tri-band {
+  width: 100%;
+  height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 84px);
+  display: flex;
+  flex-direction: column;
+}
+
+.chapter-band-outer {
+  flex: 1 1 0;
+  min-height: 18vh;
+  pointer-events: none;
+}
+
+.chapter-band-middle {
+  flex: 1.4 1 0;
+  max-height: 44dvh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.22) 12%,
+    #000000 28%,
+    #000000 72%,
+    rgba(0, 0, 0, 0.22) 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.22) 12%,
+    #000000 28%,
+    #000000 72%,
+    rgba(0, 0, 0, 0.22) 88%,
+    transparent 100%
+  );
+}
+
+.chapter-band-middle::-webkit-scrollbar {
+  display: none;
+}
+
+.chapter-band-middle .prose-sheet {
+  padding: 28px 0 32px;
+}
+
 .prose-sheet {
   padding-top: 4px;
   font-family: var(--font-body);
@@ -714,6 +761,10 @@ html, body {
 
   .sc {
     padding: 48px 80px;
+  }
+
+  .chapter-tri-band {
+    height: calc(100dvh - 96px);
   }
 
   .prose-sheet {
@@ -934,33 +985,38 @@ var ERA_CHAPTERS = {
       number: 'Chapter One',
       paragraphs: [
         'Along the western seawall of Norwyn, dusk arrived before the lanterns were lit—gray salt mist gathering against pale limestone while the harbor bells stayed silent.',
-        'Princess Elisabeta stood where the wind off the sound met the courtyard wall, noticing how every gesture she made had already been rehearsed for her long before she stepped into the room.'
+        'Princess Elisabeta stood where the wind off the sound met the courtyard wall, noticing how every gesture she made had already been rehearsed for her long before she stepped into the room.',
+        'Below the stone parapet, the tide turned slowly against the pilings, carrying the damp scent of kelp and old timber toward the upper garden.'
       ]
     },
     {
       number: 'Chapter Two',
       paragraphs: [
         'In Norwyn, expectation rarely raised its voice; it simply waited until you agreed with it.',
-        'Elisabeta knew the exact pause required before answering a minister’s question, and the exact stillness expected when a decision had already been made in her name.'
+        'Elisabeta knew the exact pause required before answering a minister’s question, and the exact stillness expected when a decision had already been made in her name.',
+        'Even in quiet conversations, each phrase felt measured for how it would read in the morning dispatch rather than how it sounded across the table.'
       ]
     },
     {
       number: 'Chapter Three',
       paragraphs: [
-        'Beneath the cedar drawer in her upper study lay pages written without seal or date—sentences she had drafted to test whether her own thoughts sounded real outside her head.'
+        'Beneath the cedar drawer in her upper study lay pages written without seal or date—sentences she had drafted to test whether her own thoughts sounded real outside her head.',
+        'Some lines broke off mid-thought where footsteps passed along the gallery outside, leaving unanswered questions resting beside half-finished sketches.'
       ]
     },
     {
       number: 'Chapter Four',
       paragraphs: [
         'Around the long oak table, voices spoke of continuity and poise as if the two were inseparable.',
-        'Elisabeta watched Queen Ecaterina and Alexandru weigh every implication, feeling the quiet boundary shifting between obedience and clarity.'
+        'Elisabeta watched Queen Ecaterina and Alexandru weigh every implication, feeling the quiet boundary shifting between obedience and clarity.',
+        'No one raised a hand or raised a tone, yet every silence carried its own weight across the polished wood.'
       ]
     },
     {
       number: 'Chapter Five',
       paragraphs: [
-        'When the room finally emptied and only the harbor tide answered below the terrace, Elisabeta realized a choice did not need a spectacle to be irreversible.'
+        'When the room finally emptied and only the harbor tide answered below the terrace, Elisabeta realized a choice did not need a spectacle to be irreversible.',
+        'She closed the tall casement against the evening chill and kept her own counsel for the first time without looking back.'
       ]
     }
   ]
@@ -1091,7 +1147,16 @@ function renderOpenedChapter(era, idx){
     return '<p>' + esc(p) + '</p>';
   }).join('');
 
-  showScreen('<div class="prose-sheet">' + bodyHtml + '</div>');
+  showScreen(
+    '<div class="chapter-tri-band">' +
+      '<div class="chapter-band-outer" aria-hidden="true"></div>' +
+      '<div class="chapter-band-middle">' +
+        '<div class="prose-sheet">' + bodyHtml + '</div>' +
+      '</div>' +
+      '<div class="chapter-band-outer" aria-hidden="true"></div>' +
+    '</div>'
+  );
+
   startThirtySecondReadTimer(chapterId);
 }
 
