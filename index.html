@@ -461,7 +461,7 @@ html, body {
   height: 100dvh;
   z-index: 50;
   overflow-y: auto;
-  padding: calc(env(safe-area-inset-top, 0px) + 44px) 44px calc(env(safe-area-inset-bottom, 0px) + 40px);
+  padding: calc(env(safe-area-inset-top, 0px) + 32px) 44px calc(env(safe-area-inset-bottom, 0px) + 32px);
   transform: translateY(100%);
   opacity: 0;
   display: none;
@@ -502,41 +502,80 @@ html, body {
   z-index: 60;
 }
 
-/* Invisible 3-band chapter stage: text only in the middle band, vanishing above & below */
+/* Invisible 3-band chapter stage: expanded middle band (~quarter further top & bottom),
+   opening text crisp at load, vanishing only as lines scroll past edges */
 .chapter-tri-band {
   width: 100%;
-  height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 84px);
+  height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 64px);
   display: flex;
   flex-direction: column;
 }
 
 .chapter-band-outer {
-  flex: 1 1 0;
-  min-height: 18vh;
+  flex: 0 0 8.5dvh;
   pointer-events: none;
 }
 
 .chapter-band-middle {
-  flex: 1.4 1 0;
-  max-height: 44dvh;
+  flex: 1 1 auto;
+  max-height: 76dvh;
   overflow-y: auto;
   scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000000 0%, #000000 100%);
+  mask-image: linear-gradient(to bottom, #000000 0%, #000000 100%);
+}
+
+.chapter-band-middle.has-scrolled-top.has-more-bottom {
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0.22) 12%,
-    #000000 28%,
-    #000000 72%,
-    rgba(0, 0, 0, 0.22) 88%,
+    rgba(0, 0, 0, 0.28) 10%,
+    #000000 22%,
+    #000000 78%,
+    rgba(0, 0, 0, 0.28) 90%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0.22) 12%,
-    #000000 28%,
-    #000000 72%,
-    rgba(0, 0, 0, 0.22) 88%,
+    rgba(0, 0, 0, 0.28) 10%,
+    #000000 22%,
+    #000000 78%,
+    rgba(0, 0, 0, 0.28) 90%,
+    transparent 100%
+  );
+}
+
+.chapter-band-middle.has-scrolled-top:not(.has-more-bottom) {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.28) 10%,
+    #000000 22%,
+    #000000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.28) 10%,
+    #000000 22%,
+    #000000 100%
+  );
+}
+
+.chapter-band-middle:not(.has-scrolled-top).has-more-bottom {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #000000 78%,
+    rgba(0, 0, 0, 0.28) 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #000000 78%,
+    rgba(0, 0, 0, 0.28) 90%,
     transparent 100%
   );
 }
@@ -546,7 +585,7 @@ html, body {
 }
 
 .chapter-band-middle .prose-sheet {
-  padding: 28px 0 32px;
+  padding: 12px 0 24px;
 }
 
 .prose-sheet {
@@ -760,11 +799,11 @@ html, body {
   }
 
   .sc {
-    padding: 48px 80px;
+    padding: 40px 80px;
   }
 
   .chapter-tri-band {
-    height: calc(100dvh - 96px);
+    height: calc(100dvh - 80px);
   }
 
   .prose-sheet {
@@ -1113,6 +1152,24 @@ function startThirtySecondReadTimer(chapterId){
   }, THIRTY_SECONDS_MS);
 }
 
+function updateMiddleBandFade(middleEl){
+  if(!middleEl) return;
+  var scrolledTop = middleEl.scrollTop > 6;
+  var moreBottom = (middleEl.scrollHeight - middleEl.clientHeight - middleEl.scrollTop) > 6;
+  middleEl.classList.toggle('has-scrolled-top', scrolledTop);
+  middleEl.classList.toggle('has-more-bottom', moreBottom);
+}
+
+function bindMiddleBandScroll(){
+  var middleEl = sc.querySelector('.chapter-band-middle');
+  if(!middleEl) return;
+  middleEl.scrollTop = 0;
+  updateMiddleBandFade(middleEl);
+  middleEl.addEventListener('scroll', function(){
+    updateMiddleBandFade(middleEl);
+  }, {passive: true});
+}
+
 function showScreen(html){
   clearTimeout(closeTimer);
   sc.className = 'sc mounted';
@@ -1157,6 +1214,7 @@ function renderOpenedChapter(era, idx){
     '</div>'
   );
 
+  bindMiddleBandScroll();
   startThirtySecondReadTimer(chapterId);
 }
 
