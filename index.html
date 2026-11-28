@@ -569,6 +569,21 @@ html, body {
   color: var(--accent);
 }
 
+.ix li.is-read span::after {
+  content: ' · Read';
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-left: 8px;
+}
+
+.ix li.on.is-read span::after {
+  color: var(--accent);
+}
+
 .add {
   display: flex;
   gap: 12px;
@@ -955,11 +970,63 @@ function showScreen(html){
 }
 
 function closeScreen(){
+  clearTimeout(chapterReadTimer);
+  chapterReadTimer = null;
   sc.classList.remove('open');
   clearTimeout(closeTimer);
   closeTimer = setTimeout(function(){
     if(!sc.classList.contains('open')) sc.classList.remove('mounted');
   }, 360);
+}
+
+var chapterReadTimer = null;
+var READ_STORAGE_KEY = 'or_so_she_thought_read_chapters_v1';
+
+function getReadChapters(){
+  try {
+    var raw = localStorage.getItem(READ_STORAGE_KEY);
+    var parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch(e){
+    return [];
+  }
+}
+
+function setReadChapters(list){
+  try {
+    localStorage.setItem(READ_STORAGE_KEY, JSON.stringify(list));
+  } catch(e){}
+}
+
+function isChapterRead(title){
+  return getReadChapters().indexOf(title) !== -1;
+}
+
+function toggleChapterRead(title, li){
+  var list = getReadChapters();
+  var idx = list.indexOf(title);
+  var nowRead;
+  if(idx !== -1){
+    list.splice(idx, 1);
+    nowRead = false;
+  } else {
+    list.push(title);
+    nowRead = true;
+  }
+  setReadChapters(list);
+  if(li){
+    li.classList.toggle('is-read', nowRead);
+    li.setAttribute('data-read', nowRead ? '1' : '0');
+  }
+}
+
+function markChapterReadAfterDelay(title, li){
+  clearTimeout(chapterReadTimer);
+  chapterReadTimer = setTimeout(function(){
+    if(!isChapterRead(title)){
+      toggleChapterRead(title, li);
+    }
+  }, 1500);
 }
 
 function openScreen(name){
@@ -973,12 +1040,15 @@ function openScreen(name){
 
   if(LISTS[name]){
     var items = LISTS[name];
+    var isChapters = name === 'Chapters';
     var extra = name === 'Norwyn Archives'
       ? '<div class="add"><input placeholder="Add a personal note to the archive"><button type="button" class="ui-btn ad">Add</button></div>'
       : '';
     showScreen(
       '<ul class="ix">' + items.map(function(r){
-        return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
+        var readClass = isChapters && isChapterRead(r[0]) ? ' class="is-read" data-read="1"' : (isChapters ? ' data-read="0"' : '');
+        var chapterAttr = isChapters ? ' data-chapter="' + esc(r[0]) + '"' : '';
+        return '<li' + readClass + chapterAttr + '><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
       }).join('') + '</ul>' +
       extra
     );
@@ -1010,6 +1080,15 @@ function handleTap(target){
   var listItem = target.closest('.ix li');
   if(listItem){
     listItem.classList.toggle('on');
+    var chapterTitle = listItem.getAttribute('data-chapter');
+    if(chapterTitle){
+      if(listItem.classList.contains('on')){
+        markChapterReadAfterDelay(chapterTitle, listItem);
+      } else {
+        clearTimeout(chapterReadTimer);
+        toggleChapterRead(chapterTitle, listItem);
+      }
+    }
     return true;
   }
   if(target.closest('.ad')){
