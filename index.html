@@ -452,7 +452,7 @@ html, body {
 }
 
 /* ==========================================================================
-   SLIDE-UP READING & ARCHIVE SHEETS (NO HEADING + EDGE CHEVRON)
+   SLIDE-UP READING & ARCHIVE SHEETS (SECOND TWIN SLIDE RATIO + EDGE CHEVRON)
    ========================================================================== */
 .sc {
   position: fixed;
@@ -461,7 +461,7 @@ html, body {
   height: 100dvh;
   z-index: 50;
   overflow-y: auto;
-  padding: calc(env(safe-area-inset-top, 0px) + 32px) 42px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  padding: 12px 42px 20px;
   transform: translateY(100%);
   opacity: 0;
   display: none;
@@ -475,6 +475,7 @@ html, body {
 .sc.mounted {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .sc.open {
@@ -502,11 +503,10 @@ html, body {
   z-index: 60;
 }
 
-/* Invisible 3-band prose stage matching the second twin slide's screen-to-text ratio:
-   no divider lines, crisp opening text on load, vanishing only as lines scroll past edges */
+/* Three-band container calibrated to match the second twin slide's screen-to-text proportion */
 .prose-tri-band {
   width: 100%;
-  height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 64px);
+  height: calc(100dvh - 32px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -514,14 +514,14 @@ html, body {
 
 .prose-band-outer {
   flex: 1 1 0;
-  min-height: 14dvh;
+  min-height: 15dvh;
   pointer-events: none;
 }
 
 .prose-band-middle {
   flex: 0 1 auto;
   width: 100%;
-  max-height: 54dvh;
+  max-height: 52dvh;
   overflow-y: auto;
   scrollbar-width: none;
   -webkit-mask-image: linear-gradient(to bottom, #000000 0%, #000000 100%);
@@ -588,7 +588,15 @@ html, body {
 }
 
 .prose-band-middle .prose-sheet {
-  padding: 2px 0 18px;
+  padding: 2px 0 14px;
+}
+
+.prose-band-middle .ix {
+  margin-top: 2px;
+}
+
+.prose-band-middle .add {
+  padding-bottom: 10px;
 }
 
 .prose-sheet {
@@ -601,7 +609,7 @@ html, body {
 
 .prose-sheet p {
   text-align: justify;
-  margin: 0 0 1.45rem;
+  margin: 0 0 1.35rem;
 }
 
 .prose-sheet p:last-child {
@@ -610,7 +618,7 @@ html, body {
 
 .prose-sheet p:first-of-type::first-letter {
   font-family: var(--font-serif);
-  font-size: 3.1rem;
+  font-size: 2.95rem;
   font-weight: 200;
   line-height: 0.82;
   float: left;
@@ -631,10 +639,10 @@ html, body {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding: 16px 8px;
+  padding: 13px 8px;
   border-bottom: 1px solid var(--border-subtle);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.96rem;
   font-weight: 300;
   line-height: 1.55;
   cursor: pointer;
@@ -654,8 +662,8 @@ html, body {
 }
 
 .ix li .chapter-signet {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 999px;
   border: 1.35px solid var(--muted);
   background-color: transparent;
@@ -690,7 +698,7 @@ html, body {
 .add {
   display: flex;
   gap: 12px;
-  margin-top: 22px;
+  margin-top: 18px;
 }
 
 .add input {
@@ -699,7 +707,7 @@ html, body {
   border: 0;
   border-bottom: 1px solid var(--border);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.96rem;
   font-weight: 300;
   padding: 8px 2px;
   outline: 0;
@@ -715,7 +723,7 @@ html, body {
   color: var(--charcoal);
   border: 1px solid var(--border);
   padding: 0 18px;
-  height: 42px;
+  height: 40px;
   font-family: var(--font-sans);
   font-size: 0.65rem;
   font-weight: 500;
@@ -809,11 +817,11 @@ html, body {
   }
 
   .sc {
-    padding: 40px 80px;
+    padding: 18px 80px 26px;
   }
 
   .prose-tri-band {
-    height: calc(100dvh - 80px);
+    height: calc(100dvh - 44px);
   }
 
   .prose-sheet {
@@ -822,15 +830,20 @@ html, body {
   }
 
   .prose-sheet p:first-of-type::first-letter {
-    font-size: 2.85rem;
+    font-size: 2.75rem;
   }
 
   .ix li {
     font-size: 0.92rem;
+    padding: 12px 8px;
   }
 
   .ix li em {
     font-size: 0.65rem;
+  }
+
+  .add input {
+    font-size: 0.92rem;
   }
 }
 </style>
@@ -1067,7 +1080,32 @@ var ERA_CHAPTERS = {
         'When the room finally emptied and only the harbor tide answered below the terrace, Elisabeta realized a choice did not need a spectacle to be irreversible.',
         'She closed the tall casement against the evening chill and kept her own counsel for the first time without looking back.'
       ]
-    }
+    },
+    { number: 'Chapter Six', paragraphs: ['Chapter Six text goes here.'] },
+    { number: 'Chapter Seven', paragraphs: ['Chapter Seven text goes here.'] },
+    { number: 'Chapter Eight', paragraphs: ['Chapter Eight text goes here.'] },
+    { number: 'Chapter Nine', paragraphs: ['Chapter Nine text goes here.'] },
+    { number: 'Chapter Ten', paragraphs: ['Chapter Ten text goes here.'] },
+    { number: 'Chapter Eleven', paragraphs: ['Chapter Eleven text goes here.'] },
+    { number: 'Chapter Twelve', paragraphs: ['Chapter Twelve text goes here.'] },
+    { number: 'Chapter Thirteen', paragraphs: ['Chapter Thirteen text goes here.'] },
+    { number: 'Chapter Fourteen', paragraphs: ['Chapter Fourteen text goes here.'] },
+    { number: 'Chapter Fifteen', paragraphs: ['Chapter Fifteen text goes here.'] },
+    { number: 'Chapter Sixteen', paragraphs: ['Chapter Sixteen text goes here.'] },
+    { number: 'Chapter Seventeen', paragraphs: ['Chapter Seventeen text goes here.'] },
+    { number: 'Chapter Eighteen', paragraphs: ['Chapter Eighteen text goes here.'] },
+    { number: 'Chapter Nineteen', paragraphs: ['Chapter Nineteen text goes here.'] },
+    { number: 'Chapter Twenty', paragraphs: ['Chapter Twenty text goes here.'] },
+    { number: 'Chapter Twenty-One', paragraphs: ['Chapter Twenty-One text goes here.'] },
+    { number: 'Chapter Twenty-Two', paragraphs: ['Chapter Twenty-Two text goes here.'] },
+    { number: 'Chapter Twenty-Three', paragraphs: ['Chapter Twenty-Three text goes here.'] },
+    { number: 'Chapter Twenty-Four', paragraphs: ['Chapter Twenty-Four text goes here.'] },
+    { number: 'Chapter Twenty-Five', paragraphs: ['Chapter Twenty-Five text goes here.'] },
+    { number: 'Chapter Twenty-Six', paragraphs: ['Chapter Twenty-Six text goes here.'] },
+    { number: 'Chapter Twenty-Seven', paragraphs: ['Chapter Twenty-Seven text goes here.'] },
+    { number: 'Chapter Twenty-Eight', paragraphs: ['Chapter Twenty-Eight text goes here.'] },
+    { number: 'Chapter Twenty-Nine', paragraphs: ['Chapter Twenty-Nine text goes here.'] },
+    { number: 'Chapter Thirty', paragraphs: ['Chapter Thirty text goes here.'] }
   ]
 };
 
@@ -1195,6 +1233,18 @@ function buildProseTriBandHtml(paragraphs){
   );
 }
 
+function buildListTriBandHtml(innerListHtml){
+  return (
+    '<div class="prose-tri-band">' +
+      '<div class="prose-band-outer" aria-hidden="true"></div>' +
+      '<div class="prose-band-middle">' +
+        innerListHtml +
+      '</div>' +
+      '<div class="prose-band-outer" aria-hidden="true"></div>' +
+    '</div>'
+  );
+}
+
 function showScreen(html){
   clearTimeout(closeTimer);
   sc.className = 'sc mounted';
@@ -1244,7 +1294,7 @@ function openScreen(name){
 
   if(name === 'Chapters'){
     var eraChapters = ERA_CHAPTERS[activeEra] || ERA_CHAPTERS.elisabeta;
-    showScreen(
+    var chaptersListHtml =
       '<ul class="ix">' + eraChapters.map(function(ch, idx){
         var chapterId = activeEra + ':' + ch.number;
         var isRead = isChapterRead(chapterId);
@@ -1254,8 +1304,10 @@ function openScreen(name){
             '<span class="chapter-signet" role="img" aria-label="' + (isRead ? 'Read' : 'Unread') + '"></span>' +
           '</li>'
         );
-      }).join('') + '</ul>'
-    );
+      }).join('') + '</ul>';
+
+    showScreen(buildListTriBandHtml(chaptersListHtml));
+    bindMiddleBandScroll();
     return;
   }
 
@@ -1264,12 +1316,14 @@ function openScreen(name){
     var extra = name === 'Norwyn Archives'
       ? '<div class="add"><input placeholder="Add a personal note to the archive"><button type="button" class="ui-btn ad">Add</button></div>'
       : '';
-    showScreen(
+    var listHtml =
       '<ul class="ix">' + items.map(function(r){
         return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
       }).join('') + '</ul>' +
-      extra
-    );
+      extra;
+
+    showScreen(buildListTriBandHtml(listHtml));
+    bindMiddleBandScroll();
   }
 }
 
@@ -1317,6 +1371,7 @@ function handleTap(target){
       li.innerHTML = '<span>' + esc(val) + '</span><em>note</em>';
       sc.querySelector('.ix').appendChild(li);
       input.value = '';
+      updateMiddleBandFade(sc.querySelector('.prose-band-middle'));
     }
     return true;
   }
