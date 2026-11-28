@@ -461,7 +461,7 @@ html, body {
   height: 100dvh;
   z-index: 50;
   overflow-y: auto;
-  padding: calc(env(safe-area-inset-top, 0px) + 32px) 44px calc(env(safe-area-inset-bottom, 0px) + 32px);
+  padding: calc(env(safe-area-inset-top, 0px) + 32px) 42px calc(env(safe-area-inset-bottom, 0px) + 32px);
   transform: translateY(100%);
   opacity: 0;
   display: none;
@@ -484,7 +484,7 @@ html, body {
 
 .sc-inner {
   width: 100%;
-  max-width: 42rem;
+  max-width: 34rem;
   margin: auto;
 }
 
@@ -502,30 +502,33 @@ html, body {
   z-index: 60;
 }
 
-/* Invisible 3-band chapter stage: expanded middle band (~quarter further top & bottom),
-   opening text crisp at load, vanishing only as lines scroll past edges */
-.chapter-tri-band {
+/* Invisible 3-band prose stage matching the second twin slide's screen-to-text ratio:
+   no divider lines, crisp opening text on load, vanishing only as lines scroll past edges */
+.prose-tri-band {
   width: 100%;
   height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 64px);
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-.chapter-band-outer {
-  flex: 0 0 8.5dvh;
+.prose-band-outer {
+  flex: 1 1 0;
+  min-height: 14dvh;
   pointer-events: none;
 }
 
-.chapter-band-middle {
-  flex: 1 1 auto;
-  max-height: 76dvh;
+.prose-band-middle {
+  flex: 0 1 auto;
+  width: 100%;
+  max-height: 54dvh;
   overflow-y: auto;
   scrollbar-width: none;
   -webkit-mask-image: linear-gradient(to bottom, #000000 0%, #000000 100%);
   mask-image: linear-gradient(to bottom, #000000 0%, #000000 100%);
 }
 
-.chapter-band-middle.has-scrolled-top.has-more-bottom {
+.prose-band-middle.has-scrolled-top.has-more-bottom {
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -546,7 +549,7 @@ html, body {
   );
 }
 
-.chapter-band-middle.has-scrolled-top:not(.has-more-bottom) {
+.prose-band-middle.has-scrolled-top:not(.has-more-bottom) {
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -563,7 +566,7 @@ html, body {
   );
 }
 
-.chapter-band-middle:not(.has-scrolled-top).has-more-bottom {
+.prose-band-middle:not(.has-scrolled-top).has-more-bottom {
   -webkit-mask-image: linear-gradient(
     to bottom,
     #000000 0%,
@@ -580,36 +583,39 @@ html, body {
   );
 }
 
-.chapter-band-middle::-webkit-scrollbar {
+.prose-band-middle::-webkit-scrollbar {
   display: none;
 }
 
-.chapter-band-middle .prose-sheet {
-  padding: 12px 0 24px;
+.prose-band-middle .prose-sheet {
+  padding: 2px 0 18px;
 }
 
 .prose-sheet {
-  padding-top: 4px;
   font-family: var(--font-body);
-  font-size: 1.02rem;
+  font-size: 0.96rem;
   font-weight: 300;
-  line-height: 1.82;
+  line-height: 1.68;
   color: var(--charcoal);
 }
 
 .prose-sheet p {
   text-align: justify;
-  margin: 0 0 1.55rem;
+  margin: 0 0 1.45rem;
+}
+
+.prose-sheet p:last-child {
+  margin-bottom: 0;
 }
 
 .prose-sheet p:first-of-type::first-letter {
   font-family: var(--font-serif);
-  font-size: 3.4rem;
+  font-size: 3.1rem;
   font-weight: 200;
   line-height: 0.82;
   float: left;
   padding-top: 4px;
-  padding-right: 12px;
+  padding-right: 11px;
   color: var(--ink);
 }
 
@@ -771,8 +777,12 @@ html, body {
     padding: 18px 80px 26px;
   }
 
-  .nb-sheet {
+  .nb-sheet,
+  .sc-inner {
     max-width: 36rem;
+  }
+
+  .nb-sheet {
     gap: 26px;
   }
 
@@ -802,17 +812,17 @@ html, body {
     padding: 40px 80px;
   }
 
-  .chapter-tri-band {
+  .prose-tri-band {
     height: calc(100dvh - 80px);
   }
 
   .prose-sheet {
-    font-size: 0.94rem;
-    line-height: 1.78;
+    font-size: 0.92rem;
+    line-height: 1.72;
   }
 
   .prose-sheet p:first-of-type::first-letter {
-    font-size: 3rem;
+    font-size: 2.85rem;
   }
 
   .ix li {
@@ -1161,13 +1171,28 @@ function updateMiddleBandFade(middleEl){
 }
 
 function bindMiddleBandScroll(){
-  var middleEl = sc.querySelector('.chapter-band-middle');
+  var middleEl = sc.querySelector('.prose-band-middle');
   if(!middleEl) return;
   middleEl.scrollTop = 0;
   updateMiddleBandFade(middleEl);
   middleEl.addEventListener('scroll', function(){
     updateMiddleBandFade(middleEl);
   }, {passive: true});
+}
+
+function buildProseTriBandHtml(paragraphs){
+  var bodyHtml = (paragraphs || []).map(function(p){
+    return '<p>' + esc(p) + '</p>';
+  }).join('');
+  return (
+    '<div class="prose-tri-band">' +
+      '<div class="prose-band-outer" aria-hidden="true"></div>' +
+      '<div class="prose-band-middle">' +
+        '<div class="prose-sheet">' + bodyHtml + '</div>' +
+      '</div>' +
+      '<div class="prose-band-outer" aria-hidden="true"></div>' +
+    '</div>'
+  );
 }
 
 function showScreen(html){
@@ -1200,20 +1225,7 @@ function renderOpenedChapter(era, idx){
   activeChapterIndex = clamped;
   readerModeActive = true;
 
-  var bodyHtml = (ch.paragraphs || []).map(function(p){
-    return '<p>' + esc(p) + '</p>';
-  }).join('');
-
-  showScreen(
-    '<div class="chapter-tri-band">' +
-      '<div class="chapter-band-outer" aria-hidden="true"></div>' +
-      '<div class="chapter-band-middle">' +
-        '<div class="prose-sheet">' + bodyHtml + '</div>' +
-      '</div>' +
-      '<div class="chapter-band-outer" aria-hidden="true"></div>' +
-    '</div>'
-  );
-
+  showScreen(buildProseTriBandHtml(ch.paragraphs));
   bindMiddleBandScroll();
   startThirtySecondReadTimer(chapterId);
 }
@@ -1225,9 +1237,8 @@ function openScreen(name){
 
   if(PROSE[name]){
     var p = PROSE[name];
-    showScreen(
-      '<div class="prose-sheet">' + p.paragraphs.map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('') + '</div>'
-    );
+    showScreen(buildProseTriBandHtml(p.paragraphs));
+    bindMiddleBandScroll();
     return;
   }
 
