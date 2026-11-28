@@ -502,36 +502,6 @@ html, body {
   z-index: 60;
 }
 
-.font-size-bar {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-
-.font-size-btn {
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--muted);
-  font-family: var(--font-serif);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
-}
-
-.font-size-btn:hover {
-  border-color: var(--accent-deep);
-  color: var(--ink);
-  background: var(--sheet);
-}
-
 .reader-chapter-heading {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 4.5vw, 2.85rem);
@@ -540,14 +510,6 @@ html, body {
   text-transform: uppercase;
   color: var(--ink);
   margin: 0 0 22px;
-}
-
-#readingBody.prose-sheet {
-  padding-top: 4px;
-  font-family: var(--font-body);
-  font-weight: 300;
-  color: var(--charcoal);
-  transition: font-size 0.2s ease, line-height 0.2s ease;
 }
 
 .prose-sheet {
@@ -877,8 +839,6 @@ var activeEra = 'elisabeta';
 var activeChapterIndex = 0;
 var readerModeActive = false;
 
-let baseFontSize = 18;
-
 var THIRTY_MINUTES_MS = 30 * 60 * 1000;
 var chapterReadTimer = null;
 var READ_STORAGE_KEY = 'or_so_she_thought_read_chapters_v1';
@@ -1093,19 +1053,6 @@ function startThirtyMinuteReadTimer(chapterId){
   }, THIRTY_MINUTES_MS);
 }
 
-function applyReaderFontSize(){
-  const readingBody = document.getElementById('readingBody');
-  if (readingBody) {
-    readingBody.style.fontSize = `${baseFontSize}px`;
-    readingBody.style.lineHeight = `${baseFontSize * 1.75}px`;
-  }
-}
-
-function changeFontSize(delta) {
-  baseFontSize = Math.min(26, Math.max(16, baseFontSize + (delta * 1.5)));
-  applyReaderFontSize();
-}
-
 function showScreen(html){
   clearTimeout(closeTimer);
   sc.className = 'sc mounted';
@@ -1141,15 +1088,10 @@ function renderOpenedChapter(era, idx){
   }).join('');
 
   showScreen(
-    '<div class="font-size-bar">' +
-      '<button type="button" onclick="changeFontSize(-1)" title="Decrease text size" class="font-size-btn">A-</button>' +
-      '<button type="button" onclick="changeFontSize(1)" title="Increase text size" class="font-size-btn">A+</button>' +
-    '</div>' +
     '<h3 class="reader-chapter-heading">' + esc(ch.number) + '</h3>' +
-    '<article id="readingBody" class="prose-sheet">' + bodyHtml + '</article>'
+    '<div class="prose-sheet">' + bodyHtml + '</div>'
   );
 
-  applyReaderFontSize();
   startThirtyMinuteReadTimer(chapterId);
 }
 
@@ -1198,9 +1140,6 @@ function openScreen(name){
 }
 
 function handleTap(target){
-  if(target.closest('.font-size-btn')){
-    return true;
-  }
   var navBtn = target.closest('[data-nav]');
   if(navBtn){
     var dir = navBtn.dataset.nav;
