@@ -26,6 +26,15 @@
   --dotOn: #141312;
   --page-texture: radial-gradient(circle at 50% 0%, rgba(235, 223, 209, 0.55) 0%, rgba(213, 196, 177, 0) 72%);
 
+  /* Mapped tokens for chapter strip & reader view */
+  --color-border: var(--border);
+  --color-accent: var(--accent-deep);
+  --color-text: var(--ink);
+  --color-panel-hover: var(--sheet-hover);
+  --primary-btn-border: var(--border);
+  --primary-btn-bg: var(--sheet);
+  --primary-btn-text: var(--charcoal);
+
   --card-w: 100vw;
   --card-h: 100dvh;
 
@@ -584,6 +593,96 @@ html, body {
   color: var(--accent);
 }
 
+/* ==========================================================================
+   HORIZONTAL SLIDING CHAPTER STRIP & READER SHEET
+   ========================================================================== */
+.nw-hybrid-strip {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 2px 2px 8px;
+  margin-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+.nw-hybrid-strip::-webkit-scrollbar {
+  height: 4px;
+}
+.nw-hybrid-strip::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+.nw-hybrid-pill {
+  flex: 0 0 auto;
+  min-width: 148px;
+  max-width: 196px;
+  text-align: left;
+  padding: 9px 13px;
+  border-radius: 7px;
+  border: 1px solid var(--primary-btn-border);
+  background-color: var(--primary-btn-bg);
+  color: var(--primary-btn-text);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+.nw-hybrid-pill:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+.nw-hybrid-pill.is-active {
+  border-color: var(--color-accent);
+  background-color: var(--color-panel-hover);
+  color: var(--color-text);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+}
+.nw-pill-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.78;
+  display: block;
+  margin-bottom: 3px;
+}
+.nw-pill-label {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (min-width: 768px) {
+  .nw-hybrid-pill {
+    min-width: 138px;
+    max-width: 180px;
+    padding: 8px 12px;
+  }
+}
+
+.reader-top-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.reader-chapter-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.85rem, 4vw, 2.5rem);
+  font-weight: 200;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
 .add {
   display: flex;
   gap: 12px;
@@ -823,6 +922,10 @@ var turnTimer = null;
 var isTurning = false;
 var lastTouchTap = 0;
 
+var activeEra = 'elisabeta';
+var activeChapterIndex = 0;
+var readerModeActive = false;
+
 function goSlide(index, instant){
   var max = dots.length - 1;
   currentSlide = Math.max(0, Math.min(max, index));
@@ -909,14 +1012,59 @@ function esc(s){
   });
 }
 
+function stripHtmlToPlainText(str){
+  return String(str || '').replace(/<[^>]*>/g, '').trim();
+}
+
+var ERA_CHAPTERS = {
+  elisabeta: [
+    {
+      number: 'Chapter One',
+      title: 'The Coast at Dusk',
+      meta: 'Opening',
+      paragraphs: [
+        'Along the western seawall of Norwyn, dusk arrived before the lanterns were lit—gray salt mist gathering against pale limestone while the harbor bells stayed silent.',
+        'Princess Elisabeta stood where the wind off the sound met the courtyard wall, noticing how every gesture she made had already been rehearsed for her long before she stepped into the room.'
+      ]
+    },
+    {
+      number: 'Chapter Two',
+      title: 'A Crown of Quiet Duty',
+      meta: 'Part I',
+      paragraphs: [
+        'In Norwyn, expectation rarely raised its voice; it simply waited until you agreed with it.',
+        'Elisabeta knew the exact pause required before answering a minister’s question, and the exact stillness expected when a decision had already been made in her name.'
+      ]
+    },
+    {
+      number: 'Chapter Three',
+      title: 'Letters Kept in Cedar',
+      meta: 'Part I',
+      paragraphs: [
+        'Beneath the cedar drawer in her upper study lay pages written without seal or date—sentences she had drafted to test whether her own thoughts sounded real outside her head.'
+      ]
+    },
+    {
+      number: 'Chapter Four',
+      title: 'The Council Table',
+      meta: 'Part II',
+      paragraphs: [
+        'Around the long oak table, voices spoke of continuity and poise as if the two were inseparable.',
+        'Elisabeta watched Queen Ecaterina and Alexandru weigh every implication, feeling the quiet boundary shifting between obedience and clarity.'
+      ]
+    },
+    {
+      number: 'Chapter Five',
+      title: 'What She Chose',
+      meta: 'Part II',
+      paragraphs: [
+        'When the room finally emptied and only the harbor tide answered below the terrace, Elisabeta realized a choice did not need a spectacle to be irreversible.'
+      ]
+    }
+  ]
+};
+
 var LISTS = {
-  'Chapters': [
-    ['Prologue — The Coast at Dusk', 'Opening'],
-    ['Chapter I — A Crown of Quiet Duty', 'Part I'],
-    ['Chapter II — Letters Kept in Cedar', 'Part I'],
-    ['Chapter III — The Council Table', 'Part II'],
-    ['Chapter IV — What She Chose', 'Part II']
-  ],
   'World of Norwyn': [
     ['The Island Kingdom (1990s)', 'Sovereign coastal state'],
     ['The Harbour Capital', 'Mist, stone & late ferries'],
@@ -972,6 +1120,7 @@ function showScreen(html){
 function closeScreen(){
   clearTimeout(chapterReadTimer);
   chapterReadTimer = null;
+  readerModeActive = false;
   sc.classList.remove('open');
   clearTimeout(closeTimer);
   closeTimer = setTimeout(function(){
@@ -1002,34 +1151,150 @@ function isChapterRead(title){
   return getReadChapters().indexOf(title) !== -1;
 }
 
-function toggleChapterRead(title, li){
+function setChapterReadState(title, shouldBeRead, li){
   var list = getReadChapters();
   var idx = list.indexOf(title);
-  var nowRead;
-  if(idx !== -1){
-    list.splice(idx, 1);
-    nowRead = false;
-  } else {
+  if(shouldBeRead && idx === -1){
     list.push(title);
-    nowRead = true;
+  } else if(!shouldBeRead && idx !== -1){
+    list.splice(idx, 1);
   }
   setReadChapters(list);
   if(li){
-    li.classList.toggle('is-read', nowRead);
-    li.setAttribute('data-read', nowRead ? '1' : '0');
+    li.classList.toggle('is-read', !!shouldBeRead);
+    li.setAttribute('data-read', shouldBeRead ? '1' : '0');
   }
+}
+
+function toggleChapterRead(title, li){
+  setChapterReadState(title, !isChapterRead(title), li);
 }
 
 function markChapterReadAfterDelay(title, li){
   clearTimeout(chapterReadTimer);
   chapterReadTimer = setTimeout(function(){
     if(!isChapterRead(title)){
-      toggleChapterRead(title, li);
+      setChapterReadState(title, true, li);
     }
   }, 1500);
 }
 
+function getChapterStripLabels(chapter, idx) {
+  var rawNum = stripHtmlToPlainText(chapter.number).trim();
+  var rawTitle = stripHtmlToPlainText(chapter.title).trim();
+
+  // Keep "Chapter One" / "Chapter 1" clean without doubling "Chapter"
+  var cleanNumber = rawNum || ('Chapter ' + (idx + 1));
+  var cleanLabel = rawTitle || cleanNumber;
+
+  return {
+    eyebrow: cleanNumber,
+    label: cleanLabel
+  };
+}
+
+function centerHybridPillOnce(strip, activePill) {
+  if (!strip || !activePill) return;
+  var targetLeft = activePill.offsetLeft - (strip.clientWidth - activePill.offsetWidth) / 2;
+  strip.scrollLeft = Math.max(0, targetLeft);
+}
+
+function buildOpenedChapterHtml(eraChapters, idx) {
+  var ch = eraChapters[idx] || eraChapters[0];
+  var chapterKey = ch.number + ' — ' + ch.title;
+  var readNow = isChapterRead(chapterKey);
+  var bodyHtml = (ch.paragraphs || []).map(function(p){
+    return '<p>' + esc(p) + '</p>';
+  }).join('');
+
+  return (
+    '<div class="reader-top-actions">' +
+      '<button type="button" class="ui-btn" data-back-chapters>All Chapters</button>' +
+      '<button type="button" class="ui-btn" data-toggle-read="' + esc(chapterKey) + '">' + (readNow ? 'Mark Unread' : 'Mark Read') + '</button>' +
+    '</div>' +
+    '<h3 class="reader-chapter-heading">' + esc(ch.number) + ' · ' + esc(ch.title) + '</h3>' +
+    '<div class="prose-sheet">' + bodyHtml + '</div>'
+  );
+}
+
+function renderReaderView() {
+  var eraChapters = ERA_CHAPTERS[activeEra] || ERA_CHAPTERS.elisabeta;
+  var chapterStripHtml = eraChapters.map(function(ch, idx) {
+    var isCurrent = idx === activeChapterIndex;
+    var pillParts = getChapterStripLabels(ch, idx);
+    return (
+      '<button type="button" data-chapter-pill="' + idx + '" onclick="selectChapter(\'' + activeEra + '\', ' + idx + ', true)" class="nw-hybrid-pill ' + (isCurrent ? 'is-active' : '') + '">' +
+        '<span class="nw-pill-eyebrow">' + esc(pillParts.eyebrow) + '</span>' +
+        '<span class="nw-pill-label">' + esc(pillParts.label) + '</span>' +
+      '</button>'
+    );
+  }).join('');
+
+  var containerHtml =
+    '<div id="chapterHybridStrip" class="nw-hybrid-strip" role="group" aria-label="Chapter selector">' +
+      chapterStripHtml +
+    '</div>' +
+    '<div id="chapterReadingHost" class="leaf-sheet">' +
+      buildOpenedChapterHtml(eraChapters, activeChapterIndex) +
+    '</div>';
+
+  if (!readerModeActive || !sc.querySelector('#chapterHybridStrip')) {
+    readerModeActive = true;
+    showScreen(containerHtml);
+  } else {
+    var inner = sc.querySelector('.sc-inner');
+    if (inner) inner.innerHTML = containerHtml;
+  }
+
+  var strip = document.getElementById('chapterHybridStrip');
+  var activePill = strip ? strip.querySelector('[data-chapter-pill="' + activeChapterIndex + '"]') : null;
+  centerHybridPillOnce(strip, activePill);
+
+  var currentCh = eraChapters[activeChapterIndex];
+  if (currentCh) {
+    markChapterReadAfterDelay(currentCh.number + ' — ' + currentCh.title, null);
+  }
+}
+
+function selectChapter(era, index, useCrossFade) {
+  var eraChapters = ERA_CHAPTERS[era] || ERA_CHAPTERS.elisabeta;
+  var clamped = Math.max(0, Math.min(eraChapters.length - 1, parseInt(index, 10) || 0));
+  activeEra = era;
+  activeChapterIndex = clamped;
+
+  var existingStrip = document.getElementById('chapterHybridStrip');
+  var readingHost = document.getElementById('chapterReadingHost');
+
+  if (existingStrip && readingHost) {
+    var pills = existingStrip.querySelectorAll('[data-chapter-pill]');
+    pills.forEach(function(pill) {
+      var isMatch = parseInt(pill.getAttribute('data-chapter-pill'), 10) === clamped;
+      pill.classList.toggle('is-active', isMatch);
+      if (isMatch) centerHybridPillOnce(existingStrip, pill);
+    });
+
+    if (useCrossFade) {
+      readingHost.style.opacity = '0.25';
+      readingHost.style.transition = 'opacity 0.16s ease';
+      setTimeout(function() {
+        readingHost.innerHTML = buildOpenedChapterHtml(eraChapters, clamped);
+        readingHost.style.opacity = '1';
+      }, 120);
+    } else {
+      readingHost.innerHTML = buildOpenedChapterHtml(eraChapters, clamped);
+    }
+
+    var ch = eraChapters[clamped];
+    if (ch) {
+      markChapterReadAfterDelay(ch.number + ' — ' + ch.title, null);
+    }
+  } else {
+    renderReaderView();
+  }
+}
+
 function openScreen(name){
+  readerModeActive = false;
   if(PROSE[name]){
     var p = PROSE[name];
     showScreen(
@@ -1038,17 +1303,31 @@ function openScreen(name){
     return;
   }
 
+  if(name === 'Chapters'){
+    var eraChapters = ERA_CHAPTERS[activeEra] || ERA_CHAPTERS.elisabeta;
+    showScreen(
+      '<ul class="ix">' + eraChapters.map(function(ch, idx){
+        var fullTitle = ch.number + ' — ' + ch.title;
+        var readNow = isChapterRead(fullTitle);
+        return (
+          '<li class="' + (readNow ? 'is-read' : '') + '" data-read="' + (readNow ? '1' : '0') + '" data-chapter-index="' + idx + '" data-chapter="' + esc(fullTitle) + '">' +
+            '<span>' + esc(fullTitle) + '</span>' +
+            '<em>' + esc(ch.meta) + '</em>' +
+          '</li>'
+        );
+      }).join('') + '</ul>'
+    );
+    return;
+  }
+
   if(LISTS[name]){
     var items = LISTS[name];
-    var isChapters = name === 'Chapters';
     var extra = name === 'Norwyn Archives'
       ? '<div class="add"><input placeholder="Add a personal note to the archive"><button type="button" class="ui-btn ad">Add</button></div>'
       : '';
     showScreen(
       '<ul class="ix">' + items.map(function(r){
-        var readClass = isChapters && isChapterRead(r[0]) ? ' class="is-read" data-read="1"' : (isChapters ? ' data-read="0"' : '');
-        var chapterAttr = isChapters ? ' data-chapter="' + esc(r[0]) + '"' : '';
-        return '<li' + readClass + chapterAttr + '><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
+        return '<li><span>' + esc(r[0]) + '</span><em>' + esc(r[1]) + '</em></li>';
       }).join('') + '</ul>' +
       extra
     );
@@ -1077,8 +1356,30 @@ function handleTap(target){
     closeScreen();
     return true;
   }
+  if(target.closest('[data-back-chapters]')){
+    clearTimeout(chapterReadTimer);
+    openScreen('Chapters');
+    return true;
+  }
+  var toggleReadBtn = target.closest('[data-toggle-read]');
+  if(toggleReadBtn){
+    var key = toggleReadBtn.getAttribute('data-toggle-read');
+    toggleChapterRead(key, null);
+    var eraChapters = ERA_CHAPTERS[activeEra] || ERA_CHAPTERS.elisabeta;
+    var readingHost = document.getElementById('chapterReadingHost');
+    if(readingHost){
+      readingHost.innerHTML = buildOpenedChapterHtml(eraChapters, activeChapterIndex);
+    }
+    return true;
+  }
   var listItem = target.closest('.ix li');
   if(listItem){
+    var chapterIdxAttr = listItem.getAttribute('data-chapter-index');
+    if(chapterIdxAttr !== null){
+      activeChapterIndex = parseInt(chapterIdxAttr, 10) || 0;
+      renderReaderView();
+      return true;
+    }
     listItem.classList.toggle('on');
     var chapterTitle = listItem.getAttribute('data-chapter');
     if(chapterTitle){
